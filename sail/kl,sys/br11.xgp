@@ -1,0 +1,1025 @@
+/FONT#0=FIX20.FNT[XGP,SYS]
+/BMAR=1
+/TMAR=128
+/RMAR=1699
+/LMAR=128
+/PMAR=2065
+/XLINE=4
+SAIL JBR        15:11:07 Wednesday, October 5, 1977   LQ+17H.5M.43S.
+BR11.PAL[KL,SYS] Created 15:41 Wednesday, January 26, 1977   NM+7D.3H.1M.3S.
+
+BBBBBBBBBBBB         RRRRRRRRRRRR               111                  111      
+BBBBBBBBBBBB         RRRRRRRRRRRR               111                  111      
+BBBBBBBBBBBB         RRRRRRRRRRRR               111                  111      
+BBB         BBB      RRR         RRR         111111               111111      
+BBB         BBB      RRR         RRR         111111               111111      
+BBB         BBB      RRR         RRR         111111               111111      
+BBB         BBB      RRR         RRR            111                  111      
+BBB         BBB      RRR         RRR            111                  111      
+BBB         BBB      RRR         RRR            111                  111      
+BBBBBBBBBBBB         RRRRRRRRRRRR               111                  111      
+BBBBBBBBBBBB         RRRRRRRRRRRR               111                  111      
+BBBBBBBBBBBB         RRRRRRRRRRRR               111                  111      
+BBB         BBB      RRR   RRR                  111                  111      
+BBB         BBB      RRR   RRR                  111                  111      
+BBB         BBB      RRR   RRR                  111                  111      
+BBB         BBB      RRR      RRR               111                  111      
+BBB         BBB      RRR      RRR               111                  111      
+BBB         BBB      RRR      RRR               111                  111      
+BBBBBBBBBBBB         RRR         RRR         111111111            111111111   
+BBBBBBBBBBBB         RRR         RRR         111111111            111111111   
+BBBBBBBBBBBB         RRR         RRR         111111111            111111111   
+
+SAIL JBR        15:11:07 Wednesday, October 5, 1977   LQ+17H.5M.43S.
+BR11.PAL[KL,SYS] Created 15:41 Wednesday, January 26, 1977   NM+7D.3H.1M.3S.
+
+PPPPPPPPPPPP               AAA            LLL            
+PPPPPPPPPPPP               AAA            LLL            
+PPPPPPPPPPPP               AAA            LLL            
+PPP         PPP         AAA   AAA         LLL            
+PPP         PPP         AAA   AAA         LLL            
+PPP         PPP         AAA   AAA         LLL            
+PPP         PPP      AAA         AAA      LLL            
+PPP         PPP      AAA         AAA      LLL            
+PPP         PPP      AAA         AAA      LLL            
+PPPPPPPPPPPP         AAA         AAA      LLL            
+PPPPPPPPPPPP         AAA         AAA      LLL            
+PPPPPPPPPPPP         AAA         AAA      LLL            
+PPP                  AAAAAAAAAAAAAAA      LLL            
+PPP                  AAAAAAAAAAAAAAA      LLL            
+PPP                  AAAAAAAAAAAAAAA      LLL            
+PPP                  AAA         AAA      LLL            
+PPP                  AAA         AAA      LLL            
+PPP                  AAA         AAA      LLL            
+PPP                  AAA         AAA      LLLLLLLLLLLLLLL
+PPP                  AAA         AAA      LLLLLLLLLLLLLLL
+PPP                  AAA         AAA      LLLLLLLLLLLLLLL
+
+KLDCP.PAL[KL,SYS]      PRM11.PAL[KL,SYS]      BEG11.PAL[KL,SYS]      CONS11.PAL[KL,SYS]     SUB11.PAL[KL,SYS]
+FD11.PAL[KL,SYS]       DTA11.PAL[KL,SYS]      BOOT.PAL[KL,SYS]       APT11.PAL[KL,SYS]      BR11.PAL[KL,SYS]
+SBST11.PAL[KL,SYS]
+
+
+Switch Settings: L[PALX11] C[KLDCP.ATC] % I 5000S 78V 120W X[Noqueue] ↑ 
+Fonts: F[FIX20.FNT[XGP,SYS],,] 
+LREC File:  SAIL:KLDCP.LRC[KL,SYS]
+↓&	                                                                 BR11.PAL[KL,SYS] 10/05/77  Page 1↓'α
+001                                     COMMENT ⊗   VALID 00025 PAGES
+002                                     C REC  PAGE   DESCRIPTION
+003                                     C00001 00001
+004                                     C00003 00002	.SBTTL	DTE20 INITIALIZATION ROUTINE, 9-SEPTEMBER-75
+005                                     C00005 00003	.SBTTL	ROUTINE TO READ THE EBUS VIA THE DTE20
+006                                     C00007 00004	.SBTTL	ROUTINE TO EXECUTE DIAG FUNCTION VIA DTE20
+007                                     C00009 00005	DIAGNOSTIC FUNCTION EXECUTE, FAST
+008                                     C00011 00006	.SBTTL	ROUTINE TO WRITE 36 BITS TO THE EBUS
+009                                     C00014 00007	.SBTTL	ROUTINE TO DO EBUS READ, THEN STORE DATA SOMEPLACE
+010                                     C00016 00008	.SBTTL	MASTER RESET ROUTINE
+011                                     C00020 00009	.SBTTL	CONTROL RAM ADDRESS ROUTINE
+012                                     C00022 00010	.SBTTL	WCRAM ROUTINE
+013                                     C00025 00011	$STRCH:	MOV	WREADY,R0	GET UNSPACED DATA
+014                                     C00027 00012	.SBTTL	RCRAM ROUTINE
+015                                     C00030 00013	15$:	MOVB	WREADY+1,-(R3)	ENDING UP
+016                                     C00032 00014	$SQASH:	MOV	WREADY,R1	GET STRETCHED BITS 8-19
+017                                     C00034 00015	.SBTTL	MICNUL & MICFIL C-RAM ROUTINES
+018                                     C00035 00016	MICFIL, C-RAM FILL WITH ONES ROUTINE
+019                                     C00036 00017	.SBTTL	WDRAM ROUTINE
+020                                     C00037 00018	.SBTTL	RDRAM ROUTINE
+021                                     C00039 00019	$DRAMAD: MOV	#DDRAM,R3	GET ADDRESS OF EBUS DATA
+022                                     C00041 00020	WRITE THE IR
+023                                     C00043 00021	.SBTTL	M-BOX CLOCK BURST ROUTINE
+024                                     C00045 00022	.SBTTL	LOAD AR ROUTINE
+025                                     C00048 00023	.SBTTL	MBOX PHASE ROUTINE
+026                                     C00051 00024	.SBTTL	VMA, VMAH, PC & ADDRESS BREAK ROUTINE
+027                                     C00053 00025		MOV	#WREADY+5,R1	NOW MOVE READ DATA
+028                                     C00055 ENDMK
+029                                     C⊗;↓&	DTE20 INITIALIZATION ROUTINE, 9-SEPTEMBER-75                     BR11.PAL[KL,SYS] 10/05/77  Page 2↓'α
+001                                     .SBTTL	DTE20 INITIALIZATION ROUTINE, 9-SEPTEMBER-75
+002                                     
+003                                     DTEINI:	TST	$ONETM		;HAVE WE GONE THRU THIS ONCE BEFORE ?
+004                    CONS11  005 001  	BNE	3$		;BR IF YES
+005  PRM11   014 003   PRM11   011 014  	MOV	#DTEADR,R0
+006                                     
+007                    PRM11   011 016  11$:	MOV	#16.,R2
+008                    PRM11   011 015  	MOV	#.DELAY,R1
+009  PRM11   011 014   PRM11   011 015  1$:	MOV	R0,(R1)+	;SETUP DTE20 INDIRECT ADDRESS POINTERS
+010                    PRM11   011 014  	INC	R0
+011                    PRM11   011 014  	INC	R0
+012                    PRM11   011 016  	DEC	R2
+013                    CONS11  002 007  	BNE	1$
+014                    PRM11   005 008  3$:	SETFLG
+015                                     	$ONETM
+016                                     
+017          002 036   PRM11   011 014  	MOV	#$STJRS,R0	;SETUP "JRST" START INSTRUCTION
+018                    PRM11   011 015  	MOV	#$$STJRS,R1	;MUST BE IN STORAGE BECAUSE
+019  PRM11   011 014   PRM11   011 015  	MOV	(R0)+,(R1)+	;THE JRST ADR IS VARIABLE
+020  PRM11   011 014   PRM11   011 015  	MOV	(R0)+,(R1)+
+021  PRM11   011 014   PRM11   011 015  	MOV	(R0)+,(R1)+
+022                                     
+023          002 033   PRM11   011 014  	MOV	#$PAGDFL,R0	;SETUP "DATAO PAG,0" DEFAULT ARGUMENT
+024                    PRM11   011 015  	MOV	#PAGDFL,R1	;MUST BE IN STORAGE BECAUSE THE CURRENT
+025  PRM11   011 014   PRM11   011 015  	MOV	(R0)+,(R1)+	;AC BLOCK SELECTION IS VARIABLE
+026  PRM11   011 014   PRM11   011 015  	MOV	(R0)+,(R1)+
+027  PRM11   011 014   PRM11   011 015  	MOV	(R0)+,(R1)+
+028                                     
+029                    PRM11   011 014  	CLR	R0
+030                    PRM11   006 035  	SETMPH			;SET M-BOX PHASE
+031                    PRM11   011 022  	RTS	PC
+032                                     
+033                                     $PAGDFL:WD36	7000,0040,0000	;LD'S & NO ST ACC
+034                                     .EVEN
+035                                     
+036                                     $STJRS:	I10	JRST,0,,0
+037                                     .EVEN
+038                                     
+039                    PRM11   011 014  $DTEBAS:MOV	.DELAY,R0
+040                    PRM11   008 043  	EXIT↓&	ROUTINE TO READ THE EBUS VIA THE DTE20                           BR11.PAL[KL,SYS] 10/05/77  Page 3↓'α
+001                                     .SBTTL	ROUTINE TO READ THE EBUS VIA THE DTE20
+002                                     
+003                                     ;THIS IS THE ROUTINE TO READ 36 BITS FROM THE EBUS
+004                                     ;THE CALL REQUIRES THE DIAGNOSTIC FUNCTION TO BE EXECUTED
+005                                     ;TO BE IN REGISTER R0,RIGHT JUSTIFIED.
+006                                     ;CALLING SEQUENCE:
+007                                     ;	CALL-1:	MOV	#DIAG FUNCTION,R0
+008                                     ;	CALL:	DFRD
+009                                     
+010                    PRM11   011 014  $DFRDT:	MOV	@$EMADR,R0	;PICKUP TRAILING PARAMETER
+011                    PRM11   011 021  	ADD	#2,12(SP)	;SKIP RETURN
+012                                     
+013  PRM11   011 022           005 011  $DFRD:	JSR	PC,$KLCK1	;CHECK KL10 CLOCK RUNNING
+014                    PRM11   011 014  	ASL	R0		;MAKE DIAG FCN IN CORRECT BITS
+015                    PRM11   011 014  	SWAB	R0		;MAKE DIAG FCN IN CORRECT BYTE
+016  PRM11   015 035   PRM11   011 014  	BIS	#DCOMST!DFUNC!DIKL10,R0 ;SET CORRECT DTE20 BITS
+017  PRM11   011 014                    	MOV	R0,@.DIAG1	;EXECUTE THE FUNCTION
+018                    PRM11   015 032  $DFXX:	WFZERO	DCOMST		;WAIT FOR DONE FLAG
+019  PRM11   011 022           005 018  	JSR	PC,$KLCK2	;RESTART CLOCK IF NECESSARY
+020                    PRM11   008 043  	EXIT
+021                                     
+022                                     $DFTIM:	CLR	TENRUN
+023                    PRM11   008 006  	PMSG	<?DF TIMEOUT AT >
+024  PRM11   011 015   PRM11   011 014  	MOV	R1,R0
+025                    PRM11   004 017  	PNTOCT
+026                    PRM11   011 022  	PMSG	<PC = >
+027  PRM11   011 021   PRM11   011 014  	MOV	16(SP),R0		;GET ADDRESS OF CALL
+028                    PRM11   011 014  $DFTMX:	TST	-(R0)
+029                    PRM11   004 017  	PNTOCT
+030                    BEG11   002 007  	JMP	$CNTLC
+031                                     
+032                    PRM11   008 006  $ECTIM:	PMSG	<?CLK>
+033                                     
+034                    APT11   004 006  $DFTM1:	PMSG	< ERR AT >
+035  PRM11   011 015   PRM11   011 014  	MOV	R1,R0
+036                            003 028  	BR	$DFTMX↓&	ROUTINE TO EXECUTE DIAG FUNCTION VIA DTE20                       BR11.PAL[KL,SYS] 10/05/77  Page 4↓'α
+001                                     .SBTTL	ROUTINE TO EXECUTE DIAG FUNCTION VIA DTE20
+002                                     
+003                                     ;THIS IS THE ROUTINE TO EXECUTE A NON-DATA
+004                                     ;DIAGNOSTIC FUNCTION.  THE CALL REQUIRES THE
+005                                     ;DIAGNOSTIC FUNCTION TO BE EXECUTED TO BE IN
+006                                     ;REGISTER R0,RIGHT JUSTIFIED
+007                                     
+008                                     ;CALLING SEQUENCE:
+009                                     ;	CALL-1:	MOV	#DIAG FUNCTION,R0
+010                                     ;	CALL:	DFXCT
+011                                     
+012                                     ;DIAGNOSTIC FUNCTION EXECUTE, TRAILING PARAMETER
+013                                     
+014                    PRM11   011 014  $DXCTT:	MOV	@$EMADR,R0	;PICKUP TRAILING PARAMETER
+015                    PRM11   011 021  	ADD	#2,12(SP)	;SKIP RETURN
+016                            004 026  	BR	$DFXCT
+017                                     
+018                                     ;DIAGNOSTIC FUNCTION EXECUTE, SINGLE STEP KL10 CLOCK
+019                                     
+020                                     $DFSCLK:CLR	KLCLKR		;CLEAR KL10 CLOCK RUNNING
+021  PRM11   018 005                    	MOV	#DCOMST!DFUNC!<SSCLK*1000>,@.DIAG1
+022                            004 037  	BR	$$DFX1
+023                                     
+024                                     ;DIAGNOSTIC FUNCTION EXECUTE
+025                                     
+026  PRM11   011 014                    $DFXCT:	CMP	R0,#001		;KL10 CLOCK START FUNCTION ?
+027                    CONS11  002 007  	BEQ	1$		;YES
+028  PRM11   011 014                    	CMP	R0,#007		;ANY OTHER CLOCK CONTROL FUNCTION ?
+029                    CONS11  002 031  	BGT	2$		;NO
+030                                     	CLR	KLCLKR		;YES, CLEAR LOGICAL CLOCK RUN FLAG
+031                    CONS11  002 031  	BR	2$
+032                                     1$:	MOV	#-1,KLCLKR	;CLOCK START, SET LOGICAL CLOCK RUN FLAG
+033                    PRM11   011 014  2$:	ASL	R0		;MAKE DIAG FCN IN CORRECT BITS
+034                    PRM11   011 014  	SWAB	R0		;MAKE DIAG FCN IN CORRECT BYTE
+035  PRM11   015 029   PRM11   011 014  	BIS	#DCOMST!DFUNC,R0 ;SET CORRECT DTE20 BITS
+036  PRM11   011 014                    	MOV	R0,@.DIAG1	;EXECUTE THE FUNCTION
+037                    PRM11   015 032  $$DFX1:	WFZERO	DCOMST		;WAIT FOR DONE
+038                    PRM11   008 043  	EXIT			;RETURN↓&	ROUTINE TO EXECUTE DIAG FUNCTION VIA DTE20                       BR11.PAL[KL,SYS] 10/05/77  Page 5↓'α
+001                                     ;DIAGNOSTIC FUNCTION EXECUTE, FAST
+002                                     
+003                    PRM11   011 014  $DFXFST:ASL	R0		;DIAG FUNCTION TO CORRECT BITS
+004                    PRM11   011 014  	SWAB	R0
+005  PRM11   015 029   PRM11   011 014  	BIS	#DCOMST!DFUNC,R0
+006  PRM11   011 014                    	MOV	R0,@.DIAG1	;EXECUTE THE FUNCTION
+007                            005 014  	BR	$$DFXDN
+008                                     
+009                                     ;KL10 CLOCK RUNNING CONTROLS
+010                                     
+011                                     $KLCK1:	TST	KLCLKR		;KL10 CLOCK RUNNING ?
+012                            005 016  	BEQ	$KLCK4		;NO
+013  PRM11   018 003                    	MOV	#DCOMST!DFUNC!<STPCLK*1000>,@.DIAG1
+014                                     $$DFXDN:
+015                    PRM11   015 032  $KLCK3:	WFZERO	DCOMST
+016                    PRM11   011 022  $KLCK4:	RTS	PC
+017                                     
+018                                     $KLCK2:	TST	KLCLKR		;WAS CLOCK RUNNING ?
+019                            005 016  	BEQ	$KLCK4		;NO
+020  PRM11   018 004                    	MOV	#DCOMST!DFUNC!<STRCLK*1000>,@.DIAG1
+021                            005 015  	BR	$KLCK3
+022                                     
+023                    PRM11   015 009  FFDEP:	DEP			;DTE20 DEPOSIT/EXAM BIT
+024                                     
+025                                     ;DIAGNOSTIC FUNCTION, WRITE IR
+026                                     
+027                    PRM11   007 008  $DFWIR:	DFWRT			;THE LOAD AR FUNCTION IS ALREADY SETUP
+028  PRM11   019 018                    	MOV	#DCOMST!DFUNC!<IRLOAD*1000>,@.DIAG1
+029  PRM11   011 022           005 014  	JSR	PC,$$DFXDN	;STROBE DATA FROM AD TO IR
+030                    PRM11   008 043  	EXIT↓&	ROUTINE TO WRITE 36 BITS TO THE EBUS                             BR11.PAL[KL,SYS] 10/05/77  Page 6↓'α
+001                                     .SBTTL	ROUTINE TO WRITE 36 BITS TO THE EBUS
+002                                     
+003                                     ;THIS IS THE ROUTINE TO WRITE 36 BITS TO THE EBUS
+004                                     ;THE ROUTINE REQUIRES THAT THE ADDRESS OF THE DATA
+005                                     ;TO BE WRITTEN IS IN REGISTER R1.  THE DIAGNOSTIC
+006                                     ;FUNCTION WHICH DOES THE WRITE MUST BE RIGHT 
+007                                     ;JUSTIFIED IN REGISTER R0.THE DATA TO BE WRITTEN MUST
+008                                     ;BE IN 5 CONSECUTIVE BYTES AS FOLLOWS:
+009                                     ;	.BYTE	EBUS BITS 28-35
+010                                     ;	.BYTE	EBUS BITS 20-27
+011                                     ;	.BYTE	EBUS BITS 12-19
+012                                     ;	.BYTE	EBUS BITS 04-11
+013                                     ;	.BYTE	EBUS BITS 00-03
+014                                     
+015                                     ;CALLING SEQUENCE:
+016                                     ;	CALL-2:	MOV	#ADDR,R1
+017                                     ;	CALL-1:	MOV	#DIAG FCN,R0
+018                                     ;	CALL:	DFWRT
+019                                     
+020  PRM11   011 022           005 011  $DFWRT:	JSR	PC,$KLCK1	;KL10 CLOCK RUNNING ?
+021                    PRM11   011 015  	PUSH	R1		;SAVE  DESTINATION FOR POSTERITY
+022                    PRM11   011 015  	BIT	#1,R1		;DATA ON WORD BOUNDRY ?
+023                    CONS11  002 031  	BEQ	2$		;YES
+024                    PRM11   011 019  	MOV	#XXDAT,R5
+025  PRM11   011 015   PRM11   011 019  	MOVB	(R1)+,(R5)+	;PUT BITS 28-35 INTO CORE WORD
+026  PRM11   011 015   PRM11   011 019  	MOVB	(R1)+,(R5)+	;PUT BITS 20-27 INTO CORE
+027  PRM11   011 019                    	MOV	-(R5),@.DAT3	;PUT BITS 20-35 INTO DTE20
+028  PRM11   011 015   PRM11   011 019  	MOVB	(R1)+,(R5)+	;PUT BITS 12-19 INTO CORE WORD
+029  PRM11   011 015   PRM11   011 019  	MOVB	(R1)+,(R5)+	;PUT BITS 4-11 INTO CORE WORD
+030  PRM11   011 019                    	MOV	-(R5),@.DAT2	;PUT BITS 4-19 INTO DTE20
+031  PRM11   011 015   PRM11   011 019  	MOVB	(R1)+,(R5)	;PUT BITS 0-3 INTO CORE WORD
+032                    PRM11   011 019  	BIC	#177760,(R5)	;OFF TRASH
+033  PRM11   011 019                    	MOV	(R5),@.DAT1	;BITS 0-3 INTO DTE20
+034  PRM11   015 034                    1$:	MOV	#DIKL10!DSEND,@.DIAG1	;SET BIT TO DIAGNOSE KL10
+035          005 023                    	MOV	FFDEP,@.TENA1	;SET DEPOSIT BIT OF DTE20
+036          005 023                    	MOV	FFDEP,@.TENA2	;DO A PSEUDO DEPOSIT
+037                    PRM11   017 034  	WFONE	DEXDON		;WAIT FOR A FLAG
+038                    PRM11   011 014  	ASL	R0		;GET DIAG FCN IN BIT POSITION
+039                    PRM11   011 014  	SWAB	R0		;GET DIAG FCN IN BYTE POSITION
+040  PRM11   015 029   PRM11   011 014  	BIS	#DCOMST!DSEND!DIKL10!DFUNC,R0 ;SET DTE20 BITS
+041  PRM11   011 014                    	MOV	R0,@.DIAG1	;EXECUTE THE DIAGNOSTIC FUNCTION
+042                    PRM11   011 014  	POP	R0		;RESTORE WHERE GOT DATA
+043                            003 018  	JMP	$DFXX		;WAIT FOR DONE & EXIT
+044                                     
+045  PRM11   011 015                    2$:	MOV	(R1)+,@.DAT3	;BITS 20-35
+046  PRM11   011 015                    	MOV	(R1)+,@.DAT2	;BITS 4-19
+047  PRM11   011 015                    	MOV	(R1),@.DAT1	;BITS 0-3
+048                    CONS11  002 007  	BR	1$↓&	ROUTINE TO DO EBUS READ, THEN STORE DATA SOMEPLACE               BR11.PAL[KL,SYS] 10/05/77  Page 7↓'α
+001                                     .SBTTL	ROUTINE TO DO EBUS READ, THEN STORE DATA SOMEPLACE
+002                                     
+003                                     ;ENTER THIS ROUTINE WITH R0 CONTAINING DIAGNOSTIC FUNCTION TO EXECUTE
+004                                     ;AND R1 CONTAINING ADDRESS OF BUFFER WHERE DATA SHOULD BE PLACED
+005                                     
+006                    PRM11   007 004  $DFRDMV:DFRD			;GO READ KL10 DATA
+007                    PRM11   011 015  	PUSH	R1		;SAVE DESTINATION
+008                    PRM11   011 014  	MOV	.DAT3,R0	;GET ADDRESS OF DTE20 REG
+009  PRM11   011 014   PRM11   011 015  	MOVB	(R0)+,(R1)+	;DATA FROM DTE TO CORE
+010  PRM11   011 014   PRM11   011 015  	MOVB	(R0)+,(R1)+	;DATA FROM DTE TO CORE
+011  PRM11   011 014   PRM11   011 015  	MOVB	(R0)+,(R1)+	;DATA FROM DTE TO CORE
+012  PRM11   011 014   PRM11   011 015  	MOVB	(R0)+,(R1)+	;DATA FROM DTE TO CORE
+013  PRM11   011 014   PRM11   011 015  	MOVB	(R0)+,(R1)+	;DATA FROM DTE TO CORE
+014                    PRM11   011 014  	POP	R0		;RESTORE REG R1
+015                    PRM11   008 043  	EXIT
+016                                     
+017                                     ;DIAGNOSTIC FUNCTION WRITE, TRAILING PARAMETER
+018                                     
+019                    PRM11   011 019  $DWRTT:	MOV	$EMADR,R5
+020  PRM11   011 019   PRM11   011 015  	MOV	(R5)+,R1	;DATA ADDRESS TO R1
+021  PRM11   011 019   PRM11   011 014  	MOV	(R5),R0		;DIAG FUNCTION TO R0
+022                    PRM11   011 021  	ADD	#4,12(SP)	;RETURN OVER TRAILING PARAMETERS
+023                            006 020  	BR	$DFWRT
+024                                     ↓&	MASTER RESET ROUTINE                                             BR11.PAL[KL,SYS] 10/05/77  Page 8↓'α
+001                                     .SBTTL	MASTER RESET ROUTINE
+002                                     ;MASTER RESET DIAGNOSTIC FUNCTION LIST
+003                                     
+004                    PRM11   018 003  LLIST:	.BYTE	STPCLK		;STOP CLOCK
+005                    PRM11   018 009  	.BYTE	SETMR		;SET MASTER RESET
+006                    PRM11   018 004  	.BYTE	STRCLK		;START CLOCK
+007                    PRM11   018 014  	.BYTE	LDBRR		;LOAD BURST REGISTER RIGHT
+008                    PRM11   018 015  	.BYTE	LDBRL		;LOAD BURST REGISTER LEFT
+009                    PRM11   018 017  	.BYTE	LDDIS		;LOAD CLOCK DISTRIBUTION REGISTER
+010                    PRM11   018 018  	.BYTE	LDCHK1		;LOAD PARITY CHECK REGISTER
+011                    PRM11   018 019  	.BYTE	LDCHK2		;LOAD EBOX INTERNAL CHECK REGISTER
+012                    PRM11   019 028  	.BYTE	LDCHAN		;INITIALIZE CHANNELS
+013                    PRM11   018 003  	.BYTE	STPCLK		;STOP CLOCK
+014                            008 004  LLISTL==.-LLIST			;BUT THE LAST THREE ARE SPECIAL
+015                    PRM11   018 036  	.BYTE	ENIOJA		;SET IR DECODE TO KL10 MODE
+016                                     	.BYTE	76		;D.F. TO CONTROL EBUS REG
+017                    PRM11   019 027  	.BYTE	LDMBXA		;LOAD MEMORY TO CACHE SELECTOR
+018                                     .EVEN
+019                                     
+020                                     ;THIS IS A ROUTINE TO DO A MASTER RESET.
+021                                     
+022                    PRM11   011 014  $MRESET:PUSH	R0		;SAVE REGISTERS
+023                                     	TST	TENRUN		;PDP-10 PRESENTLY RUNNING ?
+024                    SUB11   012 032  	BEQ	90$		;BR IF NOT
+025                    PRM11   006 028  	TENSP			;STOP TEN
+026                                     90$:	CLR	TENCLK		;AFTER THIS, THE 10 DOESN'T NEED CLOCK INTS
+027                                     	CLR SWTDEP		; OR DATA SWITCHES ...
+028                                     	CLR MONMODE		; ... OR MONITOR MODE (CLEAR FOR KA SIM)
+029                                     	CLR MTTYOF
+030  PRM11   016 004                    	MOV	#DRESET,@.DIAG2		;CLEAR DTE20 DIAG2
+031  PRM11   017 018                    	MOV	#DON10C!ERR10C!INT11C!PERCLR!DON11C!ERR11C,@.STDTE ;CLEAR DTE20 
+                                        ;STATUS
+032                    PRM11   007 009  	DFWRTT			;WRITE TO CLOCK
+033                                     	CLKDFL			;SET CLOCK TO DEFAULT
+034                    PRM11   018 016  	LDSEL
+035                                     	CLR	KLCLKR		;CLEAR KL10 CLOCK RUNNING
+036          008 014   PRM11   011 015  	MOV	#LLISTL,R1	;MUST EXECUTE TEN DIAG FUNCTIONS IN MR
+037          008 004   PRM11   011 016  	MOV	#LLIST,R2	;ADDRESS OF FUNCTIONS INTO R2
+038  PRM11   011 016   PRM11   011 014  1$:	MOVB	(R2)+,R0	;FUNCTION TO R0 FOR THE EXECUTE CALL
+039  PRM11   011 022           005 003  	JSR	PC,$DFXFST	;EXECUTE THE DIAGNOSTIC FUNCTION
+040                    PRM11   011 015  	DEC	R1		;DECREMENT COUNT OF # OF FUNCTIONS LEFT
+041                    CONS11  002 007  	BNE	1$		;CONTINUE TILL DONE
+042                                     
+043                    PRM11   011 018  	MOV	#3,R4		;SYNC MBOX NXM LOGIC
+044                    PRM11   007 005  2$:	DFRDT			;TEST A CHANGE COMING L
+045                                     	  162
+046  PRM11   012 010                    	BIT	#BIT3,@.DAT3
+047                    CONS11  005 001  	BEQ	3$		;ASSERTED, CONTINUE
+048  PRM11   018 005                    	MOV	#DCOMST!DFUNC!<SSCLK*1000>,@.DIAG1
+049  PRM11   011 022           005 014  	JSR	PC,$$DFXDN	;DO ONE MBOX CLOCK
+050                    PRM11   011 018  	DEC	R4		;DONE 3 CLOCKS ?
+051                    CONS11  002 031  	BGT	2$		;NO, TRY AGAIN
+052                                     
+053  PRM11   018 007                    3$:	MOV	#DCOMST!DFUNC!<CECLK*1000>,@.DIAG1
+054  PRM11   011 022           005 014  	JSR	PC,$$DFXDN	;CONDITIONAL EBOX CLOCK
+055  PRM11   018 008                    	MOV	#DCOMST!DFUNC!<CLRMR*1000>,@.DIAG1
+056  PRM11   011 022           005 014  	JSR	PC,$$DFXDN	;CLEAR MR
+057                                     
+058  PRM11   011 016   PRM11   011 014  	MOVB	(R2)+,R0
+059  PRM11   011 022           005 003  	JSR	PC,$DFXFST	;SET IR DECODE
+060                                     
+061  PRM11   011 016   PRM11   011 014  	MOVB	(R2)+,R0	;GET THE NEXT FUNCTION FROM THE LIST
+062                    PRM11   011 015  	MOV	#WREADY,R1	;CLEAR A 36 BIT BUFFER FOR SENDING DATA
+063  PRM11   011 015   PRM11   011 019  	MOV	R1,R5
+064                    PRM11   011 019  	CLR	(R5)+		;CLEAR A WORK AREA
+065                    PRM11   011 019  	CLR	(R5)+
+066                    PRM11   011 019  	CLR	(R5)
+067                    PRM11   007 008  	DFWRT			;WRITE 0'S TO EBUS & PREVENT SBUS RESET
+068                    PRM11   011 015  	MOVB	#12,(R1)
+069  PRM11   011 016   PRM11   011 014  	MOVB	(R2)+,R0	;GET NEXT DIAG FUNCTION
+070                    PRM11   007 008  	DFWRT			;LOAD MEMORY TO CACHE SELECTOR
+071                    PRM11   011 014  	POP	R0
+072                    PRM11   008 043  	EXIT↓&	CONTROL RAM ADDRESS ROUTINE                                      BR11.PAL[KL,SYS] 10/05/77  Page 9↓'α
+001                                     .SBTTL	CONTROL RAM ADDRESS ROUTINE
+002                                     
+003                    PRM11   011 015  $WWADR:	PUSH	R1		;SAVE R1
+004                    PRM11   011 014  	TST	R0		;IF BIT 15 SET, AVOID MASTER RESET
+005                    CONS11  002 007  	BMI	1$
+006  PRM11   012 030   PRM11   011 014  	BIT	#BIT14,R0	;IF BIT 14 SET, SPECIAL RESET
+007                    CONS11  002 031  	BEQ	2$
+008  PRM11   011 022           011 028  	JSR	PC,$SPCMR	;SPECIAL MASTER RESET
+009                    CONS11  002 007  	BR	1$
+010                    PRM11   006 024  2$:	MRESET
+011  PRM11   012 030   PRM11   011 014  1$:	BIC	#BIT15!BIT14,R0	;CLEAR CONTROL BITS ANYWAY
+012                    PRM11   011 019  	MOV	#WREADY+2,R5
+013                    PRM11   011 019  	CLR	(R5)		;CLEAR A WORK AREA
+014                    PRM11   011 019  	CLR	-(R5)
+015                                     
+016                    PRM11   011 014  	PUSH	R0
+017  PRM11   011 022   SUB11   008 014  	JSR	PC,99$		;GO LOAD EBUS BITS 00-05
+018  PRM11   019 008   PRM11   011 014  	MOV	#LCRDAL,R0	;WILL WRITE BITS 00-04 OF CR-ADR
+019                    PRM11   007 008  	DFWRT
+020                    PRM11   011 014  	POP	R0		;GET COPY OF ORIGINAL CR-ADR
+021                    PRM11   011 014  	SWAB	R0		;GET BITS 00-04
+022                    PRM11   011 014  	ASR	R0		;TO LOW ORDER BITS
+023                    PRM11   011 014  	ASR	R0		;OF R0.
+024  PRM11   011 022   SUB11   008 014  	JSR	PC,99$		;GO LOAD EBUS BITS 00-05
+025  PRM11   019 009   PRM11   011 014  	MOV	#LCRDAR,R0	;WILL WRITE BITS 5-10 OF CRADR
+026                    PRM11   007 008  	DFWRT
+027                    PRM11   011 015  	POP	R1		;RESTORE R1
+028                    PRM11   008 043  	EXIT
+029                                     
+030                    PRM11   011 014  99$:	BIC	#77,R0		;DEAL ONLY WITH 6 BITS
+031  PRM11   011 014                    	MOVB	R0,WREADY+3	;MOV TO EBUS BITS 4 & 5
+032                    PRM11   011 014  	SWAB	R0
+033  PRM11   011 014                    	MOVB	R0,WREADY+4	;MOV TO EBUS BITS 0,1,2, & 3
+034  PRM11   011 019   PRM11   011 015  	MOV	R5,R1		;ADDRESS FOR DFWRT
+035                    PRM11   011 022  	RTS	PC↓&	WCRAM ROUTINE                                                    BR11.PAL[KL,SYS] 10/05/77  Page 10↓'α
+001                                     .SBTTL	WCRAM ROUTINE
+002                                     
+003                    PRM11   019 003  WRLIST:	.BYTE	LCRAM1		;CRAM BITS 00-19
+004                    PRM11   019 004  	.BYTE	LCRAM2		;CRAM BITS 20-39
+005                    PRM11   019 005  	.BYTE	LCRAM3		;CRAM BITS 40-59
+006                    PRM11   019 006  	.BYTE	LCRAM4		;CRAM BITS 60-79-EVEN
+007                                     .EVEN
+008                                     
+009  PRM11   011 015   PRM11   011 016  $WCRAM:	MOV	R1,R2		;GET COPY OF DATA ADDRESS
+010                    PRM11   006 020  	WWADR			;GO AND WRITE C-RAM ADDRESS
+011                    PRM11   011 018  	MOV	#3,R4		;FOUR LOOPS PER C-RAM WORD
+012                                     
+013                    PRM11   011 015  1$:	MOV	#WREADY,R1	;GET HOLDING AREA
+014  PRM11   011 016   PRM11   011 015  	MOVB	(R2)+,(R1)+	;REAL DATA TO HOLDING AREA
+015  PRM11   011 016   PRM11   011 015  	MOVB	(R2)+,(R1)+
+016  PRM11   011 016   PRM11   011 015  	MOVB	(R2),(R1)+
+017                                     
+018                                     	TST	SIGNL		;SEE IF DESIRED BITS ON WORD BOUNDARY
+019                    CONS11  005 001  	BEQ	3$		;AVOID RORING CODE IF YES
+020                                     
+021                                     ;THIS IS WONDERFUL RORING CODE
+022                                     
+023                    PRM11   011 016  	TSTB	(R2)+		;MUST INCREMENT DATA ADDR PTR
+024                    PRM11   011 014  	MOV	#4,R0		;FOUR SHIFTS IN THIS LOOP
+025                                     
+026                    PRM11   011 015  2$:	MOV	#WREADY+3,R1	;POINT TO HOLDING AREA
+027                    PRM11   011 015  	RORB	-(R1)		;SHIFT & INCLUDE "C" BIT
+028                    PRM11   011 015  	RORB	-(R1)
+029                    PRM11   011 015  	RORB	-(R1)
+030                    PRM11   011 014  	DEC	R0		;DONE?
+031                    CONS11  002 031  	BNE	2$		;LOOP BACK IF NO
+032                                     
+033                                     ;COMMON CODE
+034                                     
+035                                     3$:	COM	SIGNL		;CHANGE BOUNDARY FLAG
+036                                     	BIC	#177760,WREADY+2  ;ONLY 4 BITS COUNT
+037  PRM11   011 022           011 001  4$:	JSR	PC,$STRCH	;GO FILL IN EBUS SPACE
+038          010 003   PRM11   011 014  	MOVB	WRLIST(R4),R0	;CORRECT WRITE FUNCTION TO R0
+039                    PRM11   011 015  	MOV	#WREADY,R1	;ADDRESS OF DATA
+040                    PRM11   007 008  	DFWRT
+041                    PRM11   011 018  	DEC	R4		;DONE ENTIRE RAM WORD?
+042                    CONS11  002 007  	BGE	1$		;BR BACK IFNO
+043                                     
+044                                     ;CODE TO LOAD DISP 00-04
+045                                     
+046  PRM11   011 016                    	MOVB	(R2),WREADY+4	;GET DATA FOR DISP
+047                                     	ASRB	WREADY+4	;SHIFT DATA
+048                                     	RORB	WREADY+3	;TO EBUS BITS
+049                                     	ASRB	WREADY+4	;00-05
+050                                     	RORB	WREADY+3
+051                    PRM11   007 009  	DFWRTT			;WRITE
+052                                     	WREADY			;DATA ADDRESS
+053                    PRM11   019 007  	LCRAM5			;DIAG FUNCTION
+054                    PRM11   008 043  	EXIT			;DONE↓&	WCRAM ROUTINE                                                    BR11.PAL[KL,SYS] 10/05/77  Page 11↓'α
+001                    PRM11   011 014  $STRCH:	MOV	WREADY,R0	;GET UNSPACED DATA
+002                                     	MOVB	WREADY+2,WREADY+3 ;PUT C-RAM 0-3 BITS INTO CORRECT CORE
+003                    PRM11   011 017  	CLR	R3		;NO JUNK LEFT IN R3
+004                                     	SEC			;SET "C" BIT TO USE AS FLAG
+005                    PRM11   011 019  1$:	MOV	#4,R5		;FOUR SHIFTS BETWEEN BLANKS
+006                    PRM11   011 017  2$:	ROR	R3		;NEW DATA LEFT END OF DESTINATION
+007                    CONS11  005 001  	BCS	3$		;IF FLAG FALLS OUT..DONE
+008                    PRM11   011 014  	ROR	R0		;ROTATE SOURCE BITS RIGHT
+009                    PRM11   011 019  	DEC	R5		;DONE 4 YET??
+010                    CONS11  002 031  	BGE	2$		;BR IF NO
+011                                     
+012                    PRM11   011 014  	ROL	R0		;REPAIR ANY DAMAGES 
+013                                     	CLC			;ZERO THE "C" BIT
+014                    PRM11   011 017  	ROR	R3		;AND ROLL ZEROES
+015                    CONS11  002 007  	BR	1$		;AND CONTINUE
+016                                     
+017                                     ;GET HERE TO FINISH UP
+018                                     
+019                                     3$:	CLC			;ZERO "C" BIT AGAIN
+020                    PRM11   011 014  	ROL	R0		;BITS 4-7
+021                    PRM11   011 014  	ROL	R0		;MUST BE CORRECTED
+022  PRM11   011 017                    	MOV	R3,WREADY	;BITS 8-19 INTO CORE
+023  PRM11   011 014                    	MOVB	R0,WREADY+2	;BITS 4-7 INTO CORE
+024                    PRM11   011 022  	RTS	PC		;DONE
+025                                     
+026                                     ;SPECIAL BASIC MASTER RESET
+027                                     
+028  PRM11   011 015   PRM11   011 016  $SPCMR:	PUSH	<R0,R1,R2>
+029                                     	CLR	KLCLKR		;CLEAR KL10 CLOCK RUNNING
+030          011 039   PRM11   011 015  	MOV	#$SMRLST,R1	;COMMAND ADR TO R1
+031                    PRM11   011 016  	MOV	#4,R2		;FOUR COMMANDS
+032  PRM11   011 015                    1$:	MOV	(R1)+,@.DIAG1
+033  PRM11   011 022           005 014  	JSR	PC,$$DFXDN	;EXECUTE FUNCTION
+034                    PRM11   011 016  	DEC	R2
+035                    CONS11  002 007  	BNE	1$
+036  PRM11   011 015   PRM11   011 014  	POP	<R2,R1,R0>
+037                    PRM11   011 022  	RTS	PC
+038                                     
+039                    PRM11   018 009  $SMRLST:.WORD	DCOMST!DFUNC!<SETMR*1000>
+040                    PRM11   018 004  	.WORD	DCOMST!DFUNC!<STRCLK*1000>
+041                    PRM11   018 003  	.WORD	DCOMST!DFUNC!<STPCLK*1000>
+042                    PRM11   018 008  	.WORD	DCOMST!DFUNC!<CLRMR*1000>↓&	RCRAM ROUTINE                                                    BR11.PAL[KL,SYS] 10/05/77  Page 12↓'α
+001                                     .SBTTL	RCRAM ROUTINE
+002                                     
+003                    PRM11   011 014  $RCRAM:	TST	R0		;IS R0 NEG
+004                    CONS11  002 007  	BMI	1$		;READ CURRENT CR IF YES
+005                                     
+006                    PRM11   006 020  	WWADR			;EXAMINE ADDRESS IN R0 IF HERE
+007  PRM11   018 006                    	MOV	#DCOMST!DFUNC!<SECLK*1000>,@.DIAG1
+008  PRM11   011 022           005 014  	JSR	PC,$$DFXDN	;CLOCK ADDRESS CONTENTS TO C.R.
+009                                     
+010                    PRM11   011 017  1$:	MOV	#$BUFRC+10.,R3	;GET BUFFER ADDR FOR C-RAM CONTENTS
+011          013 021   PRM11   011 018  	MOV	#$RDLST,R4	;GET DIAG FUNCTION LIST
+012                                     
+013  PRM11   011 018   PRM11   011 014  2$:	MOVB	(R4)+,R0	;DIAG FUNCTION
+014                    PRM11   007 004  	DFRD
+015                    PRM11   011 015  	MOV	#WREADY,R1	;DESTINATION OF READ/MOVE
+016                    PRM11   011 014  	MOV	.DAT3,R0
+017  PRM11   011 014   PRM11   011 015  	MOV	(R0)+,(R1)+
+018  PRM11   011 014   PRM11   011 015  	MOV	(R0)+,(R1)+
+019  PRM11   011 014   PRM11   011 015  	MOV	(R0),(R1)
+020                                     
+021  PRM11   011 022           014 001  	JSR	PC,$SQASH	;GO CLEAR OUT BLANKS
+022                    PRM11   011 014  	MOV	#WREADY+3,R0	;ADDRESS OF DATA JUST READ
+023  PRM11   011 014   PRM11   011 017  	MOVB	-(R0),-(R3)	;BITS 16-19 TO BUFFER
+024                                     	TST	SIGNL2		;CHECK TRAFFIC LIGHT
+025                    CONS11  004 051  	BNE	4$		;BR TO RORING IF WRONG BOUNDARY
+026                                     
+027  PRM11   011 014   PRM11   011 017  3$:	MOVB	-(R0),-(R3)	;BITS 20-27 TO WORK AREA
+028  PRM11   011 014   PRM11   011 017  	MOVB	-(R0),-(R3)	;BITS 28-35 TO WORK AREA
+029                                     	COM	SIGNL2		;CHANGE SIGNAL
+030                    CONS11  002 031  	BR	2$		;GET MORE DATA
+031                                     
+032                    PRM11   011 017  4$:	ASLB	(R3)		;NEED TO FIX A HALF BYTE
+033                    PRM11   011 017  	ASLB	(R3)
+034                    PRM11   011 017  	ASLB	(R3)
+035                    PRM11   011 017  	ASLB	(R3)
+036                    PRM11   011 014  	PUSH	R0		;DON'T LOSE DATA ADDRESS
+037                    PRM11   011 014  	MOV	#4,R0		;DO NEXT LOOP FOUR TIMES
+038                                     
+039  PRM11   011 017   PRM11   011 016  10$:	MOV	R3,R2		;ADDRESS OF DATA TO R2
+040                    PRM11   011 016  	ROLB	(R2)+		;SHIFT AND DON'T FORGET "C"
+041                    PRM11   011 016  	ROLB	(R2)+
+042                    PRM11   011 016  	ROLB	(R2)+
+043                    PRM11   011 016  	ROLB	(R2)+
+044                    PRM11   011 014  	DEC	R0		;ASSEMBLED COMPLETE HALF BYTE
+045                    CONS11  030 016  	BNE	10$		;LOOP AGAIN IF NO
+046                    PRM11   011 014  	POP	R0		;RETRIEVE DATA ADDRESS
+047                    PRM11   011 017  	TSTB	(R3)+		;FIX DESTINATION ADDRESS
+048                                     	TST	SIGNL3		;CHECK SIGNAL
+049                    CONS11  030 036  	BNE	15$		;DONE IF MINUS
+050                                     	COM	SIGNL3		;OTHERWISE CHANGE SIGNAL
+051                    CONS11  005 001  	BR	3$		;CONTINUE↓&	RCRAM ROUTINE                                                    BR11.PAL[KL,SYS] 10/05/77  Page 13↓'α
+001                    PRM11   011 017  15$:	MOVB	WREADY+1,-(R3)	;ENDING UP
+002                    PRM11   011 017  	MOVB	WREADY,-(R3)	;CRAM BITS 0-15 TO BUFFER
+003                                     	COM	SIGNL3		;SIGNL3 TO ZERO
+004                                     	COM	SIGNL2		;SIGNL2 TO ZERO
+005                    PRM11   007 005  	DFRDT
+006                    PRM11   019 014  	RCSPEC			;READ SPEC FIELD
+007                    PRM11   011 015  	MOV	@.DAT2,R1	;GET DISP 03,04
+008                    PRM11   011 014  	MOV	@.DAT1,R0	;GET DISP 00,01,02
+009                    PRM11   011 015  	ROL	R1		;JUSTIFY IN R0
+010                    PRM11   011 014  	ROL	R0
+011                    PRM11   011 015  	ROL	R1
+012                    PRM11   011 014  	ROL	R0
+013                                     
+014                    PRM11   011 014  	BIC	#177740,R0	;CLEAR TRASH
+015  PRM11   011 014                    	MOVB	R0,$BUFRC+12	;SAVE IN BUFFER
+016                    PRM11   011 014  	MOV	#$BUFRC+2,R0	;RETURN DATA ADDRESS IN R0
+017                    PRM11   011 014  	BIC	#5,(R0)		;CLEAR PARITY BITS
+018                    PRM11   011 014  	BIC	#52525,-(R0)	;AND FIX ADDRESS
+019                    PRM11   008 043  	EXIT			;DONE
+020                                     
+021                    PRM11   019 010  $RDLST:	.BYTE	RCRAM1		;READ CRAM 0-19
+022                    PRM11   019 011  	.BYTE	RCRAM2		;READ CRAM 20-39
+023                    PRM11   019 012  	.BYTE	RCRAM3		;READ CRAM 40-59
+024                    PRM11   019 013  	.BYTE	RCRAM4		;READ CRAM 60-79-EVEN↓&	RCRAM ROUTINE                                                    BR11.PAL[KL,SYS] 10/05/77  Page 14↓'α
+001                    PRM11   011 015  $SQASH:	MOV	WREADY,R1	;GET STRETCHED BITS 8-19
+002                    PRM11   011 016  	MOV	WREADY+2,R2	;GET STRECHED BITS 0-7
+003                    PRM11   011 014  	CLR	R0		;CLEAR A DESTINATION
+004                                     	SEC			;SET A DONE FLAG
+005                    PRM11   011 014  	ROR	R0		;AND ROLLIT INTO R0
+006                    PRM11   011 019  1$:	MOV	#4,R5		;FOUR BITS PER GROUP
+007                    PRM11   011 019  2$:	DEC	R5		;DONE A GROUP OF FOUR
+008                    CONS11  030 011  	BLT	20$		;BRANCH IF NO
+009                    PRM11   011 016  	ASR	R2		;ROTATE SOURCE BITS RIGHT
+010                    PRM11   011 015  	ROR	R1		;ALL TWENTY OF THEM
+011                    PRM11   011 014  	ROR	R0		;BEGIN WITH FIRST FLAG INTO R0
+012                    CONS11  002 031  	BCC	2$		;IF FLAG FALLS OUT..DONE
+013                                     
+014                                     ;HERE TO FINISH UP
+015                                     
+016                    PRM11   011 015  	ASR	R1		;MAKE LAST BLANKS
+017                    PRM11   011 015  	ASR	R1		;GO VERY FAR AWAY
+018  PRM11   011 014                    	MOV	R0,WREADY	;STORE RESULTS IN CORE
+019  PRM11   011 015                    	MOV	R1,WREADY+2	;ALL DONE
+020                    PRM11   011 022  	RTS	PC		;RETURN
+021                                     
+022                    PRM11   011 016  20$:	ASR	R2		;HERE TO SHIFT AWAY
+023                    PRM11   011 015  	ROR	R1		;THE PAIR
+024                    PRM11   011 016  	ASR	R2		;OF BLANKS HIDDEN
+025                    PRM11   011 015  	ROR	R1		;AMIDST THE REAL DATA
+026                    CONS11  002 007  	BR	1$		;CONTINUE↓&	MICNUL & MICFIL C-RAM ROUTINES                                   BR11.PAL[KL,SYS] 10/05/77  Page 15↓'α
+001                                     .SBTTL	MICNUL & MICFIL C-RAM ROUTINES
+002                                     
+003                                     ;MICNUL, FILL C-RAM LOCATIONS WITH ZEROS
+004                                     
+005  PRM11   011 015   PRM11   011 016  $MICNUL:MOV	R1,R2		;NUMBER OF WORDS TO R2
+006  PRM11   011 014   PRM11   011 017  	MOV	R0,R3		;SAVE START ADDRESS
+007                    PRM11   011 017  	BIS	#100000,R3	;BYPASS MR AFTER FIRST TIME
+008                    PRM11   011 015  	MOV	#ZEROS,R1
+009                                     
+010                    PRM11   006 020  1$:	WWADR			;WRITE C-RAM ADDRESS
+011                                     
+012                    PRM11   011 018  	MOV	#3,R4
+013  PRM11   019 003   PRM11   011 014  	MOVB	#LCRAM1,R0	;1ST FUNCTION IS A WRITE
+014                    PRM11   007 008  	DFWRT
+015                                     
+016          015 027   PRM11   011 014  2$:	MOVB	FLST(R4),R0	;DIAG FUNCTION
+017  PRM11   011 022           005 003  	JSR	PC,$DFXFST
+018                    PRM11   011 018  	DEC	R4
+019                    CONS11  002 031  	BGE	2$		;ZERO ALL BITS
+020                                     
+021                    PRM11   011 017  	INC	R3		;INCREMENT C-RAM ADDRESS
+022  PRM11   011 017   PRM11   011 014  	MOV	R3,R0
+023                    PRM11   011 016  	DEC	R2		;FINISHED ALL WORDS YET ?
+024                    CONS11  002 007  	BGT	1$
+025                    PRM11   008 043  10$:	EXIT			;YES
+026                                     
+027                    PRM11   019 007  FLST:	.BYTE	LCRAM5
+028                    PRM11   019 006  	.BYTE	LCRAM4
+029                    PRM11   019 005  	.BYTE	LCRAM3
+030                    PRM11   019 004  	.BYTE	LCRAM2
+031                    PRM11   019 003  	.BYTE	LCRAM1
+032                                     .EVEN↓&	MICNUL & MICFIL C-RAM ROUTINES                                   BR11.PAL[KL,SYS] 10/05/77  Page 16↓'α
+001                                     ;MICFIL, C-RAM FILL WITH ONES ROUTINE
+002                                     
+003  PRM11   011 015   PRM11   011 016  $MICFIL:MOV	R1,R2		;NUMBER OF WORDS TO R2
+004  PRM11   011 014   PRM11   011 017  	MOV	R0,R3		;SAVE ADDRESS
+005                    PRM11   011 017  	BIS	#100000,R3	;BYPASS MR AFTER FIRST TIME
+006  BEG11   002 037   PRM11   011 015  	MOV	#TENMO,R1	;36 BITS OF ONES
+007                                     
+008                    PRM11   006 020  1$:	WWADR			;WRITE C-RAM ADDRESS
+009                    PRM11   011 018  	MOV	#4,R4
+010                                     
+011          015 027   PRM11   011 014  2$:	MOVB	FLST(R4),R0	;DIAG FUNCTION
+012                    PRM11   007 008  	DFWRT
+013                    PRM11   011 018  	DEC	R4		;DO ALL BITS
+014                    CONS11  002 031  	BGE	2$
+015                                     
+016                    PRM11   011 017  	INC	R3		;INCREMENT C-RAM ADDRESS
+017  PRM11   011 017   PRM11   011 014  	MOV	R3,R0
+018                    PRM11   011 016  	DEC	R2		;DONE ALL ADDRESSES YET ?
+019                    CONS11  002 007  	BGT	1$
+020                    PRM11   008 043  10$:	EXIT↓&	WDRAM ROUTINE                                                    BR11.PAL[KL,SYS] 10/05/77  Page 17↓'α
+001                                     .SBTTL	WDRAM ROUTINE
+002                                     
+003  PRM11   011 014   PRM11   011 016  $WDRAM:	MOV	R0,R2		;COPY DRAM ADDRESS
+004                    PRM11   011 014  	ROR	R0		;CHECK IF ODD OR EVEN
+005                    CONS11  002 007  	BCC	1$		;BR IF EVEN
+006                    CONS11  058 001  	JMP	ADRERR		;ADDRESS ERROR IF ODD
+007                                     
+008                    PRM11   011 014  1$:	ROL	R0		;FIX ADDRESS
+009                    PRM11   011 015  	PUSH	R1		;SAVE POINTER TO DATA
+010                    PRM11   007 021  	DRAMAD			;GO WRITE DRAM ADDRESS
+011                    PRM11   011 017  	POP	R3		;PUT POINTER TO DATA IN R3
+012  PRM11   011 017   PRM11   011 015  	MOV	(R3)+,R1	;DATA INTO R1
+013  PRM11   011 019           020 018  	JSR	R5,DATEVE	;WRITE EVEN DATA
+014  PRM11   011 017   PRM11   011 015  	MOV	(R3)+,R1	;DATA INTO R1
+015  PRM11   011 019           020 015  	JSR	R5,DATODD	;WRITE ODD DATA
+016  PRM11   011 017   PRM11   011 015  	MOV	(R3),R1		;DATA INTO R1
+017  PRM11   011 019           020 010  	JSR	R5,DATCOM	;WRITE COMMON DATA
+018                    PRM11   008 043  	EXIT↓&	RDRAM ROUTINE                                                    BR11.PAL[KL,SYS] 10/05/77  Page 18↓'α
+001                                     .SBTTL	RDRAM ROUTINE
+002                                     
+003  PRM11   011 015   PRM11   011 014  $RDRAM:	PUSH	<R1,R0>		;SAVE R1,STORE DRAM ADDR ON STACK TOP
+004                    PRM11   011 015  	CLR	R1		;R1 IS AN INDEX COUNTER
+005                    PRM11   007 021  1$:	DRAMAD			;WRITE DRAM ADDRESS
+006  PRM11   019 019                    	MOV	#DCOMST!DFUNC!<DRLTCH*1000>,@.DIAG1
+007  PRM11   011 022           005 014  	JSR	PC,$$DFXDN	;STROBE DATA TO LATCHES
+008                    PRM11   007 005  	DFRDT
+009                    PRM11   018 029  	DRJ710			;FUNCTION TO READ J07,08,09,10
+010                    PRM11   011 014  	MOV	@.DAT2,R0	;GET J DATA 7-10
+011                    PRM11   011 014  	ASR	R0		;RIGHT JUSTIFY
+012                    PRM11   011 014  	ASR	R0		;J-FIELD DATA
+013                    PRM11   011 014  	BIC	#177700,R0	;CLEAR EXTRA
+014  PRM11   011 014   PRM11   011 015  	MOVB	R0,RDRTMP(R1)	;SAVE DATA IN CORE
+015                    PRM11   011 015  	INC	R1		;INCREMENT INDEX
+016                                     
+017                    PRM11   007 005  	DFRDT
+018                    PRM11   018 028  	DRAMAB			;FUNCTION TO READ "A" & "B" FIELD
+019                    PRM11   011 014  	MOV	@.DAT2,R0	;GET A & B DATA
+020                    PRM11   011 014  	ASR	R0		;RIGHT JUSTIFY
+021                    PRM11   011 014  	ASR	R0		;IN R0
+022                    PRM11   011 014  	BIC	#177700,R0	;CLEAR EXTRA
+023  PRM11   011 014   PRM11   011 015  	MOVB	R0,RDRTMP(R1)	;STORE IN CORE
+024                    PRM11   011 015  	INC	R1		;INCREMENT INDEX
+025                                     
+026                                     ;DECIDE IF THIS IS FIRST OR SECOND PASS
+027                                     
+028  PRM11   011 015                    	CMP	R1,#3		;INDEX UP TO 3 YET??
+029                    CONS11  002 031  	BGE	2$		;ON OUT IF YES
+030                    PRM11   011 014  	POP	R0		;IF NO,GET DRAM ADDRESS
+031                    PRM11   011 014  	INC	R0		;GET ODD HALF OF EVEN/ODD PAIR
+032                    CONS11  002 007  	BR	1$		;LOOP AGAIN
+033                                     
+034                    PRM11   007 005  2$:	DFRDT
+035                    PRM11   018 030  	DRJ1.4			;FUNCTION TO READ J01-J04
+036                    PRM11   011 014  	MOV	@.DAT2,R0	;GET JDATA 01-04
+037                    PRM11   011 014  	ASR	R0		;RIGHT JUSTIFY
+038                    PRM11   011 014  	ASR	R0		;J1-J4 BITS
+039                    PRM11   011 014  	BIC	#177760,R0	;CLEAR UNWANTED
+040  PRM11   011 014                    	MOVB	R0,RDRTMP+4	;BIT SET TO CORE
+041                    PRM11   011 014  	MOV	#RDRTMP,R0	;PASS BACK DATA ADDRESS IN R0
+042                    PRM11   011 015  	POP	R1		;RESTORE R
+043                    PRM11   008 043  	EXIT↓&	RDRAM ROUTINE                                                    BR11.PAL[KL,SYS] 10/05/77  Page 19↓'α
+001                    PRM11   011 017  $DRAMAD: MOV	#DDRAM,R3	;GET ADDRESS OF EBUS DATA
+002  PRM11   011 017   PRM11   011 018  	MOV	R3,R4		;GET A COPY IN R4
+003  PRM11   011 018   PRM11   011 018  	CMPB	(R4)+,(R4)+	;INCREMENT IT TO DDRAM+2
+004  PRM11   011 014   PRM11   011 016  	MOV	R0,R2		;PUT ACTUAL ADDRESS IN R2
+005                    PRM11   011 016  	COM	R2		;READY TO TEST ADDR BITS 0-2
+006                    PRM11   011 016  	BIT	#700,R2		;MAKE THE TEST
+007                    CONS11  002 007  	BEQ	1$		;BR IF ADDR IS 7XX
+008                                     
+009                                     ;CODE FOR NON 7XX ADDRESSES
+010                                     
+011                    PRM11   011 016  	COM	R2		;WAS NOT 7XX,SO FIX ADDRESS
+012                    PRM11   011 016  	ASL	R2		;JUSTIFY ADDRESS IN
+013                    PRM11   011 016  	ASL	R2		;CORRECT BIT POSITION
+014                    PRM11   011 016  	ASL	R2		;NEED THREE SHIFTS
+015                    PRM11   011 018  	CLRB	(R4)+		;INCREMENT TO DDRAM+3
+016  PRM11   011 016   PRM11   011 018  	MOVB	R2,(R4)+	;MOVE ADDR BITS 4-8 TO EBUS DATA
+017                    PRM11   011 016  	SWAB	R2		;GET THE REST OF THE BITS
+018  PRM11   011 016   PRM11   011 018  	MOVB	R2,(R4)		;MOVE ADDR BITS 0-3 TO EBUS DATA
+019  PRM11   011 022           011 028  4$:	JSR	PC,$SPCMR	;SPECIAL MASTER RESET
+020  PRM11   011 019           020 003  	JSR	R5,WIRAR	;GO TO DO THE ACTUAL WRITE
+021                    PRM11   008 043  	EXIT
+022                                     
+023                                     ;CODE FOR 7XX ADRESSES
+024                                     
+025                    PRM11   011 016  1$:	COM	R2		;FIX ADDRESS TO ORIGINAL STATE
+026                    PRM11   011 016  	ROR	R2		;PUT LOW ORDER BIT IN "C" BIT
+027                    CONS11  002 031  	BCS	2$		;"C" SET MEANS IR BIT 12 MUST=1
+028                                     
+029                    PRM11   011 018  	CLRB	(R4)+		;NO "C" BIT MEANS IR BIT 12 MUST=0
+030                    CONS11  005 001  	BR	3$		;GO TO MOVE ADDRESS TO EBUS DATA
+031                                     
+032                    PRM11   011 018  2$:	MOVB	#200,(R4)+	;SET IR BIT 12=1
+033                    PRM11   011 016  3$:	BIC	#340,R2
+034  PRM11   011 016   PRM11   011 018  	MOVB	R2,(R4)+	;MOVE D-RAM ADDR TO EBUS BIT POSITION 7-11
+035                    PRM11   011 018  	MOVB	#16,(R4)	;SET THE 7 FROM 7XX IN EBUS DATA
+036                    CONS11  004 051  	BR	4$↓&	RDRAM ROUTINE                                                    BR11.PAL[KL,SYS] 10/05/77  Page 20↓'α
+001                                     ;WRITE THE IR
+002                                     
+003                    PRM11   011 015  WIRAR:	MOV	#DDRAM,R1	;EBUS DATA ALWAYS AT DDRAM
+004  PRM11   019 023   PRM11   011 014  WIRAR1:	MOV	#LDAR,R0	;FUNCTION TO LOAD AR
+005                    PRM11   007 010  	DFWIR
+006                    PRM11   011 019  	RTS	R5
+007                                     
+008                                     ;NOW FOR COMMON LITTLE PIECES OF THE LOADING OF THE DRAM
+009                                     
+010  PRM11   018 025   PRM11   011 014  DATCOM:	MOV	#LDRAM3,R0	;GET DIAG FUN TO WRITE COMMON
+011                    PRM11   011 015  	ASL	R1		;JUSTIFY DATA FOR THE EBUS
+012                    PRM11   011 015  	ASL	R1
+013                            020 028  	BR	CON2		;GO WRITE IT
+014                                     
+015  PRM11   018 024                    DATODD:	MOV	#LDRAM2,$DDRMS	;FUNCTION FOR J-FIELD A & B
+016  PRM11   018 027   PRM11   011 014  	MOV	#LDRJOD,R0	;FUNCTION FOR J-FIELD ODD
+017                            020 020  	BR	CON1		;GO
+018  PRM11   018 023                    DATEVE:	MOV	#LDRAM1,$DDRMS	;FUNCTION FOR J-FIELD A & B
+019  PRM11   018 026   PRM11   011 014  	MOV	#LDRJEV,R0	;FUNCTION J-FIELD EVEN
+020                    PRM11   011 015  CON1:	ASL	R1		;JUSTIFY PIECE I'M
+021                    PRM11   011 015  	ASL	R1		;INTERESTED IN FOR J-DATA FIELDS
+022                    PRM11   011 015  	PUSH	R1		;SAVE DATA TO BE SENT
+023  PRM11   011 019           020 028  	JSR	R5,CON2		;WRITE J-DATA
+024                    PRM11   011 015  	POP	R1		;GET DATA AGAIN
+025                    PRM11   011 015  	SWAB	R1		;NOW I'VE GOT A & B
+026                    PRM11   011 014  	MOV	$DDRMS,R0	;GET CORRECT DIAG FUNCTION, & WRITE
+027                                     
+028  PRM11   011 015                    CON2:	MOVB	R1,DDRAM+2	;R1 ALWAYS HAS THE DATA
+029                    PRM11   011 015  	MOV	#DDRAM,R1	;I ALWAYS PUT IT IN DDRAM
+030                    PRM11   007 008  	DFWRT
+031                    PRM11   011 019  	RTS	R5		;NOW WRITE
+032                                     
+033                                     ;CLOCK DEFAULT PARAMETER ADDRESS
+034                                     
+035                    PRM11   011 014  $CLKPRM:MOV	#CLKDFL,R0	;PUT ADDRESS IN R0
+036                    PRM11   008 043  	EXIT↓&	M-BOX CLOCK BURST ROUTINE                                        BR11.PAL[KL,SYS] 10/05/77  Page 21↓'α
+001                                     .SBTTL	M-BOX CLOCK BURST ROUTINE
+002                                     
+003                                     $BURST:	CLR	KLCLKR		;CLEAR KL10 CLOCK RUNNING
+004                    PRM11   011 015  	MOV	#$STDAT,R1	;WORD POINTER TO R1
+005  PRM11   011 014   PRM11   011 016  	MOV	R0,R2		;BURST COUNT TO R2
+006                    PRM11   011 016  	BIC	#177600,R2	;SAVE LOWER 7 BITS
+007                    PRM11   011 014  	ROL	R0
+008                    PRM11   011 014  	SWAB	R0
+009                    PRM11   011 017  	CLR	R3
+010  PRM11   011 014   PRM11   011 017  	BISB	R0,R3		;# OF 128. CLOCK MULTIPLES
+011                    CONS11  002 031  	BEQ	2$		;NONE, DO BURST
+012                                     
+013  PRM11   018 003                    1$:	MOV	#DCOMST!DFUNC!<STPCLK*1000>,@.DIAG1
+014  PRM11   011 022           005 014  	JSR	PC,$$DFXDN	;CLEAR BURST MODE
+015                    PRM11   011 015  	CLR	(R1)
+016  PRM11   018 014   PRM11   011 014  	MOV	#LDBRR,R0
+017                    PRM11   007 008  	DFWRT			;CLEAR BURST REG RIGHT
+018                    PRM11   011 015  	MOV	#10,(R1)
+019  PRM11   018 015   PRM11   011 014  	MOV	#LDBRL,R0
+020                    PRM11   007 008  	DFWRT			;LOAD BURST REG LEFT
+021  PRM11   018 010                    	MOV	#DCOMST!DFUNC!<BRCLK*1000>,@.DIAG1
+022  PRM11   011 022           005 014  	JSR	PC,$$DFXDN	;BURST 128 CLOCKS
+023                    PRM11   011 017  	DEC	R3		;ANY MORE ?
+024                    CONS11  002 007  	BGT	1$		;YES, DO 128 MORE
+025                                     
+026  PRM11   018 003                    2$:	MOV	#DCOMST!DFUNC!<STPCLK*1000>,@.DIAG1
+027  PRM11   011 022           005 014  	JSR	PC,$$DFXDN	;CLEAR BURST MODE
+028  PRM11   011 016   PRM11   011 017  	MOV	R2,R3		;NUMBER LEFT TO DO
+029                    PRM11   011 016  	BIC	#177760,R2
+030  PRM11   011 016   PRM11   011 015  	MOV	R2,(R1)
+031  PRM11   018 014   PRM11   011 014  	MOV	#LDBRR,R0
+032                    PRM11   007 008  	DFWRT			;LOAD BURST REG RIGHT
+033  PRM11   011 017                    	SR	R3,4
+034  PRM11   011 017   PRM11   011 015  	MOV	R3,(R1)
+035  PRM11   018 015   PRM11   011 014  	MOV	#LDBRL,R0
+036                    PRM11   007 008  	DFWRT			;LOAD BURST REG LEFT
+037  PRM11   018 010                    	MOV	#DCOMST!DFUNC!<BRCLK*1000>,@.DIAG1
+038  PRM11   011 022           005 014  	JSR	PC,$$DFXDN	;BURST THE CLOCK
+039                    PRM11   008 043  	EXIT↓&	LOAD AR ROUTINE                                                  BR11.PAL[KL,SYS] 10/05/77  Page 22↓'α
+001                                     .SBTTL	LOAD AR ROUTINE
+002                                     
+003                                     ; ROUTINE TO LOAD THE AR WITH AN INSTRUCTION TO BE EXECUTED.
+004                                     ; GETS THE MICROCODE TO THE HALT LOOP, AND THEN LINES UP THE
+005                                     ; MBOX PHASE CHANGE TIMING WITH EBOX SYNC BEFORE LOADING
+006                                     ; THE AR.  THE LATTER IS NECCESSARY IN ORDER TO MAKE INSTRUCTION
+007                                     ; EXECUTION REPEATABLE AT THE CLOCK TICK LEVEL FOR "TRACE" AND
+008                                     ; FOR THE MBOX DIAGNOSTIC.
+009                                     
+010  PRM11   011 014   PRM11   011 017  $LODAR:	MOV	R0,R3		;SAVE DATA POINTER
+011  PRM11   019 020                    	MOV	#DCOMST!DFUNC!<CLRRUN*1000>,@.DIAG1
+012  PRM11   011 022           005 014  	JSR	PC,$$DFXDN	;STOP EXECUTION
+013                    PRM11   011 014  	MOV	#177,R0
+014                    PRM11   007 025  	BURST			;RUN CLOCK FOR FIXED PERIOD
+015  PRM11   018 007                    	MOV	#DCOMST!DFUNC!<CECLK*1000>,@.DIAG1
+016  PRM11   011 022           005 014  	JSR	PC,$$DFXDN	;GET EBOX CLOCK FALSE
+017  PRM11   015 046                    	BIT	#HALTLP,@.DIAG1
+018                    CONS11  002 007  	BNE	1$		;IF AT HALT LOOP
+019                    PRM11   008 051  3$:	EXITERR
+020                                     
+021                                     ; NOW CALL ROUTINE TO GET MBOX IN PHASE
+022                                     
+023  PRM11   011 022           023 012  1$:	JSR	PC,$MBPHS
+024                    CONS11  002 031  	BCC	2$		;BR IF ALL OK
+025                    CONS11  005 001  	BR	3$
+026                                     
+027  PRM11   011 017   PRM11   011 015  2$:	MOV	R3,R1
+028  PRM11   019 023   PRM11   011 014  	MOV	#LDAR,R0
+029                    PRM11   007 008  	DFWRT			;LOAD AR
+030                    PRM11   008 043  	EXIT
+031                                     
+032                                     ; SETMPH EMT ROUTINE TO SELECT WHICH MBOX PHASE TO SYNC UP TO
+033                                     ;DURING THE LODAR PROCESS. R0 SELECTS ONE OF FOUR PLACES TO SYNC.
+034                                     ; R0 = 0, A CHANGE COMING; R0 = 1, HALFWAY TWIXT A AND B
+035                                     ; R0 = 2, B CHANGE COMING; R0 = 3, HALFWAY TWIXT B AND A.
+036                                     
+037  PRM11   011 014                    $SETMPH:MOV R0,$STODD		;SAVE FOR HALF-PHASE TEST
+038  PRM11   012 004   PRM11   011 014  	BIC #BIT0,R0		;CLR ODD-EVEN BIT
+039          022 043                    	MOV $STMTB(R0),$MPHDF	;SET DF VALUE FOR A OR B CHANGE
+040          022 046                    	MOV $STMT1(R0),$MPHMK	;SET BIT MASK FOR A OR B CHANGE
+041                    PRM11   008 043  	EXIT
+042                                     
+043                                     $STMTB:	162			;A CHANGE COMING DF
+044                                     	163			;B CHANGE COMING DF
+045                                     
+046                                     $STMT1:	10			;A CHANGE COMING BIT MASK
+047                                     	400			;B CHANGE COMING BIT MASK↓&	MBOX PHASE ROUTINE                                               BR11.PAL[KL,SYS] 10/05/77  Page 23↓'α
+001                                     .SBTTL	MBOX PHASE ROUTINE
+002                                     
+003                                     ; ROUTINE TO PHASE THE MBOX WITH THE EBOX HALT LOOP.
+004                                     ; MICROCODE ASSUMPTIONS: THE HALT LOOP IS TWO INSTRUCTIONS
+005                                     ;	THE FIRST IS AT AN EVEN ADDRESS AND HAS T=3T (these used to be labeled
+006                                     ;	THE SECOND IS AT AN ODD ADDRESS AND HAS T=2T  backwards)
+007                                     ; THIS CODE LOOKS FOR THE INTERSECTION OF THE EVEN ADDRESS,
+008                                     ; CLK SYNC TRUE, PHASE CHANGE COMING TRUE, AND THE SELECTED
+009                                     ; PHASE (A OR B CHANGE COMING). THE LATTER IS CHOSEN BY
+010                                     ; THE "SETMPH" EMT.
+011                                     
+012                    PRM11   011 016  $MBPHS:	MOV	#20.,R2		;SET TIMOUT VALUE
+013                    PRM11   011 015  1$:	MOV	#1,R1		;SET TICK COUNTER
+014                    PRM11   007 005  	DFRDT
+015                                     	102
+016  PRM11   012 008                    	BIT	#BIT2,@.DAT3	;BIT 33, CLK SYNC H
+017                    SUB11   011 031  	BEQ	41$		;FALSE, TRY 1 CLOCK
+018                                     
+019                    PRM11   007 005  	DFRDT
+020                                     	144
+021  PRM11   012 030                    	BIT	#BIT14,@.DAT2	;BIT 5, CR ADR 10 H
+022                    SUB11   011 029  	BNE	42$		;ODD, TRY 2 CLOCKS
+023                                     
+024                    PRM11   007 005  	DFRDT
+025                                     	164
+026  PRM11   012 014                    	BIT	#BIT5,@.DAT3	;BIT 30,PHASE CHANGE COMING L
+027                    SUB11   011 039  	BNE	45$		;FALSE, TRY 5 CLOCKS
+028                                     
+029                    PRM11   011 014  	MOV $MPHDF,R0		;used to be MOVB  -- jbr 4/27
+030                    PRM11   007 004  	DFRD
+031                    PRM11   011 014  	CLR R0
+032                                     	BIT $MPHMK,@.DAT3	;EITHER A OR B CHANGE COMING L used to be bitb -
+                                        				;-jbr
+033                    CONS11  002 031  	BEQ 2$			;TRUE, EXIT
+034                    PRM11   011 014  	MOV	#10.,R0		;NEED 10 CLOCKS
+035  PRM11   012 004                    2$:	BIT	#BIT0,$STODD	;WANT HALFWAY BETWEEN?
+036                    CONS11  005 001  	BEQ	3$		;BR IF NOT
+037                    PRM11   011 014  	ADD	#5,R0		;FIVE MORE TICKS THEN
+038                    PRM11   007 025  3$:	BURST			;DO THIS BURST:0,5,10, OR 15
+039                                     	CLC
+040                    PRM11   011 022  	RTS	PC		;WE'RE THERE
+041                                     
+042                    PRM11   011 015  45$:	ADD	#3,R1		;MAKE IT FOUR
+043                    PRM11   011 015  42$:	INC	R1		;MAKE IT TWO OR FIVE
+044  PRM11   011 015   PRM11   011 014  41$:	MOV	R1,R0
+045                    PRM11   007 025  	BURST			;DO ONE TWO OR FIVE
+046                    PRM11   011 016  	DEC	R2		;COUNT TIMEOUT
+047                    CONS11  002 007  	BNE	1$
+048                                     	SEC
+049                    PRM11   011 022  	RTS	PC		;TOOK TOO LONG, ERROR↓&	VMA, VMAH, PC & ADDRESS BREAK ROUTINE                            BR11.PAL[KL,SYS] 10/05/77  Page 24↓'α
+001                                     .SBTTL	VMA, VMAH, PC & ADDRESS BREAK ROUTINE
+002                                     
+003                                     ;ROUTINE TO READ ONE OF 4 REGISTERS ON THE VMA BOARD.
+004                                     ;ROUTINE RETURNS WITH R0 POINTING TO A 36 BIT WORD WITH
+005                                     ;THE DESIRED DATA JUSTIFIED AT BIT 35
+006                                     
+007                    PRM11   011 014  $DFVMH:	MOV	#DPVMHD,R0	;FUNCTION TO READ VMA HELD
+008                            024 010  	BR	$DFPC1
+009                    PRM11   011 014  $DFPC:	MOV	#DPPC,R0	;FUNCTION TO READ PC
+010                    PRM11   011 019  $DFPC1:	MOV	#3,R5
+011                    PRM11   011 018  	MOV	#273,R4		;MASK FOR REGISTER OFFSET FROM BIT 35
+012                            024 018  	BR	$VMPC
+013                    PRM11   011 014  $DFVMA:	MOV	#DPVMA,R0	;DIAG FUNCTION TO READ VMA
+014                            024 016  	BR	$VMPC1
+015                    PRM11   011 014  $DFADB:	MOV	#DPADB,R0	;DIAG FUNCTION TO READ ADDRESS BREAK
+016                    PRM11   011 018  $VMPC1:	MOV	#356,R4
+017                    PRM11   011 019  	CLR	R5
+018                    PRM11   011 014  $VMPC:	PUSH	R0
+019                    PRM11   011 016  	MOV	#4,R2		;FOUR READS PER REGISTER
+020                    PRM11   011 015  	MOV	#VMADAT,R1	;FIRST CLEAR ENTIRE 36-BIT BUFFER
+021                    PRM11   011 015  	CLR	(R1)+
+022                    PRM11   011 015  	CLR	(R1)+
+023                    PRM11   011 015  	CLR	(R1)+
+024                                     
+025                    PRM11   011 015  1$:	MOV	#WREADY,R1	;PUT DFRD DATA HERE
+026                    PRM11   007 006  	DFRDMV
+027                    PRM11   011 014  	MOV	#5,R0		;MASK RECEIVED DATA, FIVE BYTES WORTH
+028  PRM11   011 018   PRM11   011 015  2$:	BICB	R4,(R1)+
+029                    PRM11   011 014  	DEC	R0
+030                    CONS11  002 031  	BGT	2$↓&	VMA, VMAH, PC & ADDRESS BREAK ROUTINE                            BR11.PAL[KL,SYS] 10/05/77  Page 25↓'α
+001                    PRM11   011 015  	MOV	#WREADY+5,R1	;NOW MOVE READ DATA
+002                    PRM11   011 014  	MOV	#VMADAT+5,R0	;TO VMA REGISTER DATA
+003  PRM11   011 015   PRM11   011 014  	BISB	-(R1),-(R0)
+004  PRM11   011 015   PRM11   011 014  	BISB	-(R1),-(R0)
+005  PRM11   011 015   PRM11   011 014  	BISB	-(R1),-(R0)
+006  PRM11   011 015   PRM11   011 014  	BISB	-(R1),-(R0)
+007  PRM11   011 015   PRM11   011 014  	BISB	-(R1),-(R0)
+008                    PRM11   011 014  	ROLB	(R0)+		;AND NOW SHIFT 35 BITS
+009                    PRM11   011 014  	ROLB	(R0)+		;BY ONE BIT
+010                    PRM11   011 014  	ROLB	(R0)+
+011                    PRM11   011 014  	ROLB	(R0)+
+012                    PRM11   011 014  	ROLB	(R0)+
+013                                     
+014                    PRM11   011 021  	DEC	(SP)		;CREATE NEXT DIAG FUNCTION
+015  PRM11   011 021   PRM11   011 014  	MOV	(SP),R0		;TAKE IT OFF THE STACK
+016                    PRM11   011 016  	DEC	R2		;DONE FOUR FUNCTIONS YET?
+017                    CONS11  002 007  	BGT	1$		;BR IF MORE TO DO
+018                                     
+019                                     ;ALL DONE READING DATA, NOW JUSTIFY CORRECTLY FOR THE RETURN MACHINE
+020                                     
+021                    PRM11   011 014  3$:	MOV	#VMADAT+5,R0	;MUST CORRECT BY OFFSET AMOUNT
+022                    PRM11   011 014  	RORB	-(R0)
+023                    PRM11   011 014  	RORB	-(R0)
+024                    PRM11   011 014  	RORB	-(R0)
+025                    PRM11   011 014  	RORB	-(R0)
+026                    PRM11   011 014  	RORB	-(R0)
+027                    PRM11   011 019  	DEC	R5		;DONE YET?
+028                    CONS11  005 001  	BGT	3$		;BR IF NO
+029                                     
+030                                     ;OFFSET MAY ORIGINALLY NEED TO BE GREATER THAN 0 IF
+031                                     ;VMA DIAG MIXERS NOT RIGHT JUSTIFIED AT EBUS BIT 35
+032                                     
+033                    PRM11   011 014  4$:	POP	R0
+034                    PRM11   011 014  	MOV	#VMADAT,R0
+035                    PRM11   008 043  	EXITSymbol Table for:    BR11.PAL[KL,SYS]                                        10/05/77  Page I
+                     
+
+$$DFX1   004 037   $DRAMA   019 001   $SQASH   014 001   1$       016 008   2$       015 016   4$       025 033 
+$$DFXD   005 014   $DTEBA   002 039   $STJRS   002 036   1$       017 008   2$       016 011   41$      023 044 
+$BURST   021 003   $DWRTT   007 019   $STMT1   022 046   1$       018 005   2$       018 034   42$      023 043 
+$CLKPR   020 035   $DXCTT   004 014   $STMTB   022 043   1$       019 025   2$       019 032   45$      023 042 
+$DFADB   024 015   $ECTIM   003 032   $STRCH   011 001   1$       021 013   2$       021 026   90$      008 026 
+$DFPC    024 009   $KLCK1   005 011   $VMPC    024 018   1$       022 023   2$       022 027   99$      009 030 
+$DFPC1   024 010   $KLCK2   005 018   $VMPC1   024 016   1$       023 013   2$       023 035   CON1     020 020 
+$DFRD    003 013   $KLCK3   005 015   $WCRAM   010 009   1$       024 025   2$       024 028   CON2     020 028 
+$DFRDM   007 006   $KLCK4   005 016   $WDRAM   017 003   10$      012 039   20$      014 022   DATCOM   020 010 
+$DFRDT   003 010   $LODAR   022 010   $WWADR   009 003   10$      015 025   3$       002 014   DATEVE   020 018 
+$DFSCL   004 020   $MBPHS   023 012   1$       002 009   10$      016 020   3$       008 053   DATODD   020 015 
+$DFTIM   003 022   $MICFI   016 003   1$       004 032   11$      002 007   3$       010 035   DTEINI   002 003 
+$DFTM1   003 034   $MICNU   015 005   1$       006 034   15$      013 001   3$       011 019   FFDEP    005 023 
+$DFTMX   003 028   $MRESE   008 022   1$       008 038   2$       004 033   3$       012 027   FLST     015 027 
+$DFVMA   024 013   $PAGDF   002 033   1$       009 011   2$       006 045   3$       019 033   LLIST    008 004 
+$DFVMH   024 007   $RCRAM   012 003   1$       010 013   2$       008 044   3$       022 019   LLISTL = 008 014 
+$DFWIR   005 027   $RDLST   013 021   1$       011 005   2$       009 010   3$       023 038   PC     = 003 026 
+$DFWRT   006 020   $RDRAM   018 003   1$       011 032   2$       010 026   3$       025 021   WIRAR    020 003 
+$DFXCT   004 026   $SETMP   022 037   1$       012 010   2$       011 006   4$       010 037   WIRAR1   020 004 
+$DFXFS   005 003   $SMRLS   011 039   1$       014 006   2$       012 013   4$       012 032   WRLIST   010 003 
+$DFXX    003 018   $SPCMR   011 028   1$       015 010   2$       014 007   4$       019 019   

@@ -1,0 +1,35 @@
+COMMENT ⊗   VALID 00002 PAGES
+C REC  PAGE   DESCRIPTION
+C00001 00001
+C00002 00002	000/   BR 070
+C00004 ENDMK
+C⊗;
+000/   BR 070
+070/   MOV #17744,SP   
+074/   MOV #4002,@#TCCM   
+102/   TST @#TCCM   
+106/   BPL 102   
+110/   TST @#TCST   
+114/   BPL 214   
+116/   MOV #3,@#TCCM   
+124/   TST @#TCCM   
+130/   BMI 214   
+132/   TSTB @#TCCM   
+136/   BPL 124   
+140/   CMP @#TCDT,#30   
+146/   BLO 116   
+150/   BHI 214   
+152/   MOV #-14400,@#TCWC   
+160/   CLR @#TCBA   
+164/   MOV #5,@#TCCM   
+172/   TST @#TCCM   
+176/   BMI 214   
+200/   TSTB @#TCCM   
+204/   BPL 172   
+206/   RESET    
+210/   MOV #1200,PC   
+214/   MOV @#TCCM,R0   
+220/   CLR @#TCCM   
+224/   HALT    
+226/   RESET    
+230/   BR 0   

@@ -1,0 +1,229 @@
+COMMENT ⊗   VALID 00003 PAGES
+C REC  PAGE   DESCRIPTION
+C00001 00001
+C00002 00002	  1) QMP11.PAL[KL,SYS] and 2) QMP11.TVR[KL,SYS]	11-26-85 18:49	pages 3,3
+C00014 00003	  1) SBST11.PAL[KL,SYS] and 2) SBST11.TVR[KL,SYS]	11-26-85 18:49	pages 4,4
+C00016 ENDMK
+C⊗;
+  1) QMP11.PAL[KL,SYS] and 2) QMP11.TVR[KL,SYS]	11-26-85 18:49	pages 3,3
+
+**** File 1) QMP11.PAL[KL,SYS]/3P/4L
+1)	;
+1)	ENOINT:	CALL	1$		; CALL THE REAL INTERRUPT HANDLER
+**** File 2) QMP11.TVR[KL,SYS]/3P/4L
+2)	ENOINT:	CALL	1$		; CALL THE REAL INTERRUPT HANDLER
+***************
+
+
+**** File 1) QMP11.PAL[KL,SYS]/3P/24L
+1)	;;3$:	INC	EN0ER1		; STEP TOTAL RETRY COUNT
+**** File 2) QMP11.TVR[KL,SYS]/3P/23L
+2)	3$:	INC	EN0ER1		; STEP TOTAL RETRY COUNT
+2)		DEC	EN0TRY		; DECREMENT CURRENT RETRY COUNT
+2)		BGT	4$		; OK, RETRY THE MESSAGE AGAIN
+2)		INC	EN0PER		; STEP COUNT OF PERMANENT ERRORS
+2)		BR	2$		; THROW THE BUFFER AWAY, TRY NEXT
+2)	4$:	CALL	SNDENR		; RETRY THE CURRENT BUFFER
+2)		RETURN			; AND RETURN
+2)	5$:	CLR	ENOCSR		; CLEAR INTERRUPT ENABLE BIT
+2)		RETURN
+2)	; SNDEN SNDENR - Transmit message at head of ENET Queue to the Ethernet
+***************
+
+
+**** File 1) QMP11.PAL[KL,SYS]/3P/28L
+1)	;;	BR	2$		; THROW THE BUFFER AWAY, TRY NEXT
+1)	;;
+1)	;;4$:	CALL	SNDENR		; RETRY THE CURRENT BUFFER
+1)	;;	RETURN			; AND RETURN
+1)	;JJW 11/85 New retry code
+1)	3$:	INC	EN0ER1		;Step total retry count
+1)		ASL	EN0DLY		;Double previous delay amount
+1)		BMI	4$		;Jump if too much
+1)		CALL	SNDENR		;Retry the current buffer
+1)		RETURN
+1)	4$	INC	EN0PER		;Step count of permanent errors
+1)		BR	2$		;Throw the buffer away, try next
+1)	;JJW 11/85 end new code
+1)	5$:	CLR	ENOCSR		; CLEAR INTERRUPT ENABLE BIT
+1)		RETURN
+**** File 2) QMP11.TVR[KL,SYS]/3P/40L
+2)	SNDEN:	MOV	#10,EN0TRY		; SET DEFAULT RETRY COUNT
+2)	SNDENR:	MOV	ENETQ,R0		; GET ADDRESS OF NEXT QUEUE ENTRY
+2)		BEQ	3$			; NOTHING IN QUEUE
+2)		MOV	QENWC(R0),R1		; GET PACKET WORD COUNT FROM BLOCK
+2)		BGT	1$			; IF GT THEN CONTINUE
+2)		FATAL				; OTHERWISE INDICATE ERROR
+2)	1$:	NEG	R1			; MAKE 2'S COMPLEMENT FOR I/O
+2)	2$:	MOV	R1,ENOWC		; SET WORD COUNT IN EN DEVICE
+2)		ADD	#QENMSG,R0		; POINT TO DATA IN QUEUE ENTRY
+2)		MOV	R0,ENOWA		; SET WORD ADDRESS IN EN DEVICE
+2)		MOV	EN0TRY,R2		; USE RETRY VALUE TO SET DELAY
+2)		MOV	EN0DLY(R2),ENODLY	; SET DELAY VALUE IN EN DEVICE
+2)		MOV	#101,ENOCSR		; SET GO AND INTERRUPT ENABLE
+2)		RETURN				; AND RETURN
+2)	3$:	CLR	ENOCSR			; CLEAR INT ENABLE AND GO
+2)		RETURN
+***************
+
+
+**** File 1) QMP11.PAL[KL,SYS]/3P/53L
+1)	;JJW 11/85 begin new code
+1)	SNDEN:	MOV	#1,EN0DLY	;Start delay at 1
+1)	;Jeff Mogul says we should set the delay to about 50 if the previous packet
+1)	;dest was same as this (or was a broadcast), to prevent back-to-back packets
+1)	;being thrown away by the receiver's interface.  We don't do this yet.
+1)	;JJW 11/85 end new code
+1)	SNDENR:	MOV	ENETQ,R0		; GET ADDRESS OF NEXT QUEUE ENTRY
+1)		BEQ	3$			; NOTHING IN QUEUE
+1)		MOV	QENWC(R0),R1		; GET PACKET WORD COUNT FROM BLOCK
+1)		BGT	1$			; IF GT THEN CONTINUE
+1)		FATAL				; OTHERWISE INDICATE ERROR
+1)	1$:	NEG	R1			; MAKE 2'S COMPLEMENT FOR I/O
+1)	2$:	MOV	R1,ENOWC		; SET WORD COUNT IN EN DEVICE
+1)		ADD	#QENMSG,R0		; POINT TO DATA IN QUEUE ENTRY
+1)		MOV	R0,ENOWA		; SET WORD ADDRESS IN EN DEVICE
+1)	;;	MOV	EN0TRY,R2		; USE RETRY VALUE TO SET DELAY
+1)	;;	MOV	EN0DLY(R2),ENODLY	; SET DELAY VALUE IN EN DEVICE
+1)	;JJW 11/85 begin new code
+1)		MOV	EN0DLY,ENODLY	;Set delay value in interface
+1)	;JJW 11/85 end new code
+1)		MOV	#101,ENOCSR		; SET GO AND INTERRUPT ENABLE
+1)		RETURN				; AND RETURN
+1)	3$:	CLR	ENOCSR			; CLEAR INT ENABLE AND GO
+1)		RETURN
+1)	;
+1)	; ENIINT	ETHERNET INPUT COMPLETION INTERRUPT ROUTINE
+1)	;
+1)	;	ENTERED AT COMPLETION OF ETHERNET INPUT
+1)	;
+1)	ENIINT:	CALL	1$		; CALL THE REAL INTERRUPT HANDLER
+**** File 2) QMP11.TVR[KL,SYS]/4P/5L
+2)	ENIINT:	CALL	1$		; CALL THE REAL INTERRUPT HANDLER
+***************
+
+
+**** File 1) QMP11.PAL[KL,SYS]/6P/10L
+1)		MOV	#DON11C!ERR11C,@.STDTE	; Clear DONE and ERROR in DTE STATUS
+1)		MOV	FR10Q,R0		; ADDRESS OF BUFFER BLOCK
+**** File 2) QMP11.TVR[KL,SYS]/6P/10L
+2)	;;	BIT	#7777,@.BC11	; Is there a transfer still in progress?
+2)	;;	  BEQ	DTE11B		;   No, good
+2)	;;	PMSG	<\DTE11B>
+2)	;;	PCRLF
+2)	DTE11B:	MOV	#DON11C!ERR11C,@.STDTE	; Clear DONE and ERROR in DTE STATUS
+2)		MOV	R3,QMPSTS		; Set status for sending to KL
+2)		MOV	FR10Q,R0		; ADDRESS OF BUFFER BLOCK
+***************
+
+
+**** File 1) QMP11.PAL[KL,SYS]/7P/4L
+1)	;		R5 = 14 IN THE HIGH BYTE
+**** File 2) QMP11.TVR[KL,SYS]/6P/98L
+2)	SNDQM2:	TST	QMPSTS			; Time to send new status?
+2)		BEQ	77$			;   No
+2)	.IIF NE EPTREL, MOV	#XEPT!PRTOFF,$TADSP	; SET ADDR MODE FOR NXT EXDEP
+2)		DPOST				; Put status where KL can see it
+2)		  $DTQM2
+2)		  QMPSTS
+2)		MOV	#TO10DB,@.STDTE		; Now, signal KL
+2)		CLR	QMPSTS			; Remember we're sent it
+2)	77$:	RTS	PC
+2)	; QMPCMD - ROUTINE CALLED FROM KLDCP WHEN 10 SENDS ITEM COUNT
+2)	;
+2)	;	ENTERED WITH:
+2)	;		R5 = 14 IN THE HIGH BYTE
+***************
+
+
+**** File 1) QMP11.PAL[KL,SYS]/7P/12L
+1)		BIT	#7777,@.BC11	; Is there a transfer already in progress?
+1)		  BNE	QMPCXT		;   Yes, the '10 goofed. We'll just ignore it and
+1)					;	let the current transfer finish.
+**** File 2) QMP11.TVR[KL,SYS]/7P/12L
+2)	$98:	BIT	#7777,@.BC11	; Is there a transfer already in progress?
+2)		  BNE	QMPOVR		;   Yes, the '10 goofed. We'll just ignore it and
+2)					;	let the current transfer finish.
+***************
+
+
+**** File 1) QMP11.PAL[KL,SYS]/7P/34L
+1)	;
+**** File 2) QMP11.TVR[KL,SYS]/7P/35L
+2)	QMPOVR:	PMSG	<\QMPOVR\>
+2)		MOV	#-1,QMPSTS	; Tell '10 it's losing 
+2)		CALL	SNDQM2
+2)		BR	QMPCXT
+2)	;
+***************
+
+
+**** File 1) QMP11.PAL[KL,SYS]/8P/6L
+1)	SND10:	SAVVR			; SAVE REGS R0-R2
+**** File 2) QMP11.TVR[KL,SYS]/8P/6L
+2)	;	which is an operation which is not interlocked.  Sigh...
+2)	;
+2)	SND10:	SAVVR			; SAVE REGS R0-R2
+***************
+
+
+**** File 1) QMP11.PAL[KL,SYS]/8P/13L
+1)		INC	DTEBCT		; increment the busy count
+1)		BNE	3$		; if it counts out, restart pending xfer
+**** File 2) QMP11.TVR[KL,SYS]/8P/15L
+2)	;;	INC	DTEBCT		; increment the busy count
+2)		INCB	DTEBCT		; **** AT LEAST THIS WAY WE TIMEOUT IN 256/60 SEC.
+2)		BNE	3$		; if it counts out, restart pending xfer
+***************
+
+
+**** File 1) QMP11.PAL[KL,SYS]/11P/27L
+1)	;JJW 11/85 changed output delay code.  No longer use delay array
+1)	;;	MOV	#EN0DLY,R0	; ADDRESS OF DELAY ARRAY FOR EN0
+1)	;;	MOV	#10,R1		; MAXIMUM NUMBER OF RETRYS
+1)	;;	MOV	#200,R2		; MAXIMUM DELAY
+1)	;;1$:	MOV	R2,(R0)+	; PUT DELAY IN TABLE
+1)	;;	ASR	R2		; SHIFT IT RIGHT
+1)	;;	SOB	R1,1$		; LOOP AND FILL TABLE
+1)	;
+**** File 2) QMP11.TVR[KL,SYS]/11P/27L
+2)		MOV	#EN0DLY,R0	; ADDRESS OF DELAY ARRAY FOR EN0
+2)		MOV	#10,R1		; MAXIMUM NUMBER OF RETRYS
+2)		MOV	#200,R2		; MAXIMUM DELAY
+2)	1$:	MOV	R2,(R0)+	; PUT DELAY IN TABLE
+2)		ASR	R2		; SHIFT IT RIGHT
+2)		SOB	R1,1$		; LOOP AND FILL TABLE
+2)	;
+***************
+
+
+  1) SBST11.PAL[KL,SYS] and 2) SBST11.TVR[KL,SYS]	11-26-85 18:49	pages 4,4
+
+**** File 1) SBST11.PAL[KL,SYS]/4P/75L
+1)	;	.BUFW	EN0TRY		;RETRY COUNT FOR PACKET OUTPUT
+1)		.BUFW	EN0BUF,2	;ADDRESS OF ETHERNET INPUT BUFFERS
+**** File 2) SBST11.TVR[KL,SYS]/4P/75L
+2)		.BUFW	EN0TRY		;RETRY COUNT FOR PACKET OUTPUT
+2)		.BUFW	EN0BUF,2	;ADDRESS OF ETHERNET INPUT BUFFERS
+***************
+
+
+**** File 1) SBST11.PAL[KL,SYS]/4P/80L
+1)	;	.BUFW	EN0DLY,10	;DELAY TABLE FOR ETHERNET DELAYS
+1)	;JJW 11/85 fixed output retry to use the following instead of EN0TRY and EN0DLY
+1)		.BUFW	EN0DLY		;Delay for next output packet
+1)		.BUFW	TO10Q,2		;TWO WORD QUEUE HEAD FOR TO10 QUEUE
+**** File 2) SBST11.TVR[KL,SYS]/4P/80L
+2)		.BUFW	EN0DLY,10	;DELAY TABLE FOR ETHERNET DELAYS
+2)		.BUFW	TO10Q,2		;TWO WORD QUEUE HEAD FOR TO10 QUEUE
+***************
+
+
+**** File 1) SBST11.PAL[KL,SYS]/4P/86L
+1)	;	.BUFW	FREEAD		;ADDRESS OF BEGINNING OF FREE MEMORY
+**** File 2) SBST11.TVR[KL,SYS]/4P/84L
+2)		.BUFW	QMPSTS,3	;STATUS OF TO-11 XFER
+2)	;	.BUFW	FREEAD		;ADDRESS OF BEGINNING OF FREE MEMORY
+***************
+
+

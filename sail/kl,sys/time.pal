@@ -1,0 +1,305 @@
+COMMENT ⊗   VALID 00005 PAGES
+C REC  PAGE   DESCRIPTION
+C00001 00001
+C00002 00002	.title time
+C00003 00003	There are several problems with setting the time on the TCU-100.
+C00008 00004	ttitst, tyi, TYO, TYPE, dtype, rtype, ntyo
+C00011 00005	md:	0
+C00012 ENDMK
+C⊗;
+.title time
+
+r0=%0
+r1=%1
+r2=%2
+r3=%3
+r4=%4
+r5=%5
+sp=%6
+pc=%7
+
+ps=177776
+
+.MACR TYPEIT STR
+	JSR R5,TYPE
+.IRPC X,<STR>
+	.BYTE ''X
+.ENDM
+	.BYTE 0
+	.EVEN
+.ENDM
+
+.macr month mmm
+.irpc x,mmm
+	.byte ''x
+.endm
+	.byte 0
+.endm
+
+clkmd=160770
+clkhm=160772
+clkys=160774
+clkcsr=160776
+
+RCSR==177560
+RDB==177562
+TCSR==177564
+TDB==177566
+
+yrbase==1976.
+
+ddt==130000
+
+.=1000
+.=.+400
+pdl:	0
+;There are several problems with setting the time on the TCU-100.
+;Seconds are reset when you set the hours/minutes.
+;You must set the month/day before setting the hours/minutes since
+;setting month/day makes it forget that the hour was 23 (if it was)
+;and the next hour will be 24 rather than 0.
+;In order to set the year, you must make it count to the value you
+;want.  It counts whenever the month overflows (i.e. set the month
+;to a value less than it has now).
+
+go:	reset
+	mov #340,ps
+	mov #pdl,sp
+goloop:	jsr pc,rdclk
+	typeit <
+it is now >
+	movb md,r1		;day
+	jsr pc,dtype
+	typeit <->
+	mov md,r1
+	swab r1
+	bic #177400,r1		;month
+	dec r1
+	ash #2,r1
+	add #monnam,r1
+	jsr pc,typem
+	typeit <->
+	mov ys,r1
+	swab r1
+	bic #177400,r1
+	add #yrbase,r1
+	jsr pc,dtype
+	typeit <  >
+	mov hm,r1
+	swab r1
+	bic #177400,r1
+	jsr pc,d2type
+	typeit <:>
+	movb hm,r1
+	jsr pc,d2type
+	typeit <:>
+	movb ys,r1
+	jsr pc,d2type
+	typeit <
+>
+	jmp ddt
+
+rdclk:	tstb clkcsr
+	bpl rdclk
+	mov #clkmd,r0
+	mov #md,r5
+	mov (r0)+,(r5)+
+	mov (r0)+,(r5)+
+	mov (r0),(r5)
+	mov #clkmd,r0
+	mov #md,r5
+	cmp (r0)+,(r5)+
+	bne rdclk
+	cmp (r0)+,(r5)+
+	bne rdclk
+	cmp (r0),(r5)
+	bne rdclk
+typem1:	rts pc
+
+typem:	movb (r1)+,r0
+	beq typem1
+	jsr pc,tyo
+	br typem
+
+monnam:	month jan
+	month feb
+	month mar
+	month apr
+	month may
+	month jun
+	month jul
+	month aug
+	month sep
+	month oct
+	month nov
+	month dec
+
+sete1:	typeit < ??
+>
+set:	typeit <
+type today's date as mmddyy - >
+	jsr r5,rd2
+	br sete1
+	mov r1,smon		;save month
+	jsr r5,rd2
+	br sete1
+	mov r1,sday		;save day
+	jsr r5,rd2
+	br sete1
+	mov r1,syear		;save year
+	typeit <
+type the time as hhmm (seconds will be set to zero) - >
+	jsr r5,rd2
+	br sete1
+	mov r1,shour
+	jsr r5,rd2
+	br sete1
+	mov r1,smin
+	typeit <
+>
+	mov #1*400+101,clkmd	;set to jan-1
+1$:	tstb clkcsr
+	bpl 1$
+	mov #40100,clkhm	;set to 00:00:00
+setyr:	jsr pc,rdclk		;read current clock
+	movb clkys+1,r0		;get the year
+	add #yrbase-1900.,r0
+	cmp r0,syear		;is the year correct?
+	beq setmd		;yes
+	mov clkmd,r0		;no, get current month/day
+	mov #3*400,r1
+	xor r1,r0
+	bis #100,r0
+	mov r0,clkmd		;complement low 2 month bits
+	br setyr
+
+setmd:	cmpb clkmd+1,smon	;compare current month with desired
+	bne 1$
+	cmpb clkmd,sday		;compare current day with desired
+	beq sethm		;both equal, go set time
+1$:	mov smon,r0
+	swab r0
+	bis sday,r0
+	bis #100,r0
+	mov r0,clkmd
+	br setyr
+
+sethm:	cmpb clkhm+1,shour
+	bne 1$
+	cmpb clkhm,smin
+	beq setdn
+1$:	mov shour,r0
+	swab r0
+	bis smin,r0
+	bis #40100,r0
+	mov r0,clkhm
+setdn:	jmp goloop
+
+rd2:	jsr r5,ntyi
+	br rd2e
+	mov r0,r1
+	mul #10.,r1
+	jsr r5,ntyi
+	br rd2e
+	add r0,r1
+	tst (r5)+
+rd2e:	rts r5
+	
+ntyi:	jsr pc,tyi
+	cmp r0,#'0
+	blt ntyi1
+	cmp r0,#'9
+	bgt ntyi1
+	sub #'0,r0
+	tst (r5)+
+ntyi1:	rts r5
+;ttitst, tyi, TYO, TYPE, dtype, rtype, ntyo
+
+ttitst:	tstb rcsr
+	bpl 1$
+	tst (r5)+
+1$:	rts r5
+
+tyi:	jsr r5,ttitst
+	br tyi
+	movb rdb,r0
+	BIC #177600,R0
+	BEQ TYiRET		;IGNORE NULLS
+	CMPB R0,#175
+	BNE TYI1
+	MOV #33,R0
+TYI1:	CMPB R0,#'a
+	BLO TYI2
+	CMPB R0,#'z
+	BHI TYI2
+	SUB #'a-'A,R0
+TYI2:	cmp r0,#15
+	bne tyo
+	jsr pc,tyo
+	mov #12,r0
+	jsr pc,tyo
+	mov #15,r0
+tyiret:	rts pc
+
+;TYPE CHARACTER IN R0.
+TYO:	BIC #177600,R0		;FLUSH PARITY BIT
+	BEQ TYORET		;TYPE NULLS (PADDING) IF VT05
+TYOTYP:	TSTB TCSR
+	BPL tyotyp
+	MOVB R0,TDB
+	CMPB R0,#12
+	BNE TYORET
+	CLR R0
+	JSR PC,TYOTYP
+	JSR PC,TYOTYP
+	JSR PC,TYOTYP
+	JSR PC,TYOTYP
+	MOV #12,R0
+TYORET:	RTS PC
+
+;CALL WITH JSR R5,TYPE FOLLOWED BY BYTES OF ASCII TO BE TYPED FOLLOWED BY ZERO BYTE
+
+TYPE0:	JSR PC,TYO
+TYPE:	MOVB (R5)+,R0
+	BNE TYPE0
+	INC R5			;INCREMENT TO NEXT EVEN ADDRESS
+	BIC #1,R5
+	RTS R5
+
+;TYPE DECIMAL INTEGER IN R1
+DTYPE:	MOV R2,-(SP)
+	MOV #10.,R2
+	JSR PC,RTYPE
+DTYPEX:	MOV (SP)+,R2
+	RTS PC
+
+;TYPE NUMBER, RADIX (8 OR 10) IN R2, NUMBER IN R1
+RTYPE:	CLR R0
+	DIV R2,R0
+	BEQ RTYPE1
+	MOV R1,-(SP)
+	MOV R0,R1
+	JSR PC,RTYPE
+	MOV (SP)+,R1
+RTYPE1:	MOV R1,R0
+NTYO:	ADD #'0,R0
+	JMP TYO
+
+
+d2type:	clr r0
+	cmp r1,#10.
+	bge 1$
+	jsr pc,ntyo
+1$:	br dtype
+md:	0
+hm:	0
+ys:	0
+smon:	0
+sday:	0
+syear:	0
+shour:	0
+smin:	0
+
+patch:	.blkw 400
+
+.end go

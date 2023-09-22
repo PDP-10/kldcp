@@ -1,0 +1,177 @@
+/FONT#0=FIX20.FNT[XGP,SYS]
+/BMAR=1
+/TMAR=128
+/RMAR=1699
+/LMAR=128
+/PMAR=2065
+/XLINE=4
+SAIL JBR        15:10:40 Wednesday, October 5, 1977   LQ+17H.5M.16S.
+BOOT.PAL[KL,SYS] Created 12:53 Friday, January 21, 1977   NM+2D.0H.13M.3S.
+
+BBBBBBBBBBBB            OOOOOOOOO            OOOOOOOOO         TTTTTTTTTTTTTTT
+BBBBBBBBBBBB            OOOOOOOOO            OOOOOOOOO         TTTTTTTTTTTTTTT
+BBBBBBBBBBBB            OOOOOOOOO            OOOOOOOOO         TTTTTTTTTTTTTTT
+BBB         BBB      OOO         OOO      OOO         OOO            TTT      
+BBB         BBB      OOO         OOO      OOO         OOO            TTT      
+BBB         BBB      OOO         OOO      OOO         OOO            TTT      
+BBB         BBB      OOO         OOO      OOO         OOO            TTT      
+BBB         BBB      OOO         OOO      OOO         OOO            TTT      
+BBB         BBB      OOO         OOO      OOO         OOO            TTT      
+BBBBBBBBBBBB         OOO         OOO      OOO         OOO            TTT      
+BBBBBBBBBBBB         OOO         OOO      OOO         OOO            TTT      
+BBBBBBBBBBBB         OOO         OOO      OOO         OOO            TTT      
+BBB         BBB      OOO         OOO      OOO         OOO            TTT      
+BBB         BBB      OOO         OOO      OOO         OOO            TTT      
+BBB         BBB      OOO         OOO      OOO         OOO            TTT      
+BBB         BBB      OOO         OOO      OOO         OOO            TTT      
+BBB         BBB      OOO         OOO      OOO         OOO            TTT      
+BBB         BBB      OOO         OOO      OOO         OOO            TTT      
+BBBBBBBBBBBB            OOOOOOOOO            OOOOOOOOO               TTT      
+BBBBBBBBBBBB            OOOOOOOOO            OOOOOOOOO               TTT      
+BBBBBBBBBBBB            OOOOOOOOO            OOOOOOOOO               TTT      
+
+SAIL JBR        15:10:40 Wednesday, October 5, 1977   LQ+17H.5M.16S.
+BOOT.PAL[KL,SYS] Created 12:53 Friday, January 21, 1977   NM+2D.0H.13M.3S.
+
+PPPPPPPPPPPP               AAA            LLL            
+PPPPPPPPPPPP               AAA            LLL            
+PPPPPPPPPPPP               AAA            LLL            
+PPP         PPP         AAA   AAA         LLL            
+PPP         PPP         AAA   AAA         LLL            
+PPP         PPP         AAA   AAA         LLL            
+PPP         PPP      AAA         AAA      LLL            
+PPP         PPP      AAA         AAA      LLL            
+PPP         PPP      AAA         AAA      LLL            
+PPPPPPPPPPPP         AAA         AAA      LLL            
+PPPPPPPPPPPP         AAA         AAA      LLL            
+PPPPPPPPPPPP         AAA         AAA      LLL            
+PPP                  AAAAAAAAAAAAAAA      LLL            
+PPP                  AAAAAAAAAAAAAAA      LLL            
+PPP                  AAAAAAAAAAAAAAA      LLL            
+PPP                  AAA         AAA      LLL            
+PPP                  AAA         AAA      LLL            
+PPP                  AAA         AAA      LLL            
+PPP                  AAA         AAA      LLLLLLLLLLLLLLL
+PPP                  AAA         AAA      LLLLLLLLLLLLLLL
+PPP                  AAA         AAA      LLLLLLLLLLLLLLL
+
+KLDCP.PAL[KL,SYS]      PRM11.PAL[KL,SYS]      BEG11.PAL[KL,SYS]      CONS11.PAL[KL,SYS]     SUB11.PAL[KL,SYS]
+FD11.PAL[KL,SYS]       DTA11.PAL[KL,SYS]      BOOT.PAL[KL,SYS]       APT11.PAL[KL,SYS]      BR11.PAL[KL,SYS]
+SBST11.PAL[KL,SYS]
+
+
+Switch Settings: L[PALX11] C[KLDCP.ATC] % I 5000S 78V 120W X[Noqueue] ↑ 
+Fonts: F[FIX20.FNT[XGP,SYS],,] 
+LREC File:  SAIL:KLDCP.LRC[KL,SYS]
+↓&	                                                                 BOOT.PAL[KL,SYS] 10/05/77  Page 1↓'α
+001                                     COMMENT ⊗   VALID 00003 PAGES
+002                                     C REC  PAGE   DESCRIPTION
+003                                     C00001 00001
+004                                     C00002 00002	.SBTTL DSKDMP BOOTSTRAP LOADING SERVICE, JBR 23-MAY-76 - LDBOOT
+005                                     C00004 00003	$DS
+006                                     C00006 ENDMK
+007                                     C⊗;↓&	DSKDMP BOOTSTRAP LOADING SERVICE, JBR 23-MAY-76 - LDBOOT         BOOT.PAL[KL,SYS] 10/05/77  Page 2↓'α
+001                                     .SBTTL DSKDMP BOOTSTRAP LOADING SERVICE, JBR 23-MAY-76 - LDBOOT
+002                                     
+003                    KLDCP   003 016  .IF DF BOOASB
+004                                     
+005                                     ;LOAD DSKDMP BOOTSTRAP
+006                    PRM11   011 017  LDBOOT:	MOV #L10ADR+2,R3	;SETUP BLOCK START ADDRESS POINTER
+007                    PRM11   011 017  	CLR (R3)
+008                    PRM11   011 017  	MOVB LDCNT+1,(R3)	;HI-BYTE OF LDCNT IS ADR BITS 18 & 19
+009                    PRM11   011 017  	MOV LDADR,-(R3)		;SETUP ADR BITS 20-35
+010                                     	TST LDZBLK		;IS IT A Z LINE?
+011                            002 035  	BEQ LDBDAT		;NO, LOAD DATA
+012  PRM11   011 017                    	MOV (R3)+,BOOTBG	;STARTING ZERO ADDRESS (LOW 16 BITS)
+013  PRM11   011 017                    	MOV (R3),BOOTBG+2	; HIGH TWO BITS (18 AND 19)
+014                    PRM11   011 015  	CLR R1
+015                    PRM11   011 016  	MOV #LDATA,R2
+016                    PRM11   011 017  	MOVB LDCNT,R3
+017  PRM11   011 016   PRM11   011 015  1$:	ADD (R2)+,R1		;ACCUMULATE TOTAL # WORDS TO ZERO
+018                    PRM11   011 017  	DEC R3
+019                    CONS11  002 007  	BNE 1$
+020  PRM11   011 015   PRM11   011 016  	MOV R1,R2
+021  PRM11   011 015                    	SL R1,1
+022  PRM11   011 016   PRM11   011 015  	ADD R2,R1		;TIMES 3 IS NUMBER OF PDP-11 WORDS
+023  PRM11   011 015   PRM11   043 004  	CMP R1,#BOOTSZ
+024                    CONS11  002 031  	BLE 2$			;BRANCH IF SMALL ENOUGH
+025                    PRM11   008 006  	PMSG <?BOOT TOO LONG>
+026                    BEG11   002 007  	JMP $CNTLC
+027                                     
+028                    PRM11   011 015  2$:	MOV #BOOTBF,R1
+029  PRM11   043 004   PRM11   011 016  	MOV #BOOTSZ,R2
+030                    PRM11   011 015  3$:	CLR (R1)+
+031                    PRM11   011 016  	DEC R2
+032                    CONS11  005 001  	BNE 3$			;CLEAR OUT THE BOOT BUFFER
+033                    DTA11   004 011  LDBLD2:	JMP LLD2		;DO NEXT LINE
+034                                     
+035                    PRM11   011 014  LDBDAT:	MOVB LDCNT,R0		;WC
+036                            002 050  	BEQ LDBXFR		;WC=0 MEANS TRANSFER BLOCK
+037                    PRM11   011 015  	MOV #LDATA,R1
+038                    PRM11   011 016  	MOV LDADR,R2
+039                    PRM11   011 016  	SUB BOOTBG,R2		;GET OFFSET FROM START OF BUFFER
+040  PRM11   011 016   PRM11   011 017  	MOV R2,R3
+041  PRM11   011 016                    	SL R2,2
+042  PRM11   011 017                    	SL R3,1
+043  PRM11   011 017   PRM11   011 016  	ADD R3,R2		;TIMES 6 GIVES BYTE OFFSET FROM BOOTBF
+044                    PRM11   011 016  	ADD #BOOTBF,R2
+045  PRM11   011 015   PRM11   011 016  5$:	MOV (R1)+,(R2)+		;COPY A WORD
+046                    PRM11   011 014  	DEC R0
+047                    CONS11  024 048  	BNE 5$
+048                            002 033  	BR LDBLD2
+049                                     
+050  PRM11   011 017                    LDBXFR:	MOV (R3)+,BOOTSA
+051  PRM11   011 017                    	MOV (R3),BOOTSA+2	;SAVE AWAY STARTING ADDRESS
+052                    DTA11   008 003  	JMP LDDONE↓&	DSKDMP BOOTSTRAP LOADING SERVICE, JBR 23-MAY-76 - LDBOOT         BOOT.PAL[KL,SYS] 10/05/77  Page 3↓'α
+001                                     ;$DS
+002                                     
+003                                     ;COPY DSKDMP BOOT INTO PDP-10 AND START IT
+004                                     
+005                    PRM11   003 033  $DS:	TTITRM
+006                                     	TST BOOTSA
+007                    CONS11  002 031  	BNE 2$
+008                                     	TST BOOTSA+2
+009                    CONS11  002 031  	BNE 2$
+010                    PRM11   008 006  	PMSG <?DSKDMP BOOT NOT LOADED - USE LD>
+011                    BEG11   002 007  	JMP $CNTLC
+012                                     
+013                                     2$:	CMP PEBITS,#36
+014                    CONS11  005 001  	BEQ 3$
+015                                     	CMP PEBITS,#37
+016                    CONS11  005 001  	BEQ 3$
+017  CONS11  030 011                    	PMSG <BAD PARITY ENABLES, TYPE PE 36 FIRST>
+018                    BEG11   002 007  	JMP $CNTLC
+019                                     
+020                                     3$:	CMP CLKDFL+4,#17
+021                    CONS11  004 051  	BEQ 4$
+022                    CONS11  030 011  	PMSG <WARNING!  SOME CACHES DISABLED - TYPE CE 17 TO ENABLE ALL\>
+023                    PRM11   011 017  4$:	MOV #L10ADR+2,R3
+024                    PRM11   011 017  	MOV BOOTBG+2,(R3)
+025                    PRM11   011 017  	MOV BOOTBG,-(R3)
+026  PRM11   043 003   PRM11   011 016  	MOV #BOOTWD,R2		;NUMBER OF PDP-10 WORDS IN BUFFER
+027                    PRM11   011 018  	MOV #BOOTBF,R4
+028                    PRM11   006 024  	MRESET
+029                    PRM11   006 032  	SM
+030  PRM11   011 017   PRM11   011 015  1$:	MOV R3,R1
+031  PRM11   011 018   PRM11   011 014  	MOV R4,R0
+032                    PRM11   006 044  	DPOSVR
+033                            003 044  	BCS DSVER
+034                    PRM11   011 017  	INC (R3)		;STAY IN SAME 64K SECTION
+035                    PRM11   011 018  	ADD #6,R4		;NEXT PDP-10 WORDS WORTH
+036                    PRM11   011 016  	DEC R2
+037                    CONS11  002 007  	BNE 1$
+038                    PRM11   011 018  	MOV #PGOADR,R4
+039                    PRM11   011 018  	MOV BOOTSA,(R4)+
+040                    PRM11   011 018  	MOV BOOTSA+2,(R4)
+041                                     	MOV #2,PGOCTL
+042                    CONS11  055 049  	JMP $$GO		;START IT UP
+043                                     
+044                    PRM11   008 006  DSVER:	PMSG <DEPOSIT/EXAMINE ERROR IN DS>
+045                    BEG11   002 007  	JMP $CNTLC
+046                                     
+047                                     .ENDC ;IF DF BOOASBSymbol Table for:    BOOT.PAL[KL,SYS]                                        10/05/77  Page I
+                     
+
+$DS      003 005   2$       002 028   3$       003 020   5$       002 045   LDBDAT   002 035   LDBOOT   002 006 
+1$       002 017   2$       003 013   4$       003 023   DSVER    003 044   LDBLD2   002 033   LDBXFR   002 050 
+1$       003 030   3$       002 030   

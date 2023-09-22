@@ -1,0 +1,488 @@
+COMMENT ⊗   VALID 00011 PAGES
+C REC  PAGE   DESCRIPTION
+C00001 00001
+C00003 00002	Recommended Order of Diagnostics:
+C00005 00003	Known diagnostic deficiencies:
+C00007 00004	10-DGZAA-D-UB				Console Monitor Package
+C00009 00005	10-DGZKB-B-UB				Basic Diagnostics: MBOX and Memory
+C00013 00006	10-DGZKC-C1-UB				Cache, Pager, Meter test
+C00016 00007	10-DGZKD-A-UB				Data for clock Scanout #1
+C00020 00008	10-DGZKE-A-UB				Data for Clock Scanount # 2
+C00023 00009	10-DGZKF-D-UB				Internal Channels Diagnostics
+C00027 00010	10-DHZKB-A-UB				Basic Instruction Diags, Tape 2
+C00029 00011	10-DIZAA-F-UB				Console System Cusp
+C00032 ENDMK
+C⊗;
+Recommended Order of Diagnostics:
+
+Commence by loading the standard KLDCP From  tape 10-DGZAA-D-UB
+
+DGDTE .A11    78  08-SEP-75  <233>	DTE20 Basic Test
+DGKAA .A11    74  11-FEB-76  <233>	EBOX Basic Part 1   SKEW PROBLEMS!
+DGKAB .A11    95  11-FEB-76  <233>	EBOX Basic Part 2
+
+DGKBA .A11   110  22-DEC-75  <233>	MBOX basic.  Part 1
+DGKBB .A11   107  01-JAN-76  <233>	MBOX basic.  Part 2.  Memory exercise
+
+DGKBC .A11    75  18-AUG-75  <233>	Pager Logic
+DGMCA .A11   102  18-AUG-75  <233>	Cache (MCA20)
+DGKCA .A11    78  16-OCT-75  <233>	Meter
+
+who knows what else.
+
+-------
+
+Switches for diagnostic control
+
+PDP-11
+Bit		Function
+
+15		Stop at end of the current pass
+10		Ding on error
+ 9		loop on error
+ 8		halt on error
+ 7		print all errors
+			(use if it says error...error...error...
+			and won't tell you what error.)
+ 5		inhibit typeout
+ 1		operator select
+		 	(enter Diacon, also, select particular
+			tests, and operator intervention while
+			diag is running).
+
+The most useful diacon command:   TS nn where nn is a test number.
+use it to start at test number nn, after, presumably, a diag failed
+on test nn minus one.
+
+Known diagnostic deficiencies:
+
+DGKAB Version G.1
+
+addr    old     patch
+37634	050100	010100			PI2 Timer Done H
+37644   010004  050004
+41362   000xxx  000427
+41364   000xxx  000430
+41366   000xxx  000431
+41370   000xxx  000435
+41372   000xxx  000436
+41374   000xxx  000437
+46756   000003  000004	(don't know if these two help 34 sub 1)
+46772   000003  000004
+46762   005305  005001  
+
+diag still fails at test 34 sub 1 (after 128 passes clearing parity
+Ram to wrong parity?  or something... I haven't figured it out)
+
+DGKBA Version G.3
+Fails test 19 sub 1 tick 25.   CORE BUSY H
+Can't patch this, as the fix is to change the TIC file....
+proceed using TS 20 and various other failures involving CORE BUSY H will
+be seen.
+
+DGKBB runs until memory configuration, whereupon it drops dead if
+there are holes in the physical address space.
+
+DGMCA
+Test 2 complains about CSH ANY VALID H   (?)
+Other tests complain about CORE BUSY H.
+10-DGZAA-D-UB				Console Monitor Package
+
+TCDP  .BIN    17  10-SEP-75  <000>	Program loaded by DECTAPE BOOT
+UPD2  .BIN    26  10-SEP-75  <000>	Dectape Utility Diagnostic
+KLDCP .BIN    49  08-JAN-76  <233>	Original Diagnostic Console Monitor
+KLDCPU.A11     8  08-JAN-76  <233>	Utilities for KLDCP
+
+FREE BLKS:   407
+FREE FILES:   52
+
+
+10-DGZKA-C-UB				Basic Diagnotics DTE & E BOX
+
+DGDTE .A11    78  08-SEP-75  <233>	DTE20 Basic Test
+DGKAA .A11    74  11-FEB-76  <233>	EBOX Basic Part 1   SKEW PROBLEMS!
+DGKAB .A11    95  11-FEB-76  <233>	EBOX Basic Part 2
+EBOX  .RAM    25  11-FEB-76  <233>	Microcode for EBOX tests
+TRACE .A11   105  03-SEP-75  <233>	Diag signal trace utility
+TRACE .HLP     4  03-SEP-75  <233>	Help file for trace utility
+DS1017.A11    18  05-JUN-75  <233>	Signal name translate  100:117
+DS1257.A11    18  05-JUN-75  <233>	  for diag functions   120:157
+DS1677.A11    19  05-JUN-75  <233>			       160:177
+KLDIAG.CMD     1  12-JUN-75  <233>	Command file to execute diagnostics
+DGZKA .CMD     1  12-JUN-75  <233>	Command file to copy this tape to disk
+
+FREE BLKS:   124
+FREE FILES:   45
+
+
+10-DGZKB-B-UB				Basic Diagnostics: MBOX and Memory
+
+DGKBA .A11   110  22-DEC-75  <233>	MBOX basic.  Part 1
+DGKBB .A11   107  01-JAN-76  <233>	MBOX basic.  Part 2.  Memory exercise
+MBOX  .RAM    56  19-AUG-75  <233>	Microcode for above
+DS1677.A11    19  29-AUG-75  <233>	Signal name translations
+DS1257.A11    18  29-AUG-75  <233>
+DS1017.A11    18  29-AUG-75  <233>
+DIACON.HLP     3  08-APR-75  <233>	
+A6M1  .TIC     1  19-DEC-75  <233>      Mbox Scanout for DGKBA
+A7M1  .TIC     7  19-DEC-75  <233>
+A7M2  .TIC     1  19-DEC-75  <233>
+A7M3  .TIC     7  19-DEC-75  <233>
+A10M1 .TIC     1  19-DEC-75  <233>
+A10M2 .TIC     1  19-DEC-75  <233>
+A10M4 .TIC     1  19-DEC-75  <233>
+A16M1 .TIC     5  19-DEC-75  <233>
+A16M2 .TIC     5  19-DEC-75  <233>
+A16M3 .TIC     5  19-DEC-75  <233>
+A16M4 .TIC     5  19-DEC-75  <233>
+A18M1 .TIC     8  19-DEC-75  <233>
+A18M2 .TIC     3  19-DEC-75  <233>
+A19M1 .TIC     4  19-DEC-75  <233>
+A19M2 .TIC     1  19-DEC-75  <233>
+A19M3 .TIC     1  19-DEC-75  <233>
+A19M4 .TIC     1  19-DEC-75  <233>
+A19M7 .TIC     4  19-DEC-75  <233>
+A19M8 .TIC     1  19-DEC-75  <233>
+A19M9 .TIC     1  19-DEC-75  <233>
+A19M10.TIC     1  19-DEC-75  <233>
+A19M13.TIC     4  19-DEC-75  <233>
+A19M14.TIC     1  19-DEC-75  <233>
+A19M15.TIC     1  19-DEC-75  <233>
+A19M16.TIC     1  19-DEC-75  <233>
+A19M19.TIC     4  19-DEC-75  <233>
+A19M20.TIC     1  19-DEC-75  <233>
+A19M21.TIC     1  19-DEC-75  <233>
+A19M22.TIC     1  19-DEC-75  <233>
+A20M1 .TIC     1  19-DEC-75  <233>
+A20M2 .TIC     1  19-DEC-75  <233>
+A21M1 .TIC     4  19-DEC-75  <233>
+A21M2 .TIC     2  19-DEC-75  <233>
+A21M3 .TIC     1  19-DEC-75  <233>
+A23M1 .TIC     6  19-DEC-75  <233>
+A23M2 .TIC     1  19-DEC-75  <233>
+A23M3 .TIC     1  19-DEC-75  <233>
+A23M4 .TIC     1  19-DEC-75  <233>
+A23M5 .TIC     1  19-DEC-75  <233>
+A23M6 .TIC     1  19-DEC-75  <233>
+A23M7 .TIC     1  19-DEC-75  <233>
+A23M8 .TIC     1  19-DEC-75  <233>
+A23M9 .TIC     1  19-DEC-75  <233>
+DGZKB .CMD     2  19-DEC-75  <233>
+
+FREE BLKS:   128
+FREE FILES:    5
+
+
+10-DGZKC-C1-UB				Cache, Pager, Meter test
+
+DGKBC .A11    75  18-AUG-75  <233>	Pager Logic
+DGMCA .A11   102  18-AUG-75  <233>	Cache (MCA20)
+DGKCA .A11    78  16-OCT-75  <233>	Meter
+MBOX  .RAM    56  19-AUG-75  <233>
+K2M1  .TIC     1  05-SEP-75  <233>      MBOX Scanout for DGMCA
+K3M1  .TIC     6  05-SEP-75  <233>
+K3M2  .TIC     1  05-SEP-75  <233>
+K3M3  .TIC     1  05-SEP-75  <233>
+K4M1  .TIC     1  05-SEP-75  <233>
+K4M4  .TIC     1  05-SEP-75  <233>
+K8M1  .TIC     6  05-SEP-75  <233>
+K8M2  .TIC     1  05-SEP-75  <233>
+K8M3  .TIC     1  05-SEP-75  <233>
+K9M1  .TIC     1  05-SEP-75  <233>
+K9M4  .TIC     1  05-SEP-75  <233>
+P3M1  .TIC     4  05-SEP-75  <233>
+P3M2  .TIC     2  05-SEP-75  <233>
+P3M3  .TIC     1  05-SEP-75  <233>
+P3M4  .TIC     2  05-SEP-75  <233>
+P4M1  .TIC     1  05-SEP-75  <233>
+P4M2  .TIC     1  05-SEP-75  <233>
+P5M1  .TIC     1  05-SEP-75  <233>
+P5M2  .TIC     1  05-SEP-75  <233>
+P9M1  .TIC     7  05-SEP-75  <233>
+P10M1 .TIC     1  05-SEP-75  <233>
+P10M3 .TIC     1  05-SEP-75  <233>
+P10M7 .TIC     1  05-SEP-75  <233>
+P10M12.TIC     2  05-SEP-75  <233>
+DS1017.A11    18  05-JUN-75  <233>
+DS1257.A11    18  05-JUN-75  <233>
+DS1677.A11    19  05-JUN-75  <233>
+DGZKC .CMD     1  05-SEP-75  <233>
+
+FREE BLKS:   149
+FREE FILES:   24
+
+10-DGZKD-A-UB				Data for clock Scanout #1
+					MBOX Scanout for DGMCA
+
+K13M1 .TIC     8  05-SEP-75  <233>
+K13M2 .TIC     8  05-SEP-75  <233>
+K13M3 .TIC     8  05-SEP-75  <233>
+K14M1 .TIC     8  05-SEP-75  <233>
+K14M4 .TIC     8  05-SEP-75  <233>
+K18M1 .TIC     8  05-SEP-75  <233>
+K18M2 .TIC     8  05-SEP-75  <233>
+K18M3 .TIC     8  05-SEP-75  <233>
+K19M1 .TIC     8  05-SEP-75  <233>
+K19M4 .TIC     8  05-SEP-75  <233>
+K23M1 .TIC     8  05-SEP-75  <233>
+K23M2 .TIC     8  05-SEP-75  <233>
+K26M1 .TIC     8  05-SEP-75  <233>
+K26M2 .TIC     8  05-SEP-75  <233>
+K26M3 .TIC     8  05-SEP-75  <233>
+K26M4 .TIC     8  05-SEP-75  <233>
+K26M5 .TIC     8  05-SEP-75  <233>
+K26M6 .TIC     8  05-SEP-75  <233>
+K26M7 .TIC     8  05-SEP-75  <233>
+K26M8 .TIC     8  05-SEP-75  <233>
+K26M9 .TIC     8  05-SEP-75  <233>
+K26M10.TIC     8  05-SEP-75  <233>
+K26M11.TIC     8  05-SEP-75  <233>
+K26M12.TIC     8  05-SEP-75  <233>
+K27M1 .TIC     8  05-SEP-75  <233>
+K27M2 .TIC     8  05-SEP-75  <233>
+K30M1 .TIC     8  05-SEP-75  <233>
+K30M2 .TIC     8  05-SEP-75  <233>
+K30M3 .TIC     8  05-SEP-75  <233>
+K30M4 .TIC     8  05-SEP-75  <233>
+K30M5 .TIC     8  05-SEP-75  <233>
+K30M6 .TIC     8  05-SEP-75  <233>
+K30M7 .TIC     8  05-SEP-75  <233>
+K30M8 .TIC     8  05-SEP-75  <233>
+K30M9 .TIC     8  05-SEP-75  <233>
+K30M10.TIC     8  05-SEP-75  <233>
+K30M11.TIC     8  05-SEP-75  <233>
+K30M12.TIC     8  05-SEP-75  <233>
+K31M1 .TIC     8  05-SEP-75  <233>
+K31M2 .TIC     8  05-SEP-75  <233>
+K34M1 .TIC     8  05-SEP-75  <233>
+K34M2 .TIC     8  05-SEP-75  <233>
+K34M3 .TIC     8  05-SEP-75  <233>
+K34M4 .TIC     8  05-SEP-75  <233>
+K34M5 .TIC     8  05-SEP-75  <233>
+K34M6 .TIC     8  05-SEP-75  <233>
+K34M7 .TIC     8  05-SEP-75  <233>
+DS1017.A11    18  05-JUN-75  <233>
+DS1257.A11    18  05-JUN-75  <233>
+DS1677.A11    19  05-JUN-75  <233>
+DGZKD .CMD     2  06-JUN-75  <233>
+
+FREE BLKS:   129
+FREE FILES:    5
+
+
+10-DGZKE-A-UB				Data for Clock Scanount # 2
+					MBOX Scanout for DGMCA
+
+K34M8 .TIC     8  05-SEP-75  <233>
+K34M9 .TIC     8  05-SEP-75  <233>
+K34M10.TIC     8  05-SEP-75  <233>
+K34M11.TIC     8  05-SEP-75  <233>
+K34M12.TIC     8  05-SEP-75  <233>
+K35M1 .TIC     8  05-SEP-75  <233>
+K35M2 .TIC     8  05-SEP-75  <233>
+K38M1 .TIC     8  05-SEP-75  <233>
+K38M2 .TIC     8  05-SEP-75  <233>
+K38M3 .TIC     8  05-SEP-75  <233>
+K38M4 .TIC     8  05-SEP-75  <233>
+K38M5 .TIC     8  05-SEP-75  <233>
+K38M6 .TIC     8  05-SEP-75  <233>
+K38M7 .TIC     8  05-SEP-75  <233>
+K38M8 .TIC     8  05-SEP-75  <233>
+K38M9 .TIC     8  05-SEP-75  <233>
+K38M10.TIC     8  05-SEP-75  <233>
+K38M11.TIC     8  05-SEP-75  <233>
+K38M12.TIC     8  05-SEP-75  <233>
+K41M1 .TIC     8  05-SEP-75  <233>
+K41M2 .TIC     8  05-SEP-75  <233>
+K41M3 .TIC     8  05-SEP-75  <233>
+K41M4 .TIC     8  05-SEP-75  <233>
+K42M1 .TIC     8  05-SEP-75  <233>
+K42M2 .TIC     8  05-SEP-75  <233>
+K42M3 .TIC     8  05-SEP-75  <233>
+K42M4 .TIC     8  05-SEP-75  <233>
+K42M5 .TIC     8  05-SEP-75  <233>
+K42M6 .TIC     8  05-SEP-75  <233>
+K42M7 .TIC     8  05-SEP-75  <233>
+K42M8 .TIC     8  05-SEP-75  <233>
+K42M9 .TIC     8  05-SEP-75  <233>
+K43M1 .TIC     8  05-SEP-75  <233>
+K43M2 .TIC     8  05-SEP-75  <233>
+K43M3 .TIC     8  05-SEP-75  <233>
+K43M4 .TIC     8  05-SEP-75  <233>
+K44M1 .TIC     8  05-SEP-75  <233>
+K44M2 .TIC     8  05-SEP-75  <233>
+K45M1 .TIC     8  05-SEP-75  <233>
+K45M2 .TIC     8  05-SEP-75  <233>
+K45M3 .TIC     8  05-SEP-75  <233>
+K45M4 .TIC     8  05-SEP-75  <233>
+K45M5 .TIC     8  05-SEP-75  <233>
+K47M1 .TIC     8  05-SEP-75  <233>
+K49M1 .TIC     8  05-SEP-75  <233>
+K49M2 .TIC     8  05-SEP-75  <233>
+DS1017.A11    18  05-JUN-75  <233>
+DS1257.A11    18  05-JUN-75  <233>
+DS1677.A11    19  05-JUN-75  <233>
+DGZKE .CMD     2  06-JUN-75  <233>
+
+FREE BLKS:   137
+FREE FILES:    6
+
+
+10-DGZKF-D-UB				Internal Channels Diagnostics
+					SAIL doesn't have internal channels...
+DGKBD .A11    88  04-FEB-76  <233>
+DGKBE .A11    75  07-FEB-76  <233>
+MBOX  .RAM    56  19-AUG-75  <233>
+DS1677.A11    19  29-AUG-75  <233>
+DGQDC .A11    58  09-JAN-76  <233>
+CONEX .HLP     5  04-DEC-75  <233>
+
+FREE BLKS:   261
+FREE FILES:   50
+
+
+10-DGZKG-B-UB				MBOX Isolation Routines
+
+A1    .A11     3  23-DEC-75  <233>
+A2    .A11     3  23-DEC-75  <233>
+A3    .A11     6  23-DEC-75  <233>
+A4    .A11     9  23-DEC-75  <233>
+A5    .A11     6  02-JAN-76  <233>
+A6    .A11     1  23-DEC-75  <233>
+A7    .A11     2  02-JAN-76  <233>
+A8    .A11     1  23-DEC-75  <233>
+A9    .A11     1  23-DEC-75  <233>
+A10   .A11     2  02-JAN-76  <233>
+A11   .A11     7  23-DEC-75  <233>
+A12   .A11     1  23-DEC-75  <233>
+A13   .A11     1  23-DEC-75  <233>
+A14   .A11     2  23-DEC-75  <233>
+A15   .A11     7  23-DEC-75  <233>
+A16   .A11     1  23-DEC-75  <233>
+A17   .A11     1  23-DEC-75  <233>
+A18   .A11     5  23-DEC-75  <233>
+A19   .A11     2  23-DEC-75  <233>
+A20   .A11     1  23-DEC-75  <233>
+A21   .A11     1  23-DEC-75  <233>
+A22   .A11     1  23-DEC-75  <233>
+A23   .A11     2  23-DEC-75  <233>
+A24   .A11     1  23-DEC-75  <233>
+A25   .A11     3  02-JAN-76  <233>
+A26   .A11     1  02-JAN-76  <233>
+A27   .A11     1  02-JAN-76  <233>
+DGZKG .CMD     1  03-NOV-75  <233>
+
+FREE BLKS:   489
+FREE FILES:   28
+
+
+10-DHZKA-A-UB				Basic Instruction Diagnostics. Tape 1
+					If you get this far, everything's working...
+DEKAA .A10    48  02-MAY-75  <233>	Move; Skip; Compare; Boolean
+DEKAB .A10    55  02-MAY-75  <233>	Add; Sub; 
+DEKAC .A10    39  02-MAY-75  <233>	Test; Halfword
+DEKAD .A10    43  02-MAY-75  <233>	ACs and index
+DEKAE .A10    33  02-MAY-75  <233>
+DEKAF .A10    44  02-MAY-75  <233>
+DEKAG .A10    20  02-MAY-75  <233>
+DFKAH .A10    96  07-JUL-75  <233>
+
+FREE BLKS:   184
+FREE FILES:   48
+
+
+10-DHZKB-A-UB				Basic Instruction Diags, Tape 2
+
+DEKAI .A10    95  02-MAY-75  <233>
+DEKAJ .A10    67  02-MAY-75  <233>
+DEKAK .A10   126  02-MAY-75  <233>
+DEKAL .A10   133  02-MAY-75  <233>
+DEKAM .A10    83  02-MAY-75  <233>
+
+FREE BLKS:    58
+FREE FILES:   51
+
+
+10-DHZKC-A-UB				Instruction Reliability
+
+DEKBA .A10    74  02-MAY-75  <233>
+DEKBB .A10    81  02-MAY-75  <233>
+DEKBC .A10    77  02-MAY-75  <233>
+DEKBD .A10    38  02-MAY-75  <233>
+
+FREE BLKS:   292
+FREE FILES:   52
+
+
+10-DHZKD-A-UB				Advanced instruction diagnostic
+
+DEKCA .A10    78  02-MAY-75  <233>
+DEKCB .A10    39  02-MAY-75  <233>
+DEKCC .A10    68  02-MAY-75  <233>
+DEKCD .A10   130  02-MAY-75  <233>
+DEKCE .A10   103  02-MAY-75  <233>
+
+FREE BLKS:   144
+FREE FILES:   51
+
+
+10-DHZKE-A-UB				Advanced Reliability
+
+DFKDC .A10    38  07-JUL-75  <233>
+DFKEA .A10    74  02-MAY-75  <233>
+DFKEB .A10    30  02-MAY-75  <233>
+DFKFB .A10    19  02-MAY-75  <233>
+DFKFD .A10    56  07-JUL-75  <233>
+
+FREE BLKS:   345
+FREE FILES:   51
+
+
+10-DIZAA-F-UB				Console System Cusp
+
+U     .RAM    56  04-DEC-75  <233>	Original operating microcode
+BT    .I       1  04-DEC-75  <233>	Boot Ten command file
+BT    .X1      1  04-DEC-75  <233>	Boot Ten one way interleave
+BT    .X4      1  04-DEC-75  <233>	Boot Ten four way interleave
+CONFG .CCL     1  04-DEC-75  <233>	Configure Memory
+0CONFG.CCL     2  04-DEC-75  <233>
+1CONFG.CCL     2  04-DEC-75  <233>
+X1    .CCL     2  04-DEC-75  <233>	1-Way interleave
+X2    .CCL     2  04-DEC-75  <233>	2-Way interleave
+X4    .CCL     2  04-DEC-75  <233>	4-Way interleave
+MICLD .CCL     1  04-DEC-75  <233>
+KLLD  .CCL     1  04-DEC-75  <233>	Load memory command file: SUBRTN & DDT
+SUBRTN.A10    68  05-JAN-76  <233>	Subroutines for A10 dignostics
+KLDDT .A10    55  08-SEP-75  <233>	DDT for A10 diagnostics
+DIAMON.A10    59  06-JAN-76  <233>	Diagnostic monitor for A10 diags
+KLDCP .HLP    22  08-JAN-76  <233>	Info about KLDCP
+CONFG4.CCL     2  04-DEC-75  <233>
+CONEX .A11    58  09-JAN-76  <233>
+CONEX .HLP     5  04-DEC-75  <233>
+BT    .CMD     1  04-DEC-75  <233>
+B     .CMD     2  04-DEC-75  <233>	Command file to run all diags.  You wish!
+
+FREE BLKS:   218
+FREE FILES:   35
+
+
+10-DJZAA-E-UB				I don't recognize these.
+					11-based diags for various front end woes?
+UPD1  .BIN    17  15-MAY-75  <000>
+UPD2  .BIN    26  15-MAY-75  <000>
+TCDP  .BIN    17  29-JUL-75  <000>
+DBQEAB.BIN    60  11-AUG-75  <000>
+DZKWAD.BIN    12  19-JAN-76  <233>	KW11 Line Clock?
+DZTCBC.BIN    32  29-JUL-75  <000>	TC11 Tape control?
+DZQMCB.BIN    26  12-FEB-76  <233>	11 memory?
+DZRPSD.BIN    56  29-JUL-75  <000>	RP04?
+DZRPTD.BIN    51  29-JUL-75  <000>	RP04?
+DZDLCA.BIN    16  23-MAY-75  <233>	DL11 console or KLINIK?
+DFQAAA.BIN    46  28-MAY-75  <233>
+DZBMDF.BIN    16  13-OCT-75  <000>	BM873 bootstrap?
+YPTC  .BIN     8  29-OCT-75  <000>
+
+FREE BLKS:   124
+FREE FILES:   43
+
+

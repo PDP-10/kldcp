@@ -1,0 +1,1267 @@
+COMMENT ⊗   VALID 00019 PAGES
+C REC  PAGE   DESCRIPTION
+C00001 00001
+C00003 00002	CONO PI,bit 22  clears only the requests initiated with CONO PI,bit 24.
+C00009 00003	EPT and UPT locations
+C00013 00004	EBOX/MBOX interface
+C00023 00005	DTE20 KL10 I/O Functions
+C00025 00006	DTE20 PDP11 Registers
+C00032 00007	DTE20 Operations
+C00057 00008	EBUS PI CYCLE
+C00066 00009	DTE Miscellaneous
+C00067 00010	CRAM and DRAM Miscellaneous
+C00069 00011	KL10 Clock Card
+C00080 00012	PC Flags
+C00087 00013	PAGING
+C00092 00014	AC block usage
+C00094 00015	CON Miscellaneous
+C00096 00016	KLDCP
+C00097 00017	NXM, Parity Errors
+C00098 00018	The MBOX
+C00103 00019	DMA20
+C00107 ENDMK
+C⊗;
+CONO PI,bit 22  clears only the requests initiated with CONO PI,bit 24.
+In fact, that is the only way such a request can be cleared.
+
+DTE20 is device 200 same as DC
+AS is device 774 is unrestricted
+
+CONO PAG,E and CONI PAG,E
+  bit		function
+  18		cache look (enables looking in the cache)
+  19		cache load (enables writing into the cache)
+  20		unused
+  21		KL10 paging mode
+  22		trap and paging enable
+ 23-35		executive base register (EBR)
+
+DATAO PAG,E
+  bit		function
+  0		enable load current AC block and previous AC block
+  1		enable load CWSX and previous section
+  2		enable load UBR
+ 3-5		unused
+ 6-8		current AC block
+ 9-11		previous AC block
+ 12		CWSX
+13-17		previous section
+ 18		inhibit storing accounting meters
+24-35		UBR
+
+
+Microcode is assembled without KA10 floating point long mode instructions.
+They will trap as UUOS.  JSYS doesn't exist.  It will also trap as a UUO.
+
+LUUOs trap to 40 and 41 regardless of exec/user mode.
+
+New instruction BLKI PAG,E loads AC block 6 register 6 from C(E) and register
+7 from C(E+1).  This is intended for loading the page table pointers to the
+exec and user page tables respectively.
+EPT and UPT locations
+
+WARNING!!!!!!!!
+The KL10 will invent a "cache bit" for all of it's UPT and EPT references,
+i.e. whenever the microcode does UPT REF or EPT REF.  So it is possible that
+EPT and UPT locations wind up in the cache with stale data in core even if
+the system has the cache bit off for these pages in the page table.  This
+may cause trouble if some other processor needs to reference those locations.
+However, if the KL10 references them, it will reference the cache locations,
+since the KL will always read from the cache if it finds the data there (as long
+as CACHE LOOK is on).
+WARNING!!!!!!!!
+
+EPT location	function
+ 142		Vevtored interrupt location for DTE0
+ 421		EXEC arith overflow trap instruction
+ 422		EXEC PDL OV trap instruction
+ 423		EXEC TRAP-3 trap instruction
+ 440		KLDCP PDP-10 diagnostic start address
+ 441		KLDCP PDP-10 DDT start address
+ 442		KLDCP PDP-10 loader start address
+ 443		KLDCP PDP-10 monitor start address
+ 444		DTE20 operation complete flag
+ 445		      Clock interrupt flag
+ 446		      Time and date (from battery backup clock)
+ 447		      To 11 argument
+ 450		      From 11 argument
+ 451		      To 11 command word
+ 452		      unused (DTE20 operation sequence number)
+ 453		      unused (DTE20 operation in progress flag)
+ 454		      Last key struck on CTY
+ 455		      Monitor TTY output complete flag
+ 456		      Monitor TTY input flag
+ 457		      PDP-10 switch register (deposited here
+						by the 11 every tick)
+ 510		Timebase is EPT 510-511
+ 512		Performance counter is EPT 512-513
+ 514		Interval timer vector interrupt location
+
+
+
+UPT location	function
+ 421		USER arith overflow trap instruction
+ 422		USER PDL OV trap instruction
+ 423		USER TRAP-3 trap instruction
+ 424		KA syle MUUO stored here (XR and @ bits are off,rh = effective addr)
+ 425		KA style flags,,PC+1 of MUUO stored here
+ 426		process context word: 60wxyz,,UBR in DATAO PAG, format, where
+		 w = current AC block, x = previous AC block, yz = CWSX,prev section
+
+ 430		KERNEL     NO TRAP new MUUO PC word
+ 431		KERNEL        TRAP new MUUO PC word
+ 432		SUPERVISOR NO TRAP new MUUO PC word
+ 433		SUPERVISOR    TRAP new MUUO PC word
+ 434		CONCEALED  NO TRAP new MUUO PC word
+ 435		CONCEALED     TRAP new MUUO PC word
+ 436		PUBLIC     NO TRAP new MUUO PC word
+ 437		PUBLIC        TRAP new MUUO PC word
+ 500		Page fail word
+ 501		Page fail PC
+ 502		Page fail new PC word
+ 504		EBOX counter is UPT 504-505
+ 506		MBOX counter is UPT 506-507
+EBOX/MBOX interface
+
+Microcode MEM field
+
+decode		name
+  1		MCL MEM/ARL IND
+  2		MCL MEM/MB WAIT
+  3		MCL MEM/SECTION ZERO
+  4		MCL MEM/AREAD
+  5		MCL MEM/B WRITE
+  6		MCL MEM/FETCH
+  7		MCL MEM/REG FUNC
+ 10		MCL MEM/A@
+ 11		MCL MEM/B@
+ 12		MCL MEM/LOAD AR
+ 13		MCL MEM/LOAD ARX
+ 14		MCL MEM/AD FUNC
+ 15		MCL MEM/BREAD
+ 16		MCL MEM/WRITE
+ 17		MCL MEM/RPW CYCLE
+
+The EBOX requests a cycle from the MBOX by asserting MCL MBOX CYC REQ.
+This will happen if:
+  1)	MCL MEM 00 is true (decodes 10-17)
+  2)	MCL MEM/AREAD is true and the DRAM A field is not 0 or 2 (0 is immediate,
+	2 is illegal)
+  3)	MCL MEM/FETCH and -CON PI CYCLE are both true
+  4)	MCL MEM/B WRITE is true and the DRAM B field bit 01 is on (DBL BOTH, SELF,
+	MEM, BOTH)
+  5)	MCL MEM/REG FUNC is true
+  6)	MCL MEM/FETCH and #01 are true (regardless of CON PI CYCLE) and
+	IR TEST SATISFIED is true (fetch is conditional on test specified by
+	DRAM B field)
+  7)	MCL MEM/AREAD and IR JRST 0, are true (the A field for JRST says
+	"immediate" and the jump field is buggered to provide a 16 way dispatch
+	on the ac field.  Some of the JRST instructions need to do memory cycles
+	but JRST 0, doesn't and so a fetch is started for it here.  The DRAM A
+	field being "immediate" causes the VMA to be loaded from the AD which
+	has the effective address)
+  8)	MCL MEM/FETCH and #00 both true (#00 indicates unconditional fetch)
+  9)	MCL SPEC/SP MEM CYCLE and #00 both true (fetch: load IR)
+
+The signal MCL REQ EN will be true if either MEM 00 or 01 (i.e., 4-17) is true,
+except for a MEM/B WRITE with DRAM B field bit 1 off.  MCL REQ EN enables several
+flip flops to load information about the MBOX cycle that the EBOX is just now
+requesting.  In particular it enables the following to be loaded:
+   signal			page
+MCL VMA READ			MCL2
+MCL VMA PAUSE			MCL2
+MCL VMA WRITE			MCL2
+MCL VMA FETCH			MCL2
+MCL LOAD AR			MCL2
+MCL LOAD ARX			MCL2
+MCL STORE AR			MCL2
+MCL EBOX MAP			MCL6
+MCL REG FUNC			MCL6
+APR REG FUNC EN			APR6
+#01-02,06-07			APR6
+
+MCL VMA READ, PAUSE, WRITE and FETCH are used to control the MBOX when it
+does this cycle for the EBOX.
+
+Bit 2 causes CON MBOX WAIT if CON MEM CYCLE is set (set by MCL MBOX CYC REQ)
+
+MCL LOAD VMA HELD is asserted by either MEM 02 or CON COND/LOAD VMA HELD.
+It causes the VMA HELD register to be loaded from the VMA and the MCL cycle
+type flip flops.  The left half of this register gets loaded with:
+  bit		function
+   1		MCL LOAD AR
+   2		MCL LOAD ARX
+   3		MCL VMA PAUSE
+   4		MCL VMA WRITE
+   5		MCL VMA USER
+   6		MCL VMA PUBLIC
+   7		MCL VMA PREVIOUS
+   8		MCL VMA EXTENDED
+   9		MCL VMA FETCH
+  10		MCL EBOX MAP
+  11		-MCL EBOX CACHE
+  12		-MCL EBOX MAY BE PAGED
+
+
+
+VMA control (this is hairy, controlled mostly on the MCL print)
+
+Microcode VMA field
+
+value		function
+ 00		inhibits loading VMA and VMAX
+ 01 (PC)	VMA←PC
+ 10 (PC+1)	VMA←PC+1
+ 11		load the VMA from the AD
+
+any non-zero value in the VMA field (except during a satisfied jump condition)
+causes MCL LOAD VMA which causes CON VMA SEL 2,1 to be set to 11 enabling
+the VMA and VMAX to load.  The VMA will load from the VMA AD unless the
+VMA field is 11 in which case it will load from the AD.  VMAX bits are
+controlled by the VMA 13-17 IN mixer.
+
+the VMA AD is normally set up to the PC.  If the VMA field is 10 or 11 then
+the VMA AD has PC+1 (irrelevant in the case of VMA field = 11) because
+SCD TRAP MIX 35 has been set.  It is also possible to get VMA←PC+1 using
+VMA field 01 if MCL VMA INC is true which occurs when a non-pi skip
+condition is satisfied.
+
+COND/VMA INC and COND/VMA DEC increment and decrement the VMA respectively
+leaving VMAX alone.
+
+any time the VMA loads the VMAX does also.  It will load with zeros if
+MCL VMAX EN is false which will occur on RESET, MEM/SECTION ZERO,
+SPEC/SP MEM CYCLE with #03 and on several PXCT/SXCT conditions.
+Otherwise, it is enabled for loading from one of four places selected
+by MCL VMAX SEL 2,1.
+ 00		VMA 13-17 (VMAX)
+ 01		PC 13-17 (PC section)
+ 10		VMA PREV SEC 13-17
+ 11		AD 13-17
+
+CTL SPEC/SECTION HOLD forces 00.  MCL VMA PREV EN forces 2 or 3, -MCL VMA PREV EN
+forces 1 or 3.  MCL VMA EXT EN, MCL MEM/AD FUNC and MCL MEM/REG FUNC force 3.
+
+COND field decodes of 30-34 modify the VMA AD value (which is looked at
+only if the VMA field is 01 or 10).
+VMA AD 18-26	0
+VMA AD 27-31	#0-4
+VMA AD 32-35	SCD TRAP MIX 32-35
+
+SCD TRAP MIX 32-35 is determined by the COND field (except that SCD TRAP MIX 35
+is ored with one if the VMA field is 10 or 11 and it is not a PI CYCLE).
+cond		SCD TRAP MIX 32-35
+ 30		#5-8
+ 31		#5,6,SCD TRAP CYC 2,1
+ 32		#5,SCD USER,PUBLIC,TRAP CYC 1 OR 2
+ 33		AR 32-35
+ 34		PI2 PI 4,2,1,#8
+
+
+Previous Context Execute (PXCT = XCT with non-zero AC field in exec mode only)
+  The AC field of the PXCT is decoded to determine when to enforce previous
+  context.  Note that previous context may be exec mode as well as user mode.
+  The previous context ACs are determined by DATAO PAG, bits 9-11.  For
+  previous context non-ac references, the PCU bit in the PC word (bit 6)
+  forces user mode previous context references.  The PXCT AC field bits
+  control which parts of the target instruction are interpreted in previous
+  context mode as follows:
+
+AC field value	   part of cycle done in previous context
+    10		Effective address computation of target instruction.  i.e.,
+		for indexing, the previous context ACs are used.  If the
+		effective address computation of the target instruction
+		involves an indirect cycle, then the location that is read
+		will be in the previous context if both this bit and the 4 bit
+		are on (the 4 bit enables reads and writes).
+
+     4		Any memory reference, whether reading or writing, that is
+		specified by E.  i.e.  the fetch or store of the effective
+		address, the source of a PUSH, or the destination of a POP
+		or a BLT.
+
+     2		Effective address computation of a byte pointer.  i.e., indexing
+		specified by a byte pointer.
+
+     1		Stack word in PUSH or POP, the source in a BLT, the fetch of
+		the effective address of the byte pointer in a load byte
+		instruction.
+DTE20 KL10 I/O Functions
+
+CONO DTE0,E
+  bit		func
+ 00-21		-
+  22		set DPS5 10 REQ INT (1)
+  23		clear DPS5 RELOAD PDP11 (1)
+  24		set DPS5 RELOAD PDP11 (1)
+  25		-
+  26		clear DPS5 REQ 10 INT (1)
+ 27-28		-
+  29		clear DPS5 10 TO11 NORM TERM (1) and DPS5 10 TO11 ERR TERM (1)
+  30		clear DPS5 10 TO10 NORM TERM (1) and DPS5 10 TO10 ERR TERM (1)
+  31		enable load PI0 ENABLE and PIA
+* 32		bit → DPS3 PI0 ENABLE (1) if enabled by bit 31 
+ 33-35		bits → DPS3 PIA 4,2,1 (1)       "
+
+* DPS3 PI0 ENABLE (1) is ignored since the 11 is privileged (EXT DIAG BUS CON)
+
+
+
+CONI DTE0,E
+  bit		func
+ 00-19		-
+  20		-EXT DIAG BUS CON (always reads back as zero)
+  21		INT1 PWR FAIL
+  22		DPS5 10 REQ INT (1)
+ 23-25		-
+  26		DPS5 REQ 10 INT (1)
+  27		DPS5 10 TO11 ERR TERM (1)
+  28		-
+  29		DPS5 10 TO11 NORM TERM (1)
+  30		DPS5 10 TO10 NORM TERM (1)
+  31		DPS5 10 TO10 ERR TERM (1)
+  32		DPS3 PI0 ENABLE (1)
+ 33-35		DPS3 PIA 4,2,1 (1)
+
+
+
+DATAO DTE0,E
+  bit		func
+ 00-22		-
+  23		bit → DPS5 TO10 I BIT (1)
+ 24-35		bits → DPS2 EBHOLD 11-00 (1)
+DTE20 PDP11 Registers
+
+UNIBUS locations 174400 - 174427 are contained in a RAM in the DTE20.
+These locations may not be written in byte mode.  Reading any RAM location
+returns the last value written there.  Writing into certain RAM locations
+has side effects indicated by the functions below.
+
+DLYCNT	174400	(RAM)
+DEXWD3	174402	(RAM)
+  bit		func
+ 15-00		KL10 data bits 20-35
+
+
+
+  bit		func
+ 15-00		KL10 data bits 4-19
+
+
+
+  bit		func
+ 15-04		-
+ 03-00		KL10 data bits 0-3
+
+
+
+TENAD1	174410	(RAM)
+  bit		func
+ 15-13		address space
+  12		bit → CNT5 DEP (1)
+  11		* bit → CNT2 PROTECTION OFF (1)
+ 10-07		-
+ 06-00		KL10 address bits 13-19
+
+* CNT2 PROTECTION OFF (1) is cleared by CNT4 DEX DONE although the corresponding
+  bit in the RAM location remains set.
+
+
+
+TENAD2	174412	(RAM)
+  bit		func
+ 15-00		* KL10 address bits 20-35
+
+* writing into the TENAD2 register sets CNT5 DEX START (1), which is cleared by
+  CNT4 DEX DONE or INT1 MST CLR and can be read as STATUS bit 2 (inverted).
+
+
+
+TO10BC	174414	(RAM)
+
+DIAG1	174430
+  bit	read				write (byte operations illegal)
+ 15-09	* EBUS DS00-06			** CNT3 DIAG DS 00-06 (1)
+  08	CNT4 DEX (1)			-
+  07	CNT4 TO10 TRANS (1)		*** CNT3 REMOVE STATUS
+  06	CNT4 TO11 TRANS (1)		-
+  05	CNT3 DIAG 10/11 (1)		CNT3 DIAG 10/11 (1)
+  04	-				CNT5 SINGLE PLS (1)
+  03	-				CNT3 DIAG KL10 (1)
+  02	-				CNT3 DIAG SEND (1)
+  01	-				-
+  00	-				**** CNT3 DIAG COM START (1)
+
+*    the "or" of TTL DS lines and:
+      DS04 = CLK ERROR STOP, DS05 = CON RUN, DS06 = CON EBOX HALTED (EBOX HALT LOOP)
+**   if EXT DIAG BUS CON (always true) CNT3 DIAG DS 00-06 (1) get ored with
+     EBUS DS00-06 on the TTL bus.
+***  if EXT DIAG BUS CON (always true) CNT3 REMOVE STATUS drives EBUS REMOVE
+     DS STATUS which causes the ecl EBUS DS00-06 E lines to be driven from
+     the ttl EBUS DS00-06 lines which are being driven from CNT3 DIAG DS 00-06.
+**** CNT3 DIAG COM START (1) gets synchronized, then causes CNT3 STROBE (1)
+     which goes out as EBUS DIAG STROBE for one clock period (8 10/11 ticks).  One
+     period after CNT3 STROBE (1) clears, the entire DIAG1 register is cleared.
+
+10/11 clock ticks are happening at 12.5 MHz = 80 ns. (1/2 MBOX rate)
+
+
+
+
+DIAG2	174432
+  bit	read				write (byte operations illegal)
+  15	DPS4 ADR3 (CNT1 ADR 3)		-
+  14	DPS4 ADR2 (CNT1 ADR 2)		CNT2 BUS DONE SET
+  13	DPS4 ADR1 (CNT1 ADR 1)		-
+  12	DPS4 ADR0 (CNT1 ADR 0)		-
+ 11-07	-				-
+  06	-				reset (INT1 MST CLR)
+  05	-				-
+ 04-01	-				loaded into CNT4 STATE COUNT
+  00	-				-
+
+
+
+STATUS	174434
+  bit	read				write (byte operations permissible)
+  15	DPS5 11 TO10 NORM TERM(1)	set DPS5 11 TO10 NORM TERM (1)
+  14	-				clear DPS5 11 TO10 NORM TERM (1)
+  13	DPS5 11 TO10 ERR TERM (1)	set DPS5 11 TO10 ERR TERM (1)
+  12	DPS4 RAM = 0			clear DPS5 11 TO10 ERR TERM (1)
+  11	DPS5 10 REQ INT (1)		set DPS5 10 REQ INT (1)
+  10	-CNT4 DEX WD1			clear DPS5 10 REQ INT (1)
+  09	DPS5 PAR ERR (1)		clear DPS5 PAR ERR (1)
+  08	DPS5 REQ 10 INT (1)		set DPS5 REQ 10 INT (1)
+  07	DPS5 11 TO11 NORM TERM (1)	set DPS5 11 TO11 NORM TERM (1)
+  06	CNT6 E-BUF SEL			clear DPS5 11 TO11 NORM TERM (1)
+					 and DPS5 NULL STOP (1)
+  05	DPS5 NULL STOP (1)		set DPS5 11 INTERRUPT EN (1)
+  04	DPS5 EBUS PARITY ERROR (1)	* clear DPS5 EBUS PARITY ERROR (1)
+  03	-EXT DIAG BUS CON (always 0)	clear DPS5 11 INTERRUPT EN (1)
+  02	CNT5 DEX START (0)		* set DPS5 EBUS PARITY ERROR (1)
+  01	DPS5 11 TO11 ERR TERM (1)	set DPS5 11 TO11 ERR TERM (1)
+  00	DPS5 11 INTERRUPT EN (1)	clear DPS5 11 TO11 ERR TERM (1)
+
+* there is a bug whereby writing these bits with byte instructions won't work!
+
+
+
+DIAG3	174436
+  bit	read				write (byte operations illegal)
+  15	-CNT1 SWAP SEL LT		-
+  14	DPS4 PARITY (1)			-
+ 13-09	DPS7 CAP DATA 15 - 11		-
+  08	DPS7 CAP DATA A00		-
+ 07-06	-				-
+  05	-				CNT8 CAP DATA CLK
+  04	CNT8 DATO PAR ERR (1)		clear CNT8 DATO PAR ERR (1)
+					 and CNT8 DATO REC ERR (1)
+  03	CNT5 WRITE EVEN PAR (1)		bit → CNT5 WRITE EVEN PAR (1)
+  02	CNT8 DATO REC ERR (1)		-
+  01	CNT8 NPR PAR ERR (1)		clear CNT8 NPR PAR ERR (1)
+  00	-				bit → CNT5 TO10 BYTE MODE (1)
+DTE20 Operations
+
+Examine/Deposit
+
+The PDP-11 can examine and deposit in KL10 lgoical memory (i.e., possibly
+in the cache) by using the five RAM locations:
+  DEXWD1, DEXWD2, DEXWD3, TENAD1 and TENAD2
+For a deposit operation, the PDP-11 writes the 36 bit data word into
+DEXWD1-3 and writes the deposit address into TENAD1-2.  For an examine,
+it writes only the address and the data appears in DEXWD1-3.  None of these
+registers are changed by the DTE20 and so their contents may be reused
+for future examines and deposits.
+
+The examine or deposit operation is initiated by writing into TENAD2.  Therefore
+this should be the last location set up by the PDP-11 before the operation.
+TENAD1 also contains several bits giving more information about the operation.
+Bits 15-13 indicates the address space in which the operation is to be performed.
+Bit 12 indicates whether the operation is to be an examine or a deposit.
+Bit 11 is set to do an unprotected examine or deposit.  This bit acts in a very
+stange way.  There is a flip flop for this bit in addition to the memory for
+it in the RAM.  This flip flop is set from bit 11 on a UNIBUS DATO operation
+to the TENAD1 register.  So, before the operation begins, the flip flop and
+the RAM agree.  The protectedness of the examine or deposit is determined by
+the flip flop rather than by the RAM location.  After the operation completes,
+however, the flip flop is cleared (set to protected), although the RAM location
+is unchanged.  Therefore, if another examine/deposit is attempted without first
+writing into TENAD1 it will be a protected operation, independent of the state
+of bit 11 in the TENAD1 RAM location.  DEC's reasoning behind this is to prevent
+runaway deposits from clobbering more than one location.
+
+THE DTE20 derives its clock from the EBUS 10/11 CLK line.  This is a 12.5 MHz
+clock (1/2 MBOX rate) and is called 16 MHz on the CLK print.  This clock is used
+to produce 8 clock time states in sequence: CNT7 SP CLK (1), CNT7 STATE CLK (1),
+CNT7 STATE CLK+1 (1), CNT7 STATE CLK+2 (1), CNT7 WR CLK-1 (1), CNT7 WR CLK (1),
+CNT7 WR CLK+1 (1) and CNT7 SHIFT CLK (1).  Each time state is on for one period
+of the 10/11 clock, i.e. 80 ns.  In addition, there are four clocks which are
+gated versions of some of the above 8, namely: CNT4 GD ST CLK, CNT4 GD WR CLK,
+CNT4 GD WR CLK+1 and CNT4 GD SHF CLK.  These clocks are gated on by
+-CNT4 INH CLK (1).  The DTE20 has three major state flip flops: CNT4 TO11 TRANS (1),
+CNT4 TO10 TRANS (1) and CNT4 DEX (1).  These flip flops are set in sequence by
+CNT4 GD ST CLK as long as CNT4 STATE HOLD (1) is false.  CNT4 STATE HOLD (1) is
+clocked every CNT7 SP CLK (1).  It may be set while in one of the major states
+by some condition for that state.
+
+Writing into TENAD2 sets CNT5 DEX START (1) which causes CNT4 STATE HOLD (1) to
+be set on the next SP clock when the DEX (1) major state is true.  This keeps
+the DTE20 in the DEX major state until CNT4 STATE HOLD (1) is cleared which will
+happen when CNT5 DEX START (1) is cleared which will happen on CNT4 DEX DONE or
+INT1 MST CLR.  CNT4 DEX (1) being true enables the DEX minor state decoder.
+It decodes the low three bits of the CNT4 STATE COUNT counter.  This counter
+is cleared every time a new major state is entered.  So as soon as the DEX
+major state is entered, the decode for zero, CNT4 DEX ADR1 is true.  The counter
+counts on every CNT4 GD ST CLK (except where noted below).  Since major state
+changes occur on the same clock, the counter will attempt to clear and count
+every time there is a major state change (clear wins).  Thus when we stop in
+some major state, the counter will be in zero for one clock period (8 10/11 clocks)
+and then count to one for one period, etc.  So each decode is true for exactly
+one period and comes true on the CNT4 GD ST CLK.
+
+CNT4 DEX ADR1 forces CNT1 ADR 3,2,1,0 to be 0100 (4) which is the RAM word
+address (UNIBUS byte address 10) of the TENAD1 word.  Since CNT1 RAM CYCLE GO
+is low, the selector on the RAM address inputs select CNT1 ADR 3,2,1,0 and the
+RAM reads out the TENAD1 word.  In the DEX major state, every CNT4 GD SHF CLK
+will cause a CNT2 E-BUF CLK unless the operation is an examine and we are in
+the minor state CNT4 DEX WD1.  The E-BUF selector is set by CNT6 E-BUF SEL to
+load the low 16 bits of DPS2 E-BUF from the RAM outputs.  The state of the high
+order bits is irrelevant.  So in the CNT4 DEX ADR1 minor state the low 16 bits
+of the E-BUF register are loaded from the RAM TENAD1 word.  The next DEX minor
+state is CNT4 DEX ADR2.  In this state, the RAM address is forced to 0101 or
+word address 12, the address of TENAD2.  Again, the E-BUF register is set to
+load the low 16 bits from the RAM and shift the original low 16 bits left by 16
+places.  So when the E-BUF register is clocked, it will wind up with the
+complete KL10 23 bit address in the low part of the E-BUF register and address
+space in bits 4-6.  At the same time (CNT4 GD SHF CLK) as the E-BUF is loaded
+with TENAD2, CNT4 TRANS REQ (1) is set and on the very next clock pulse
+(CNT7 SP CLK (1)) CNT4 INH CLK (1) is set, inhibiting further GD type clock
+pulses.  CNT4 TRANS REQ (1) is driven on the EBUS PI00 line if either
+DPS3 PI0 ENABLE (1) or EXTN DIAG BUS CON (always true) is asserted.
+
+The EBOX will service the EBUS PI00 request by setting EBUS CS04-06 to 000
+and EBUS F00-02 to 100 = PI SERVED and asserting EBUS DEMAND.  This will
+generate CNT7 PI SERVED, CNT7 PI LEVEL 0 and CNT7 SEL PI LEV.
+CNT7 PI SERVED and CNT7 SEL PI LEV cause CNT6 SEND CONTROL which, together
+with CNT7 PI LEVEL 0 sets CNT6 TRAN ACT (1).  CNT6 SEND CONTROL is also
+wired to one of EBUS D08,09,10,11 depending upon which DTE20 it is.  This
+causes the controller number to be sent back to the EBOX as a bit number.
+
+The EBOX will drop EBUS DEMAND and determine the highest priority controller.
+Its number will be encoded on EBUS CS00-03 and EBUS F00-02 will be changed
+to 101 = PI ADDRESS IN.  After a delay the EBOX will again assert EBUS DEMAND.
+The DTE compares EBUS CS00-03 with its hardwired physical number and if a
+match occurs it sets CNT7 PHY NO. SEL.  CNT7 PI ADR IN will be set as a result
+of seeing EBUS DEMAND and EBUS F00-02 = 5.  CNT7 SEL PI LEVEL, CNT7 PI ADR IN
+and CNT7 PHY NO. SEL together cause CNT6 E-BUS SEND OP.  This signal, together
+with CNT4 DEX (1) and CNT6 TRAN ACT (1) cause -CNT6 OP CODE 1 and with CNT5 DEP (1)
+cause CNT6 OP CODE 2.  -CNT6 OP CODE 1 causes CNT6 BUS SEL A which causes
+CNT6 BUS SEL Y which causes CNT6 EMIX EN.  CNT6 E-BUS SEND OP causes CNT6 BUS SEL Z
+which together with -CNT6 OP CODE 1 enables DPS3 E-BUS MIX 00,01,02,06.  These
+bits are selected from DPS3 E-BUF 04,05,06 and CNT2 PROTECTION OFF (0) resp.  and
+drive EBUS D00,01,02,06.  Therefore the address space from TENAD1 bits 15-13
+which are in E-BUF bits 04-06 are driven on EBUS D00-02.  The Q bit (EBUS D06)
+is driven from CNT2 PROTECTION OFF (0).  CNT6 BUS SEL Z enables EBUS D03,04,05,07
+to be driven from CNT6 TRAN ACT (1), CNT6 OP CODE 1, CNT6 OP CODE 2 and GND resp.
+So the function is driven on EBUS D03-05.  The function is 100 for examine and
+101 for deposit.  CNT6 BUS SEL A enables EBUS D12-19 to be driven from
+DPS2 E-BUF 12-19.  CNT6 BUS SEL Y enables EBUS D23,24,25,28 to be driven from
+DPS2 E-BUF 23,24,25,28 resp, and CNT6 EMIX EN enables EBUS D20-22,26,27,29-35
+to be driven from their respective DPS2 E-BUF bits.
+
+In summary:
+   EBUS bits	    from			use
+     0-2	E-BUF 04-06			address space from TENAD1 15-13
+     3-5	TRAN ACT,OP 1,OP 2		function
+      6		PROTECTION OFF (0)		Q bit
+     7-11	not driven
+    12-35	E-BUF 12-35			13-35 are the KL10 address from
+						  TENAD1 06-00 and TENAD2 15-00
+
+CNT6 E-BUS SEND OP asserts CNT6 TRANS (EBUS XFER) and CNT6 ACK (EBUS ACK).
+
+The EBOX will read the EBUS data lines and drop EBUS DEMAND.  When this happens
+CNT6 IOP SENT (1) will be set which will cause CNT4 TRANS REQ (1) to clear
+which will drop the request on EBUS PI00.  EBUS DEMAND clearing will drop
+CNT7 PI ADR IN which will clear CNT6 E-BUS SEND OP which will drop CNT6 TRANS
+(EBUS XFER) and will also drop CNT6 OP CODE 2 if the function was a deposit.
+CNT6 OP CODE 2 clearing will set a flip flop on the INT1 page which, on the
+next CNT7 STATE CLK+2 will clear INT1 BUS COMP (0).  This will clear the D
+input to the CNT4 INH CLK (1) flip flop which will clear on the next
+CNT7 SP CLK.  CNT4 INH CLK (1) clearing will clear the INT1 page flip flop
+and will set INT1 BUS COMP (0).  The CNT4 STATE counter will begin counting
+again and the next minor state will be CNT4 DEX WD1.  This will happen on
+CNT4 GD ST CLK.  It is on CNT7 SP CLK (1) that CNT4 INH CLK (1) tries to
+set and by this time CNT4 DEX ADR2 will have cleared, so CNT4 INH CLK (1)
+won't set.  (See later on for the continuation of the DEX minor states).
+If the operation was an examine then CNT6 OP CODE 2 will not have been set
+in the first place, so the gated clocks remain off.
+
+The EBOX microcode notices the interrupt request flip flop and goes off to
+some code which will perform the function specified on the EBUS.  In the
+case of an examine, the function was 4, namely DATAO.  The microcode will
+perform a COND/EBUS CTL with magic numbers field = 026.  This causes
+APR EBOX DISABLE CS and APR EBUS F01 E.  APR EBOX DISABLE CS forces the
+EBUS CS00-06 lines to zero.  The EBUS F00-02 lines will be 010, the EBUS
+DATAO function.  The microcode will then assert EBUS DEMAND.  This looks
+like an ordinry DATAO except that the CS lines say zero instead of the
+device address.  Devices that give a PI function of DATAO or DATAI assume
+that the next DATAO or DATAI will be for them independent of the CS lines.
+This is possible since the PI logic will not begin a new PI cycle since
+the microcode has set CON PI CYCLE and this inhibits setting PI5 LOAD and TEST.
+If the operation was a deposit, then the PI function was 5, a DATAI and the
+microcode will perform a COND/EBUS CTL with magic numbers field 027.  This
+operates the same way as DATAO except that EBUS F02 is asserted generating
+function 011.  Again, the microcode will assert EBUS DEMAND.
+
+If the operation is an examine, then CNT6 IOP SENT (1) will cause CNT6 SP DATAO
+to be true which will cause CNT6 E-BUF SEL to be false.  This selects the
+EBUS as the input to the E-BUF register.  EBUS DEMAND is anded with
+CNT6 SP DATAO to produce CNT6 TRANS (EBUS XFER) and CNT2 E-BUF CLK which
+loads DPS2 E-BUF with EBUS data.  EBUS DEMAND anded with CNT6 IOP SENT (1)
+produces CNT6 ACK (EBUS ACK).  The EBOX will clear EBUS DEMAND which will
+clear CNT6 IOP SENT (1).  This will cause another flip flop to set on the
+INT1 page which will eventually cause the gated clocks to start up again
+and the CNT4 state counter to resume counting (see second paragraph above
+this one for description of how this happens).
+
+If the operation is a deposit, then the CNT4 STATE counter and CNT4 DEX minor
+state decoder will have started again, independent of the EBUS starting up
+a DATAI cycle.  One or the other of these two will occur first and they
+are brought together via the CNT6 DEP STROBE (1) flip flop.  The CNT4 DEX
+minor states will be described first.  In the case of a deposit, the CNT4 DEX 
+minor states will also be restarted; however, DPS2 E-BUF will have already
+been loaded from the DATAO cycle performed by the EBOX in response to the
+PI00 request.
+
+The next CNT4 DEX minor state is CNT4 DEX WD1.  It sets CNT1 ADR 1,0 giving
+RAM address 3 (word address 6).
+
+For examine, the RAM data inputs are selected by CNT2 DPS4 SEL 2,1 which
+are set to 10 by CNT4 DEX WD1.  This selects DPS4 SPM 03-00 for input to
+the RAM bits 03-00.  CNT1 EBH CYC is false, so the DPS4 SPM 03-00 lines are
+selected from DPS2 E-BUF 00-03.  CNT4 DEX WD1 will also enable CNT4 GD WR CLK
+to generate CNT1 WR PLS which will clock the RAM loading E-BUF 00-03
+into DPS4 DATA 03-00.  This stores the high four bits of the examine data
+into the low four bits of DEXWD1.  CNT4 DEX WD1 for examine also inhibits
+CNT2 E-BUF CLK on CNT4 GD SHF CLK so the E-BUF register is not changed
+during the CNT4 DEX WD1 minor state.
+
+For deposit, CNT6 E-BUF SEL is false, enabling DPS2 E-BUF to select the RAM
+for the low 16 bits.  The RAM address is set to DEXWD1 as above and
+CNT2 E-BUF CLK occurs on CNT4 GD SHF CLK loading DEXWD1 into the low 16 bits
+of the E-BUF.
+
+The next CNT4 DEX minor state is CNT4 DEX WD2.  It sets CNT1 ADR 1 giving
+RAM address 2 (word address 4).
+
+For examine, the RAM data inputs are selected by CNT2 DPS4 SEL 2,1 which
+are set to 11 by CNT4 DEX WD2.  This selects DPS2 E-BUF 04-19 for input to
+the RAM bits 15-00.  CNT4 DEX WD2 will also enable CNT4 GD WR CLK
+to generate CNT1 WR PLS which will clock the RAM loading E-BUF 04-19
+into DPS4 DATA 15-00.  This stores bits 4-19 of the examine data into
+DEXWD2.  CNT2 E-BUF CLK happens on CNT4 GD SHF CLK and CNT6 E-BUF SEL is false
+so the E-BUF register shifts bits 20-35 into bits 04-19.
+
+For deposit, CNT6 E-BUF SEL is false, enabling DPS2 E-BUF to select the RAM for
+the low 16 bits and shift E-BUF bits 20-35 into E-BUF bits 04-19.  The RAM
+address is set to DEXWD2 as above and CNT2 E-BUF CLK occurs on CNT4 GD SHF CLK
+loading DEXWD2 into the low 16 bits of the E-BUF.
+
+The next CNT4 DEX minor state is CNT4 DEX WD3.  It sets CNT1 ADR 0 giving
+RAM address 1 (word address 2).
+
+For examine, the RAM data inputs are selected by CNT2 DPS4 SEL 2,1 which
+are set to 11 by CNT4 DEX WD3.  This selects DPS2 E-BUF 04-19 for input to
+the RAM bits 15-00.  CNT4 DEX WD3 will also enable CNT4 GD WR CLK
+to generate CNT1 WR PLS which will clock the RAM loading E-BUF 04-19
+into DPS4 DATA 15-00.  This stores bits 20-35 of the examine data into
+DEXWD3.  CNT2 E-BUF CLK happens on CNT4 GD SHF CLK and CNT6 E-BUF SEL is false
+so the E-BUF register shifts.
+
+For deposit, CNT6 E-BUF SEL is false, enabling DPS2 E-BUF to select the RAM for
+the low 16 bits and shift E-BUF bits 20-35 into E-BUF bits 04-19.  The RAM
+address is set to DEXWD3 as above and CNT2 E-BUF CLK occurs on CNT4 GD SHF CLK
+loading DEXWD3 into the low 16 bits of the E-BUF.  The E-BUF now contains the
+data to be returned for deposit when the EBOX does a DATAI.
+
+For a deposit the DTE must wait until the EBOX does a DATAI, or if it is
+already doing a DATAI, it must send the data that is in the E-BUF register.
+CNT4 DEX WD3 enables CNT6 DEP STROBE (1) to be set on the trailing edge
+of CNT4 GD SHF CLK which is right after the E-BUF had the low 16 bits of
+deposit data shifted in.  It also asserts CNT6 DEPST which enables
+CNT4 INH CLK (1) to be set on the next CNT7 SP CLK (1).  This will keep
+us in the CNT4 DEX WD3 minor state until CNT4 INH CLK (1) is cleared.
+When the EBOX does the DATAI function, CNT3 DEMAND and CMT6 IOP SENT (1)
+cause CNT6 ACK (EBUS ACK).  CNT7 DATAI and CNT4 DEX (1) and CNT6 IOP SENT (1)
+cause CNT6 BUS SEL X,Y,Z,A and CNT6 EMIX EN.  These signals cause the E-BUF
+to drive the EBUS data lines.  When the E-BUF has been loaded with the deposit
+data and been given a chance to settle, CNT6 DEP STROBE (1) will be set
+(as described above) which is anded with EBUS DEMAND to produce CNT6 TRANS
+(EBUS XFER). When the EBOX drops EBUS DEMAND, CNT6 IOP SENT (1) will be cleared
+and CNT4 INH CLK (1) will be reset the same way as it was for examine (described
+above).
+
+In the case of examine, the clock is not stopped in the CNT4 DEX WD3 minor
+state.
+
+In either case the clock resumes and the DTE goes into the CNT4 DEX DONE
+minor state.  This clears CNT5 DEX START (1).  On the next CNT7 SP CLK (1)
+CNT4 STATE HOLD (1) will clear and on the next CNT4 GD ST CLK the DTE will
+go to the next major state and clear the CNT4 STATE counter.
+EBUS PI CYCLE
+
+(Refer to PIC1-PIC5 prints)
+
+The EBOX detects EBUS PI01 - PI07 E on enabled channels if the PI
+system is active and always detects EBUS PI00 E (strobed into PI1 PIRn
+at PI5 LOAD time).  The channel number of the highest priority request
+is encoded on PI2 PI4,2,1 and PI2 REQ is asserted.  At PI5 TEST time
+the PI system tries to grab control of the EBUS.  If not successful,
+PI5 TEST stays true (no PI5 LOAD occurs) until it is successful.
+When it succeeds in getting the EBUS, PI5 BUS PI GRANT will be set.
+This enables the TTL EBUS data bits to drive the ECL EBUS data bits;
+sets the PI5 CYC START flip flop; drives EBUS CS04 - 06 E from PI2 PI4,2,1
+(i.e., broadcasts the selected PI channel); enables EBUS CS00 - 03 E to be
+driven from PI2 SEL PHY 8,4,2,1 (not used until later); sets EBUS F00 E to
+1 causing function 4 = PI SERVED to be sent on the EBUS function lines;
+disables further requests by asserting PI5 INHIBIT REQ which inhibits
+further PI5 LOAD and PI5 TEST assertions PI CYC START being set causes
+PI2 STATE HOLD to drop.  On the next (MBOX) clock tick, PI2 TIM1
+will be set and the PI timer will be set to 010101.  PI2 TIM1 clears
+PI5 CYC START which causes PI2 STATE HOLD to again be asserted.  This
+in turn holds the PI2 TIMn bits in their present state.  The PI timer
+will count up with each clock tick until the high order bit (100000)
+goes on causing PI2 TIMER DONE.  This causes PI2 STATE HOLD to drop
+so that on the next clock, the PI2 TIMn state register will advance
+to PI2 TIM2.  Also, the timer will load with 001001.  This again clears
+PI2 TIMER DONE which asserts PI2 STATE HOLD which holds PI2 TIM2.
+PI2 TIM2 asserts EBUS DEMAND E (we therefore waited 12 ticks = 480 ns
+between asserting EBUS CS04 - 06 E and EBUS F00 - 02 E and when we
+asserted EBUS DEMAND E).  Those controllers interrupting on the
+broadcast PI channel put a 1 on the EBUS Dnn line whose bit number
+corresponds to their hardwired backpanel controller address (controller
+2 asserts EBUS D02 E).  No acknowledge or transfer is asserted.  The
+PI2 timer will count until 100000 when we will go to PI2 TIM3 and new
+timer value 011100 (we will have waited 24 ticks = 960 ns).  PI2 TIM3
+stobes EBUS D00 - 15 E into PI2 PHY NO. 00 - 15 which are priority
+encoded into PI2 SEL PHY 8,4,2,1 and driven on EBUS CS00 - 03 E.
+EBUS DEMAND E drops when PI2 TIM2 does.  When the timer counts out
+(5 ticks = 200 ns) we go to PI2 TIM4 and new timer value 010101.
+PI2 TIM4 causes EBUS F02 E to latch up, sending function 5 = PI ADDRESS IN.
+The timer counts out after 12 ticks = 480 ns and we go to PI2 TIM5 and
+new timer value 010001.  PI2 TIM5 asserts EBUS DEMAND E but prevents
+the timer from counting until PI2 TRAN REC is asserted.  The selected
+(by EBUS CS 00 - 03 E) controller, when it sees EBUS DEMAND E places
+the function word it wants executed on the EBUS D lines and asserts
+transfer (XFER).  XFER is synchronized in the EBOX and becomes
+PI2 TRAN REC.  This re-enables the timer which count 16 ticks = 640 ns
+(to deskew the EBUS D lines) and we go to PI2 TIM6 and new timer
+value 010011.  PI2 TIM6 keeps EBUS DEMAND E up and forces PI2 TIMER DONE
+which inhibits the timer from counting and causes it to repeatedly
+load with 011100.  PI2 TIM6 also causes PI2 STATE HOLD to remain
+asserted as long as -CON PI CYCLE B is true (note that ordinarily
+PI2 STATE HOLD is asserted by -PI2 TIMER DONE which is now held false).
+PI2 TIM6 causes PI2 READY which causes CON INT RQ (if not CON INT DISABLE
+which can be set by the microcode) which is the condition the EBOX microcode
+looks at to decide to interrupt.  PI2 TIM6 also causes the EBUS D07 - 10 E
+lines to be driven from PI2 SEL PHY 8,4,2,1.  When the microcode sets
+CON PI CYCLE, PI2 STATE HOLD drops causing PI2 TIM6 to drop and PI2 TIM7
+to set; this drops EBUS DEMAND E.  At the same time the timer is loaded
+with 011100.  After 5 ticks = 200 ns we go to PI2 COMP and load the timer
+with 110001 forcing PI2 TIMER DONE which holds PI2 STATE HOLD off.
+PI2 COMP drops the EBUS F02 E latch and enables PI5 EBUS PI GRANT to clear
+on the next clock pulse, at which time PI2 COMP also clears.
+
+
+Summary of EBUS PI Cycle
+
+1)  Device asserts EBUS PIn.
+
+2)  EBOX selects highest priority PI channel and broadcasts it on EBUS CS04-06, and
+    sets EBUS F00-02 to 4 = PI SERVED.
+
+3)  EBOX delays 480 ns and asserts EBUS DEMAND.
+
+4)  Device that is interrupting on the broadcast PI channel asserts EBUS Dnn where
+    nn is the hardwired controller number of the device.  Channels are 0-7, DTEs
+    are 8-11 and the DIA is 15.
+
+5)  EBOX delays 960 ns and strobes the EBUS and determines the controller with the
+    lowest number that wants to interrupt.  Its controller number is broadcast
+    on EBUS CS00-03 and EBUS DEMAND is dropped.
+
+6)  EBOX delays 200 ns and sets EBUS F00-02 to 5 = PI ADDRESS IN.
+
+7)  EBOX delays 480 ns and asserts EBUS DEMAND.
+
+8)  The controller whose address is being broadcast in EBUS CS00-03 places
+    a function word on the EBUS data lines when it sees EBUS DEMAND and it
+    also asserts EBUS XFER.
+
+9)  EBOX delays 640 ns and then sets the interrupt request flip flop to the
+    microcode.  EBUS DEMAND remains asserted as well as the function, CS and
+    DATA lines.
+DTE Miscellaneous
+
+If the 11 sets DPS5 REQ 10 INT (1) (by writing bit 8 in the status register)
+then the DTE20 attempts to do a vectored trap cycle on its assigned PI
+channel.  However, it does not drive the vector address on the EBUS.  Instead,
+the microcode determines that the DTE20 is doing a vectored interrupt
+and traps to 142+8*n in the EPT where n is the DTE number (0,1,2 or 3).
+CRAM and DRAM Miscellaneous
+
+The DRAM J field is 8 bits long and "ors" into the CRAM J field at
+bits 1-4 and 7-10.  However, you must specify the same J 1-4,7 bits
+for any given even-odd pair of DRAM locations.  This is because DEC,
+in order to reduce the number of RAMs on the IR board, stores alternate
+DRAM locations in different 256 bit RAMs.  However, for bits J 1-4 and 7
+they ignore the low order DRAM address bit and have only one 256 bit RAM.
+
+If the MBOX clock is run while MR RESET is true, then all the dispatch
+enables are set true (DISP EN 00-07, 00-03, 30-37 on CRA3).  Furthermore,
+the dispatch fields are all set to zero (CRA DISP 00-04) and all the
+CRAM register bits are cleared (including CRAM J00-10).  The end result
+is that the CRAM address (CR ADR 00-10) is set to DIAG ADR 00-10 which
+can be set by diagnostic functions.  Therefore, the DTE may force the
+microaddress to be whatever it wants as long as it doesn't mind the
+machine being reset first.
+KL10 Clock Card
+
+Many of the signal names on the clock card mention particular frequencies,
+usually factors of 64 MHz.  These are all misnomers although they are
+consistent.  64 MHz is really 50 MHz, etc.  CLK 64 MHZ FREE is selected
+from a 50 MHz crystal, a 56 MHz crystal and an external source by
+CLK SOURCE SEL 2,1.  CROWBAR forces the selection of 50MHz.  CLK 64 MHZ FREE
+is divided down into CLK 32 MHZ FREE, CLK 16 MHZ FREE and CLK 08 MHZ FREE.
+CLK 16 MHZ FREE is the clock sent to the DTEs (CLK 10/11 CLK).
+CLK 2*RATE SELECTED is selected by CLK RATE SEL 2,1 to be either
+CLK 64,32,16 or 08 MHZ FREE.  This is divided by two to generate
+CLK SELECTED.  This signal drives all of the flip flops that are used
+for loading clock rate and source selection and diagnostic functions.
+This clock never stops and ordinarily is a "32" MHz clock (really 25 MHz).
+CLK GATED is also divided down from CLK 2*RATE SELECTED but in a different
+way than CLK SELECTED.  CLK GATED will always fall whenever CLK SELECTED
+does, but will not always set when CLK SELECTED does.  CLK GATED will set
+only when enabled by a selector which is used to control single stepping,
+bursting and running of the MBOX clock.  Also, CLK GATED will only
+attempt to set if CLK SELECTED is about to set (i.e., is currently cleared).
+CLK GO enables CLK GATED to set each cycle (i.e., normal running).
+CLK SS allows CLK GATED to set as long as CLK SS is true.  CLK GATED
+is delayed and, as long as CLK ERROR STOP is false produces CLK ODD A,B,C
+and CLK MBOX A,B,C.
+
+When the DTE does a DIAG CONTROL FUNC 00X or DIAG LOAD FUNC 04X, these
+signals are synchronized by CLK SELECTED and produce CLK FUNC GATE which
+is true for one period of CLK SELECTED.  CLK FUNC GATE enables a decoder
+which produces CLK FUNC START, CLK FUNC SINGLE STEP, CLK FUNC EBOX SS,
+CLK FUNC COND SS, CLK FUNC BURST, CLK FUNC CLR RESET and CLK FUNC SET RESET
+(these are DIAG CONTROL FUNC 001-007).  It also enables a decoder which
+produces CLK FUNC 042-047 (obviously DIAG LOAD FUNC 042-047).  CROWBAR
+also produces CLK FUNC 044-047.  CLK FUNC START is loaded into CLK GO
+on the next CLK SELECTED pulse.  Similarly, CLK FUNC BURST and
+CLK FUNC EBOX SS are loaded into CLK BURST and CLK EBOX SS respectively.
+All three of these bits are cleared by CROWBAR when CLK SELECTED happens.
+CLK FUNC SINGLE STEP is loaded into CLK SS on the next CLK SELECTED causing
+one CLK GATED cycle coincident with the next CLK SELECTED which also happens
+to shift a zero into CLK SS.  CLK FUNC SET RESET and CROWBAR set the CLK RESET
+flip flop which causes MR RESET 01-06 to be driven throughout the entire
+machine.  Typically this signal enables the resetting of the machine only
+when the clock is running.  CLK FUNC CLR RESET clears CLK RESET.
+CLK FUNC 42 and 43 force the loading of the CLK BURST counter from the
+EBUS on the next CLK SELECTED pulse.  When CLK BURST is set (on the
+CLK SELECTED pulse after a CLK FUNC BURST) CLK GATED is enabled and will
+clock as long as the CLK BURST counter is non-zero.  Each CLK SELECTED
+counts the CLK BURST counter down by one (while CLK BURST is true).
+CLK FUNC 44-46 load the CLK RATE and SOURCE SEL bits and various other
+checking and disable bits from the EBUS.
+
+CLK MBOX CLK is a slightly delayed version of CLK CLK which is a delayed
+version of CLK MBOX C.  In order to understand how the EBOX clock is generated
+we must first look at the loop involving CLK SYNC, CLK SYNC EN and
+CLK EBOX CLK EN.  Assume that we have -CON MBOX WAIT, that is, the EBOX
+is not waiting for the MBOX.  This being the case, CLK EBOX CLK EN is then
+the same logical signal as CLK SYNC which is loaded from CLK SYNC EN on every
+CLK MBOX CLK.  Note that CLK EBOX CLK EN being true forces CLK SYNC EN false.
+So once CLK SYNC sets, it will clear on the next CLK MBOX CLK.  Now assume
+CLK SYNC is false and consequently CLK EBOX CLK EN is false.  Then each
+of the gates being ored into CLK SYNC EN is enabled.  If the time field
+of the current microinstruction is 00, then we will have CLK SYNC EN and
+CLK SYNC will set on the next CLK MBOX CLK.  This would give us two MBOX
+clock ticks per CLK SYNC tick.  If the time field is not 00 then we must
+look at the signals CLK 31 NS, CLK 62 NS and CLK 93 NS.  (Again, note that
+these signals are nisnamed, they represent periods of 40, 80 and 120 NS
+respectively).  When CLK SYNC is true (CLK EBOX CLK EN also) CLK 31,62,93 NS
+are cleared by CLK MBOX CLK (which will also clear CLK SYNC and hence
+CLK EBOX CLK EN).  If the time field is not zero, then CLK SYNC EN will not
+be set and CLK SYNC will not set on the next CLK MBOX CLK.  Instead, CLK 31 NS
+will have a one shifted into it.  This enables CLK SYEN EN if the time field is
+01.  On the next CLK MBOX CLK, CLK SYNC will set.  In this case CLK SYNC was
+on for one MBOX clock period and off for two.  If the time field is 10, then
+nothing will happen when CLK 31 NS goes true.  On the next CLK MBOX CLK, a one
+will be shifted into CLK 62 NS and this will enable CLK SYNC EN.  This will
+give a CLK SYNC that is on for one and off for three MBOX clock periods.
+Finally, if the time field is 11, CLK SYNC EN won't set until CLK 93 NS
+has a one shifted into it.  Assuming -CON DELAY REQ is true, this will
+give a CLK SYNC that is on for one and off for four MBOX clock periods.
+If CON DELAY REQ is true, then the time field had better be three or nothing
+special will happen.  If it is three, then CLK SYNC EN will not go true when
+CLK 93 NS does.  Instead, a four bit counter will count on every CLK MBOX CLK
+pulse until it reaches 17 (after 16*40 = 640 NS) at which time CLK SYNC EN will
+set.  The actual EBOX clocks are delayed by clocking a flip flop with CLK ODD.
+The D inputs come from CLK SYNC as long as they are not diabled by the bits
+loaded by CLK FUNC 045 or by error conditions.
+
+CLK EBOX CLK is unconditionally delayed from CLK EBOX CLK EN by a flip
+flop clocked with CLK MBOX CLK.  If a DIAG CONTROL FUNC 00X or
+DIAG LOAD FUNC 04X is given, the register containing the CLK GO, BURST and
+EBOX SS bits is clocked.  Unless the function specifically sets one of these
+bits, they will all wind up cleared and therefore, the clocks will be stopped.
+(If the function does set one of the bits, the others will be cleared.)
+It is possible, therefore to stop the MBOX clock with the EBOX clocks in
+the high state.  If the CLK FUNC COND SS is given and CLK EBOX CLK is true,
+one more MBOX clock will be generated, which will clear the EBOX clocks.
+PC Flags
+
+PCU
+
+In exec mode, bit 6 of the PC flags is interpreted as PCU (Previous Context User).
+It is this bit that causes PXCT to attempt to reference the target address in user
+mode.  In user mode the bit is IOT USER.  It can be set in any of the following
+ways:
+  1)  By a PC storing interrupt instruction if interrupting out of user mode
+  2)  By a flag loading instruction (JRSTF, MUUO, etc) if specified by the
+      data (i.e. bit 6 of the word the flags are loading from) and if the
+      machine is either not in user mode or is leaving user mode
+
+It can be cleared in two ways:
+  1)   by attempting to load it with zero (no restrictions)
+  2)   a condition that would leave user mode will clear PCU if some other
+       condition doesn't try to set it at the same time.  For example,
+       interrupting out of exec mode will clear PCU.
+
+Therefore, PCU will be set automatically by interrupting out of user mode
+(if the instruction in the interrupt location is a PC storing instruction)
+and upon MUUO execution if the UPT location specifying the new PC has bit
+6 on.
+
+PUBLIC
+
+The PUBLIC bit is bit 7 of the PC word and divides user mode and exec mode
+into two submodes.  In exec mode, PUBLIC off is KERNEL mode, PUBLIC on is
+SUPERVISOR mode.  In user mode, PUBLIC off is CONCEALED mode, PUBLIC on is
+PUBLIC mode.  Restrictions on which instructions are legal are determined
+by exactly which of these four modes the machine is in.  Switching between
+the various modes is controlled by the PUBLIC and USER mode PC bits and
+by the page table PUBLIC bit.  These bits may sometimes be set and cleared
+by a JRST 2, and can always be set and cleared by an MUUO new PC word.
+In KERNEL mode everything is legal, there are no restrictions.  However, if
+an instruction is fetched out of a PUBLIC page (one whose page table PUBLIC
+bit is set), the PUBLIC bit is set in the PC flags and the machine enters
+SUPERVISOR mode.  SUPERVISOR mode may be left in two ways.  First, by
+entering USER mode with a JRST 2, (or MUUO for that matter).  In this case
+the PUBLIC bit is loaded without restriction from the new PC word.  Second,
+by entering KERNEL mode by transferring to a PORTAL instruction (a JRST 1,)
+in a private page (one whose page table PUBLIC bit is off).  An analagous
+situation occurs in USER mode.  A program running in CONCEALED mode that
+fetches an instruction from a PUBLIC page will enter PUBLIC mode; a PUBLIC
+mode program may enter CONCEALED mode by transferring to a PORTAL instruction
+in a private page.
+
+SUPERVISOR mode is not exactly analagous to USER mode in that SUPERVISOR mode
+may read from a private page but not write, whereas USER mode may not read
+or write a private page.  Finally, both SUPERVISOR and USER modes may not
+transfer control to a private page except at a PORTAL (JRST 1,) instruction.
+
+PCP
+
+The PCP flag is loaded by a JRST 2, or trap new pc word from bit 0.
+In exec mode, it acts as if it were bit 0 of the PC word and is stored by
+any PC storing instruction.  However, JFCL will still test the AROV bit
+which is PC word bit 0 in user mode.  When a PXCT instruction occurs, the
+target instrcution will be executed in PUBLIC mode if PCP is set.  Note
+that PCP is not effected by interrupting, so that a user mode program
+may set PCP with a JRST 2,.  When the machine enters exec mode for an
+interrupt, PCP will still be set, and it is the responsibility of the
+system code to make sure PCP has the right value before the first PXCT
+is done.
+
+
+
+EBOX FLAG CONTROL
+
+SPEC/FLAG CTL enables the magic numbers field to be interpreted as flag
+control information.  The bits have the following effects:
+
+  # bit			effect
+   0		-LEAVE USER (SCD5)
+   1		JFCL (SCD5)
+   2		DISMISS/CLR PI CYCLE (CON5)
+   3		HALT (CON2)
+   4		LOAD FLAGS (SCD5)
+   5		PORTAL (SCD5)
+   6		unused
+   7		-LEAVE USER if in KERNEL mode (SCD5)
+   8		unused
+PAGING
+
+Software/Microcode
+
+BBN paging is simulated as follows:
+  AC block 6 AC 6 has the exec page table page number
+  AC block 6 AC 7 has the user page table page number
+  The sign bit being on in either AC inhibits any memory references for
+  that mode.  Pages are all forced to be private, the software bit is always
+  off and the cache bit is loaded from bit 5 of the page table.  The access
+  bit (bit 12) is ignored and the read bit (bit 2) is used in its place.
+  The page table type bits (bits 0 and 1) are ignored and all page table
+  entries are assumed to be private page type.  There is no CST or PSB or
+  address limit register (ALR).  All of the exec is mapped by the exec page
+  table and all of the user is mapped by the user page table.  Since the
+  CST doesn't exist, the modification bit doesn't either.  Therefore, the
+  W bit is loaded directly into the hardware page table RAM if it is on
+  in the in-core page table.  The BLKI PAG,E instruction loads the exec
+  and user page table pointers from E and E+1.
+
+
+
+Hardware
+
+
+On a page fault, the EBUS REG is loaded with the following information
+(see prints MBZ2, MBC1):
+
+EBUS REG bits
+ 00	MCL VMA USER
+01-05	PF HOLD 01-05 IN
+ 06	PT PUBLIC
+ 07	PT CACHE
+ 08	PAGED REF
+09-13	unused
+14-26	PMA 14-26
+27-33	CACHE ADR 27-33
+34-35	PMA 34-35
+
+A page fault is caused by one of the following.
+(A=PT ACCESS, W=PT WRITABLE, S=PT SOFTWARE, T=MCL VMA WRITE):
+
+PAGE FAULT TYPE		PF HOLD 01-05 IN	EBOX HANDLE
+
+NO PT DIR MATCH		  21			Yes
+NO PT ACCESS		(0A)(WST)		Yes
+ILLEGAL WRITE		(0A)(WST)		Yes
+PROPRIETARY VIOLATION	  21			No
+ILLEGAL ENTRY		  21			No
+ADDRESS BREAK		  23			No
+PT PARITY ERROR		  25			No
+PAGE REFILL ERROR	  22			No
+
+Other values may appear in the PF HOLD 01-05 IN field if several of the page
+faults happen simultaneously.  The real poop is as follows:
+
+1)  The PT ACCESS bit is never true if PT MATCH is false.
+2)  PF HOLD 01 IN is true for NO PT DIR MATCH, ILLEGAL ENTRY, PT PARITY ERROR,
+    PAGE REFILL ERROR and PROPRIETARY VIOLATION.
+3)  PF HOLD 02 IN is true if PF HOLD 01 IN is false and PT ACCESS is true.
+4)  PF HOLD 03 and 04 IN are determined as follows:  if PF HOLD 01 IN is false
+    then they are the W and S bits; if PF HOLD 01 IN is true then PF HOLD 03 IN
+    is PT PARITY ERROR and PF HOLD 04 IN is either ADDRESS BREAK or PAGE REFILL
+    ERROR.
+5)  If PF HOLD 01 IN is off, then PF HOLD 05 IN is true when not PAGE REFILL ERROR
+    and the T bit are true.  If PF HOLD 01 IN is on, then PF HOLD 05 IN is true
+    when not PAGE REFILL ERROR is true.
+
+The VMA HELD register is loaded on each memory cycle (and as a result of the MAP
+special function) and is used to remember what the last cycle was trying to do.
+The bits are as follows:
+  Bit		Value
+  00		this is actually the current PC bit 0
+  01		MCL LOAD AR
+  02		MCL LOAD ARX
+  03		MCL VMA PAUSE
+  04		MCL VMA WRITE
+  05		MCL VMA USER
+  06		MCL VMA PUBLIC
+  07		MCL VMA PREVIOUS
+  08		MCL VMA EXTENDED
+  09		MCL VMA FETCH
+  10		MCL EBOX MAP
+  11	       -MCL EBOX CACHE
+  12	       -MCL EBOX MAY BE PAGED
+ 13-35		VMA 13-35 at time of mem cycle
+AC block usage
+
+Blk  AC  #B#	KLPAG Usage	¬KLPAG Usage	Tracks Usage
+
+ 6    0  140	CSMSK
+ 6    1  141	PUR
+ 6    2  142	CBR
+ 6    3  143	SBR (¬SAIL)
+ 6    4  144	MODB (SAIL)
+ 6    5  145	SV.VMA
+ 6    6  146	EXPGT (SAIL)
+ 6    7  147	USPGT (SAIL)
+ 6   10  150	SV.BR
+ 6   11  151	SV.SC
+ 6   12  152	SV.PFW
+ 6   13  153
+ 6   14  154
+ 6   15  155
+ 6   16  156	SV.AR
+ 6   17  157	SV.ARX
+ 7    0  160	SV.PAR		SV.AR
+ 7    1  161			SV.ARX
+ 7    2  162	SV.IOPF		SV.IOPF
+ 7    3  163
+ 7    4  164	E0		E0
+ 7    5  165	E1		E1
+ 7    6  166	T0		T0
+ 7    7  167	MSK		MSK
+ 7   10  170	SLEN		SLEN
+ 7   11  171	T1		T1
+ 7   12  172	T2		T2
+ 7   13  173	FILL		FILL
+ 7   14  174	WSET0 (SAIL)
+ 7   15  175	WSET1 (SAIL)
+ 7   16  176	WSET2 (SAIL)			TRB
+ 7   17  177	WSET3 (SAIL)			TRX
+CON Miscellaneous
+
+UCODE STATE
+
+There are 4 microcode state bits, CON UCODE STATE 01,03,05,07.
+These bits can be changed only by a COND/EBOX STATE decode.
+The value set into the UCODE STATE register depends upon the
+magic numbers field and the previous value in the register.
+
+Magic Numbers bit	Function
+
+	00		unused
+	01		set UCODE STATE 01
+	02		hold UCODE STATE 01
+	03		set UCODE STATE 03
+	04		hold UCODE STATE 03
+	05		set UCODE STATE 05
+	06		hold UCODE STATE 05
+	07		set UCODE STATE 07
+	08		hold UCODE STATE 07
+
+These bits may be set in any combination.  If a UCODE STATE bit is
+neither held nor set, it will clear.
+
+UCODE STATE 07 is spare and is terminated as CRM T24 16.  UCODE STATE 05
+does not leave the CON board and is the bit that enables the "TRACKS"
+feature.  It goes to the NICOND dispatch on the CON2 page.  UCODE STATE
+01 and 02 both go to the MTR board.  UCODE STATE 01 is used as an enable
+on the performance analysis counter.  One of the "AND" terms is
+CON UCODE STATE 01 ∨ MTR UCODE PA DONT CARE.  This latter term is set
+by a BLKO TIM.  CON UCODE STATE 03 is used to inhibit the MBOX counter.
+KLDCP
+
+The PE command accepts an octal number controlling which parity error
+conditions are enabled.  The default value is 36, which enables
+AR/ARX, DRAM, CRAM, and FM parity errors.  The low order bit enables
+FS PROBE.  A change in the value of PE takes effect only on an ST (I think).
+NXM, Parity Errors
+
+There is a signal on each SBUS called SBUS ERROR.  It is asserted by
+the DMA20 whenever it detects a read parity error, a write parity error
+or a NXM. (DMC6, MA04)  This signal is received by the MBOX as MEM ERROR
+and looked at on MBZ4 to produce the MBOX SBUS ERROR signal, which is
+latched until a copy of it is set in the APR.
+The MBOX
+
+EBOX/MBOX interface
+
+The EBOX requests an MBOX cycle by asserting CLK EBOX REQ which is modified
+by signals on the MCL page:  MCL VMA READ, MCL VMA WRITE, MCL VMA PAUSE,
+MCL VMA USER, MCL VMA EPT, MCL VMA UPT, MCL EBOX CACHE, MCL EBOX MAY BE PAGED,
+MCL EBOX MAP and several others.  Some of these signals effect the type of
+cycle that is performed, while others effect the address of the cycle and
+whether the cache is involved.  The VMA contains the address for the cycle
+to be performed, which may possibly be a user mode, exec mode, physical or
+virtual, or EPT or UPT relative address.
+
+The Pager
+
+The pager contains a 512 x 18 bit ram and a 128 x 7 bit ram.  The 18 bit
+ram contains KI10 style page table entries of the form APWSC, 13-26.
+The address of this ram is determined by VMA 17-26 and MCL VMA USER and
+is hashed into a 9 bit address.  An attempt is made to avoid conflicts
+between user and exec low page numbers.  Each 7 bit ram entry contains
+a directory corresponding to 4 of the 18 bit entries (hence it's a 128 entry
+ram).  The directory contains the physical page number for the 4 page table
+entries (bits 13-17), the USER mode bit and a valid bit.
+
+DESCRIBE HOW THE RAMS ARE USED AND LOADED.
+
+
+The Cache
+
+There are actually four caches in the KL10.  Each one is 128 entries long by
+word words plus a directory per entry.  Each entry is called a cache line.
+They are referred to as Cache 0 through Cache 3.  The cache directory consists
+of a physical page number (bit 14-26), four 36 bit cache data words with parity,
+and a written and valid bit for every data word in the cache.
+
+MORE CACHE DESCRIPTION.  CACHE USE AND REFILL RAMS.
+
+
+MBOX Control Logic
+
+The MBOX can accept requests from five places: the EBOX, the cache clearer (CCA),
+the channel and two places internal to the MBOX, namely the MBs and for PAGE
+REFILL in KI10 paging mode.  A priority network determines which request to
+honor in the following order:  1) MB requests,  2) channel requests, 3) EBOX
+requests,  4) CCA requests.  A PAGE REFILL isn't properly a request, but rather
+a way of restarting an MBOX cycle from the middle of the current MBOX cycle
+which happens to require a page refill.  It has the highest priority in the sense
+that no other cycle can sneak in ahead of it.  The priority network is on the
+CSH1 page and produces the signals MB REQ GRANT, CHAN REQ GRANT, EBOX REQ GRANT,
+CCA REQ GRANT and NON-EBOX REQ GRANT.  Requests for the channel, EBOX and CCA
+are enabled by CSH CHAN REQ EN, CSH EBOX REQ EN and CSH CCA REQ EN respectively.
+
+The initiation of an MBOX cycle is under the control of two signals:
+(CH1) CACHE IDLE and (CSH1) READY TO GO.  CACHE IDLE is the OR of several flip
+flops which can be set or cleared (synchronously) from a multitude of signals,
+one of which is READY TO GO ∧ -EBOX REQ GRANT ∧ -NON-EBOX REQ GRANT.  READY TO GO
+is produced by an AND-OR gate one of whose inputs comes from CACHE IDLE.
+So once CACHE IDLE and READY TO GO are set (which is caused by MR RESET) they
+will stay latched every clock tick until either EBOX REQ GRANT or NON-EBOX REQ GRANT
+is asserted.
+DMA20
+
+NXM
+
+The DMA20 has a NXM timer which is used to detect non-existant memory
+and unhang the DMA20.  It also causes the signal SBUS ERROR to be asserted.
+However, this signal is not to be relied on for the detection of NXM for the
+following complicated reasons.
+
+The DMA20 was designed so that it would be possible to have more than one
+DMA20 on an SBUS, each with its own collection of memory.  In such a system,
+for any given memory request, all but one DMA20 would detect NXM while the one
+that has the addressed memory will complete the cycle.  It would be an error
+for any of the other DMAs to send back a NXM to the MBOX.  Therefore, it was
+decided that if no ADR ACK was received for the word that the MBOX actually
+requested, then the requesting DMA was not the one responsible for that cycle
+and would not start a NXM timeout.  That DMA would be unhung by the MBOX dropping
+its request, either when some other DMA responds or when the MBOX does its own
+NXM timeout.  Now, if the DMA does receive an ADR ACK for the requested word,
+then it knows that no other DMA will respond.  Therefore, if some other word
+that was requested at the same time is in non-existant memory, it would be
+appropriate to send back a NXM.  On a read cycle, this wouldn't be strictly
+necessary, since tha MBOX would be waiting for the data with its own NXM timer
+going, and after it timed out could drop the requests, which would unhang the
+DMA.  But, on a four word write there is a problem.  After the DMA gets the
+initial ADR ACK, begins the write of the first word, and returns an ACKN to
+the MBOX, it rapidly handshakes with the MBOX and stores the remaining three
+data words, returning ACKNs to the MBOX for them.  Thus the MBOX will have finished
+the cycle and will drop its requests.  This, of course, must not reset the DMA.
+However, the DMA may get a NXM on one of the remaining three write cycles and only
+the DMA is left to do the NXM timeout.  In fact the MBOX may have started a new
+SBUS cycle during the DMA NXM timeout and it would be incorrect for that new
+cycle to get a NXM because its DMA was hung.  So the DMAs NXM timeout is short
+compared to the one in the MBOX, and it is possible for the DMA to time out,
+reset itself and do the next SBUS cycle, all before the MBOX NXM timer counts
+out.

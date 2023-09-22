@@ -1,0 +1,2581 @@
+/FONT#0=FIX20.FNT[XGP,SYS]
+/BMAR=1
+/TMAR=128
+/RMAR=1699
+/LMAR=128
+/PMAR=2065
+/XLINE=4
+SAIL JBR        15:09:35 Wednesday, October 5, 1977   LQ+17H.4M.11S.
+SUB11.PAL[KL,SYS] Created 14:36 Thursday, March 24, 1977   NM+5D.0H.27M.57S.
+
+   SSSSSSSSS         UUU         UUU      BBBBBBBBBBBB               111                  111      
+   SSSSSSSSS         UUU         UUU      BBBBBBBBBBBB               111                  111      
+   SSSSSSSSS         UUU         UUU      BBBBBBBBBBBB               111                  111      
+SSS         SSS      UUU         UUU      BBB         BBB         111111               111111      
+SSS         SSS      UUU         UUU      BBB         BBB         111111               111111      
+SSS         SSS      UUU         UUU      BBB         BBB         111111               111111      
+SSS                  UUU         UUU      BBB         BBB            111                  111      
+SSS                  UUU         UUU      BBB         BBB            111                  111      
+SSS                  UUU         UUU      BBB         BBB            111                  111      
+   SSSSSSSSS         UUU         UUU      BBBBBBBBBBBB               111                  111      
+   SSSSSSSSS         UUU         UUU      BBBBBBBBBBBB               111                  111      
+   SSSSSSSSS         UUU         UUU      BBBBBBBBBBBB               111                  111      
+            SSS      UUU         UUU      BBB         BBB            111                  111      
+            SSS      UUU         UUU      BBB         BBB            111                  111      
+            SSS      UUU         UUU      BBB         BBB            111                  111      
+SSS         SSS      UUU         UUU      BBB         BBB            111                  111      
+SSS         SSS      UUU         UUU      BBB         BBB            111                  111      
+SSS         SSS      UUU         UUU      BBB         BBB            111                  111      
+   SSSSSSSSS            UUUUUUUUU         BBBBBBBBBBBB            111111111            111111111   
+   SSSSSSSSS            UUUUUUUUU         BBBBBBBBBBBB            111111111            111111111   
+   SSSSSSSSS            UUUUUUUUU         BBBBBBBBBBBB            111111111            111111111   
+
+SAIL JBR        15:09:35 Wednesday, October 5, 1977   LQ+17H.4M.11S.
+SUB11.PAL[KL,SYS] Created 14:36 Thursday, March 24, 1977   NM+5D.0H.27M.57S.
+
+PPPPPPPPPPPP               AAA            LLL            
+PPPPPPPPPPPP               AAA            LLL            
+PPPPPPPPPPPP               AAA            LLL            
+PPP         PPP         AAA   AAA         LLL            
+PPP         PPP         AAA   AAA         LLL            
+PPP         PPP         AAA   AAA         LLL            
+PPP         PPP      AAA         AAA      LLL            
+PPP         PPP      AAA         AAA      LLL            
+PPP         PPP      AAA         AAA      LLL            
+PPPPPPPPPPPP         AAA         AAA      LLL            
+PPPPPPPPPPPP         AAA         AAA      LLL            
+PPPPPPPPPPPP         AAA         AAA      LLL            
+PPP                  AAAAAAAAAAAAAAA      LLL            
+PPP                  AAAAAAAAAAAAAAA      LLL            
+PPP                  AAAAAAAAAAAAAAA      LLL            
+PPP                  AAA         AAA      LLL            
+PPP                  AAA         AAA      LLL            
+PPP                  AAA         AAA      LLL            
+PPP                  AAA         AAA      LLLLLLLLLLLLLLL
+PPP                  AAA         AAA      LLLLLLLLLLLLLLL
+PPP                  AAA         AAA      LLLLLLLLLLLLLLL
+
+KLDCP.PAL[KL,SYS]      PRM11.PAL[KL,SYS]      BEG11.PAL[KL,SYS]      CONS11.PAL[KL,SYS]     SUB11.PAL[KL,SYS]
+FD11.PAL[KL,SYS]       DTA11.PAL[KL,SYS]      BOOT.PAL[KL,SYS]       APT11.PAL[KL,SYS]      BR11.PAL[KL,SYS]
+SBST11.PAL[KL,SYS]
+
+
+Switch Settings: L[PALX11] C[KLDCP.ATC] % I 5000S 78V 120W X[Noqueue] ↑ 
+Fonts: F[FIX20.FNT[XGP,SYS],,] 
+LREC File:  SAIL:KLDCP.LRC[KL,SYS]
+↓&	                                                                 SUB11.PAL[KL,SYS] 10/05/77  Page 1↓'α
+001                                     COMMENT ⊗   VALID 00049 PAGES
+002                                     C REC  PAGE   DESCRIPTION
+003                                     C00001 00001
+004                                     C00005 00002	.SBTTL	BASIC INITIALIZATION ROUTINE, 19-AUG-75
+005                                     C00011 00003	.SBTTL	SET EOP INTERVAL TALLY
+006                                     C00013 00004	2$:	PMSG	<END PASS >
+007                                     C00014 00005	.SBTTL	ERROR HALT
+008                                     C00016 00006	.SBTTL	PRINT ASCIZ MESSAGE (PNTAL)
+009                                     C00018 00007	.SBTTL	PRINT BUFFER LOAD ROUTINE
+010                                     C00020 00008	.SBTTL	TELETYPE PRINT OUTPUT ROUTINE
+011                                     C00022 00009	.SBTTL	TELETYPE DRIVER
+012                                     C00024 00010		TST	CTRLOF
+013                                     C00026 00011	.SBTTL	LINE PRINTER DRIVER
+014                                     C00030 00012	OPERATOR INTERRUPT TYPEIN CHECKS
+015                                     C00032 00013	.SBTTL	PRINT CRLF
+016                                     C00034 00014	.SBTTL	PRINT LOWER 18 BITS OF 36 BIT NUMBER
+017                                     C00036 00015	$PRT36:	MOV	4(R1),R0	GET THE WORD
+018                                     C00038 00016	.SBTTL	PRINT OCTAL
+019                                     C00040 00017	.SBTTL	CONVERT BINARY TO DECIMAL AND TYPE ROUTINE
+020                                     C00043 00018	.SBTTL	TTY INPUT ROUTINE TTICHR
+021                                     C00045 00019	.SBTTL	TTIYES YES OR NO ROUTINE
+022                                     C00046 00020	.SBTTL	READ SWITCH REGISTER
+023                                     C00048 00021	.SBTTL	INPUT A STRING FROM TTY
+024                                     C00050 00022	82$:	CMPB	(R1),#141
+025                                     C00052 00023	SPECIAL CHAR PROCESS
+026                                     C00054 00024	SPECIAL CHARACTERS
+027                                     C00055 00025	.SBTTL	CTY & FSTTY DL11 DRIVERS
+028                                     C00058 00026	.SBTTL	READ AN OCTAL NUMBER FROM THE TTY
+029                                     C00060 00027	.SBTTL	READ A DECIMAL NUMBER FROM THE TTY
+030                                     C00062 00028	.SBTTL	READ A 12 DIGIT OCTAL (36 BIT) NUMBER
+031                                     C00064 00029	3$:	MOV	R5,$INPTC	RESET INPUT POINTER
+032                                     C00066 00030	8$:	TSTB	$0FLG
+033                                     C00068 00031	.SBTTL	SIGNED MULTIPLY SUBROUTINE
+034                                     C00070 00032	.SBTTL	BREAK CHARACTER
+035                                     C00072 00033	.SBTTL	TELETYPE INPUT TERMINATION CHECK
+036                                     C00074 00034	.SBTTL	INPUT & CHECK OCTAL NUMBER
+037                                     C00075 00035	.SBTTL	SHIFT R0 RIGHT/LEFT ROUTINES
+038                                     C00077 00036	.SBTTL	SMALL TIME DELAY
+039                                     C00078 00037	FATAL VECTOR INTERRUPT
+040                                     C00079 00038	.SBTTL	EMT DECODER
+041                                     C00081 00039		$PNTNBR		EMT + 30
+042                                     C00083 00040		$DPSVT		EMT + 110
+043                                     C00085 00041		$RPLKUP		EMT + 170
+044                                     C00087 00042	.SBTTL	POWER DOWN AND UP ROUTINES
+045                                     C00090 00043	.SBTTL	EXIT SUBROUTINE
+046                                     C00091 00044	.SBTTL	PDP10 OPERATIONS
+047                                     C00098 00045	$D10ADR:MOV	#L10ADR,R4
+048                                     C00101 00046	START MICROCODE
+049                                     C00102 00047	PDP-10 INSTRUCTION EXECUTE
+050                                     C00103 00048	PDP-10 CONTROLLED STOP ROUTINE
+051                                     C00105 00049		.SBTTL	CLOCK INITIALIZATION, INTERRUPTS
+052                                     C00107 ENDMK
+053                                     C⊗;↓&	BASIC INITIALIZATION ROUTINE, 19-AUG-75                          SUB11.PAL[KL,SYS] 10/05/77  Page 2↓'α
+001                                     .SBTTL	BASIC INITIALIZATION ROUTINE, 19-AUG-75
+002                                     
+003                                     ;*THIS SUBROUTINE PERFORMS THE MOST ELEMENTARY SET UP FOR THE CPU
+004                                     ;*THIS ROUTINE MUST BE EXECUTED BY ALL OF THE POSSIBLE START
+005                                     ;*OPTIONS PRIOR TO ANY OTHER SUBROUTINE
+006                                     
+007  PRM11   011 003   PRM11   011 021  $$ILOAD:MOV	#STACK,SP			;START HERE FIRST TIME
+008  SBST11  004 093   PRM11   011 015  	MOV	#<<.DELAY-$ILDCLR>/2>,R1
+009  SBST11  004 093   PRM11   011 014  	MOV	#$ILDCLR,R0
+010                    PRM11   011 014  1$:	CLR	(R0)+		;CLEAR SPECIAL CONTROL WORDS
+011                    PRM11   011 015  	DEC	R1
+012                    CONS11  002 007  	BGT	1$
+013                                     	MOV	#17,CLKDFL+4	;INITIAL DEFAULT, ALL 4 CACHES
+014                                     	MOV	#36,PEBITS	;INITIAL DEFAULT, AR/ARX, FM, CRAM, DRAM
+015                                     				;AND NOT FS PROBE, PARITY STOP ENABLES
+016  PRM11   011 022           002 130  	JSR	PC,$CKSUM	;CHECKSUM "KLDCP"
+017  PRM11   011 014                    	MOV	R0,$ILDSUM	;SAVE
+018                                     
+019  PRM11   012 045   PRM11   011 043  $SBRINT:MOV	#CPUPR,PS	;SET CPU PRIORITY	;NORMAL START (100000)
+020  PRM11   011 003   PRM11   011 021  	MOV	#STACK,SP	;SET THE STACK POINTER
+021                                     
+022                    KLDCP   003 017  .IF DF %%DDT
+023                                     ;	MOV	#CPUPR,%DDTS	;CPU PRIORITY FOR DDT
+024                    PRM11   011 021  	MOV	@#14,-(SP)	;PUSH 14 AND 16
+025                    PRM11   011 021  	MOV	@#16,-(SP)	;TO ALLOW DDT BREAKPOINT TRAPS
+026                                     .ENDC
+027                                     
+028                    PRM11   011 014  	CLR	R0		;SET ENTIRE VECTOR AREA TO:
+029          037 003   PRM11   011 014  1$:	MOV	#$FATLE,(R0)+	;	;ADDRESS OF ERROR HANDLER
+030  PRM11   012 043   PRM11   011 014  	MOV	#PR7,(R0)+	;	;PR7
+031  PRM11   011 014                    	CMP	R0,#1000
+032                    CONS11  002 007  	BLT	1$
+033                                     
+034          037 007   PRM11   011 027  	MOV	#$TIMOT,@#ERRVEC ;TIME OUT BUS ERROR VECTOR
+035          037 011   PRM11   011 028  	MOV	#$RESVD,@#RESVEC ;RESERVED INSTRUCTION VECTOR
+036          042 003   PRM11   011 033  	MOV	#$PWRDN,@#PWRVEC ;POWER FAIL VECTOR
+037                                     
+038                                     .LIF DF BPTASB
+039                    PRM11   011 032  	MOV	#$BRKPT,@#IOTVEC ;IOT VECTOR
+040                                     
+041          038 008   PRM11   011 034  	MOV	#$EMTRP,@#EMTVEC ;EMT VECTOR
+042                                     
+043                    KLDCP   003 017  .IF DF %%DDT
+044  PRM11   011 021                    	MOV	(SP)+,@#16	;FOR DDT, POP BREAKPOINT TRAP
+045  PRM11   011 021                    	MOV	(SP)+,@#14
+046                                     .IFF
+047                    PRM11   011 031  	MOV	#.BCCT,@#BPTVEC	;SET BP VECTOR
+048                                     .ENDC
+049                                     
+050                    KLDCP   002 006  .IF DF SAILVR
+051  PRM11   011 022           049 004  	JSR	PC,CLKSTA		;CLOCK START (AFTER CLOBBERING INTERRUPT
+                                        					;S)
+052  PRM11   012 045   PRM11   011 034  	MOV	#CPUPR,@#EMTVEC+2	;SO EMTS DON'T AFFECT PROCESSOR PRIORITY
+053                                     .ENDC
+054                                     
+055                    KLDCP   003 018  .IF DF TELASB
+056  PRM11   035 023   BEG11   002 021  	MOV #DLRTS,@$FSTKS		;INITIALIZE
+057  CONS11  062 008   BEG11   002 025  	MOV #FSRINT,@$FSTRV		;SETUP FS KL11E RECEIVE TRAP VECTOR
+058  CONS11  062 114   BEG11   002 026  	MOV #FSTINT,@$FSTTV		;SETUP FS KL11E TRANSMIT TRAP VECTOR
+059                    PRM11   011 014  	MOV #40000.,R0			;40000*2.36USEC = 94.4 MS
+060  PRM11   011 014                    	SOB R0,.			;WAIT FOR DATA SET TO HANG UP
+061  PRM11   035 021   BEG11   002 021  	BIS #DLRTS!DLDTR!DLDIE,@$FSTKS	;SET DATA TERM READY AND DATA SET INT EN
+                                        					;B
+062                                     		;LEAVE REQUEST TO SEND UP ALTHOUGH WE DON'T USE IT
+063                                     .ENDC ;IF DF TELASB
+064                                     
+065  SBST11  009 055   PRM11   011 014  11$:	MOV	#BUFCLR,R0	;CLEAR BUFFER STORAGE BETWEEN:
+066                    PRM11   011 014  21$:	CLR	(R0)+		;BUFCLR: AND .DELAY !
+067  PRM11   011 014   SBST11  004 093  	CMP	R0,#$ILDCLR
+068                    CONS11  013 027  	BNE	21$
+069  PRM11   011 021                    	MOV	SP,$KONSP
+070                                     
+071                    PRM11   011 004  	CLR	CONSOL-2
+072                                     
+073                    PRM11   003 036  	TTPINI			;RESET TTY POINTERS
+074                                     
+075                                     	MOV	#110.,$PGWID	;SET PAGE WIDTH PARAMETER (LA36!)↓&	BASIC INITIALIZATION ROUTINE, 19-AUG-75                          SUB11.PAL[KL,SYS] 10/05/77  Page 2.1↓'α
+076                                     	MOV	#0,$TTYFL	;SET FILL PARAMETER TO (LA36!)
+077                    PRM11   004 026  	PFORCE			;MUST TYPE STARTUP
+078          002 122   PRM11   011 027  	MOV	#NOPAR,ERRVEC	;SET BUS TIMEOUT IN CASE NO PARITY
+079          043 015   PRM11   034 011  	MOV	#MEMPE,MMLPIV	;SETUP PARITY VECTOR
+080  PRM11   034 022   PRM11   034 013  	MOV	#MMPIE,MMLPBA	;ENABLE PARITY ERRORS
+081          037 007   PRM11   011 027  	MOV	#$TIMOT,ERRVEC	;RESTORE BUS TIMEOUT
+082                                     
+083                                     	TST	$ONETM
+084                    CONS11  005 001  	BNE	3$
+085                                     
+086                                     .LIF DF BPTASB
+087  PRM11   011 022                    	JSR	PC,.CB		;CLEAR BP'S
+088                                     
+089                    KLDCP   002 006  .IF DF SAILVR
+090                    KLDCP   003 003  	PMSG	<\Stanford KLDCP\>
+091                                     .IFF
+092                    PRM11   011 004  	PMSG	<\DECSYSTEM10 DIAGNOSTIC CONSOLE\VERSION >
+093  KLDCP   002 005   PRM11   011 014  	MOV	#MCNVER,R0
+094                    PRM11   004 018  	PNTOCS
+095                    PRM11   004 010  	PNTCI
+096                                     	'.
+097  KLDCP   002 004   PRM11   011 014  	MOV	#DECVER,R0
+098                    PRM11   004 018  	PNTOCS
+099                                     ;.IF DF SAILVR
+100                                     ;	PMSG	<, Stanford version >
+101                                     ;	MOV	#SAILVR,R0
+102                                     ;	PNTOCS
+103                                     ;.ENDC
+104                    PRM11   011 045  	PMSG	<\11 SWR = >
+105  PRM11   011 045   PRM11   011 014  	MOV	SWR,R0
+106                    PRM11   004 017  	PNTOCT			;PRINT CONSOLE SWITCHES
+107                    PRM11   004 012  	PCRLF
+108                                     .ENDC
+109                                     
+110  PRM11   011 022   BR11    002 003  3$:	JSR	PC,DTEINI	;DTE20 INITIALIZATION
+111                                     
+112                    KLDCP   002 006  .IF NDF SAILVR
+113                                     	TST	DEVTYP		;USING RP04 ?
+114                    CONS11  004 051  	BLE	4$		;NO
+115                    PRM11   005 027  	RPLOAD			;YES, INIT & LOAD PACK
+116                    CONS11  004 051  	 BCC	4$
+117                    PRM11   005 042  	RPERROR			;FAILED
+118                                     .ENDC
+119                                     
+120                    CONS11  002 003  4$:	JMP	CONSL		;NOW TO CONSOLE
+121                                     
+122                                     NOPAR:	RTI			;NO PARITY REGISTER
+123                                     
+124                    PRM11   011 014  $CMCLR:	MOV	#$CMTAG,R0	;CLEAR COMMON STORAGE
+125                    PRM11   011 014  1$:	CLR	(R0)+
+126  PRM11   011 014                    	CMP	R0,#MONCTL
+127                    CONS11  002 007  	BLT	1$
+128                    PRM11   011 022  	RTS	PC
+129                                     
+130                    CONS11  006 175  $CKSUM:	CLR	$KDCEN		;CLEAR ONLY CHANGEABLE LOCATION
+131  BEG11   002 006   PRM11   011 015  	MOV	#START,R1
+132                    PRM11   011 014  	CLR	R0
+133  PRM11   011 015   PRM11   011 014  2$:	ADD	(R1)+,R0	;CHECKSUM "KLDCP"
+134  PRM11   011 015   SBST11  002 056  	CMP	R1,$$FF
+135                    CONS11  002 031  	BLOS	2$
+136                    PRM11   011 022  	RTS	PC↓&	END OF PASS ROUTINE                                              SUB11.PAL[KL,SYS] 10/05/77  Page 3↓'α
+001                                     .SBTTL	SET EOP INTERVAL TALLY
+002                                     
+003  PRM11   011 014                    $EOPSET:MOV	R0,$ENDCT	;SET EOP INTERVAL TALLY
+004                    PRM11   008 043  	EXIT
+005                                     
+006                                     ;CONSOLE SET EOP INTERVAL
+007                                     
+008                    PRM11   003 029  .EP:	TTISDL
+009                    CONS11  002 007  	 BCS	1$
+010                    PRM11   003 024  	TTIDEC			;SPECIFIED AS DECIMAL INTERVAL
+011                    CONS11  002 007  	 BCS	1$
+012  PRM11   011 014                    	MOV	R0,$ENDCT
+013                                     	CLR	$EOPCT
+014                    CONS11  003 001  	JMP	$KONSL
+015                    CONS11  060 034  1$:	JMP	$PARAM
+016                                     
+017                                     .SBTTL	END OF PASS ROUTINE
+018                                     
+019                    PRM11   011 019  $EOP:	MOV	#$PASS,R5
+020                    PRM11   011 019  	INC	(R5)		;INCREMENT THE PASS NUMBER
+021  PRM11   011 019                    	CMP	(R5),#30001.	;LIMIT MAX COUNT TO 30000
+022                    CONS11  004 051  	BLT	4$
+023                    PRM11   011 019  	CLR	(R5)
+024                    PRM11   011 019  	INC	(R5)
+025                                     	MOV	$ENDCT,$EOPCT	;RESET REPORT INTERVAL
+026                                     
+027  PRM11   011 019   PRM11   011 045  4$:	MOV	(R5),SWR	;DISPLAY PASS COUNT
+028                    PRM11   005 011  	SWITCH			;READ THE SWITCH REGISTER
+029                                     
+030  PRM11   011 014   PRM11   002 005  	BIT	R0,#ABORT	;ABORT AFTER CURRENT PASS?
+031                    CONS11  002 007  	BNE	1$		;YES
+032                                     
+033                                     	DEC	$EOPCT		;DECREMENT EOP
+034                    CONS11  005 001  	BGT	3$
+035                    CONS11  002 031  	BR	2$
+036                                     
+037                                     1$:	MOV	#1,$ITERA	;SET ITERATION SO WE WILL EXIT↓&	ERROR EOP                                                        SUB11.PAL[KL,SYS] 10/05/77  Page 4↓'α
+001                    PRM11   008 006  2$:	PMSG	<END PASS >
+002                                     
+003  PRM11   011 019   PRM11   011 014  	MOV	(R5),R0		;PASS COUNT TO  R0
+004                    PRM11   004 019  	PNTDEC
+005                    PRM11   004 012  	PCRLF
+006                                     
+007                                     	MOV	$ENDCT,$EOPCT	;RESTORE COUNTER
+008                                     
+009                                     3$:	DEC	$ITERA		;DECREMENT ITERATION COUNT
+010                            004 016  	BEQ	$ERREOP
+011                                     	CLR	$ITERA
+012                    PRM11   008 043  	EXIT
+013                                     
+014                                     .SBTTL	ERROR EOP
+015                                     
+016                                     $ERREOP:TST	MONCTL		;STAND ALONE ?
+017                            004 021  	BNE	$EROP		;NO, *WHAT TO DO ??*
+018                                     	CLR	TENRUN		;TURN OFF TEN SUPPORT
+019                                     	CLR	PRGRUN		;YES, ALLOW "J" AGAIN
+020                                     
+021                    CONS11  002 003  $EROP:	JMP	CONSL		;MONITOR, TO NEXT SCRIPT ENTRY↓&	ERROR HALT                                                       SUB11.PAL[KL,SYS] 10/05/77  Page 5↓'α
+001                                     .SBTTL	ERROR HALT
+002                                     
+003                    PRM11   011 014  $PRGHLT:PUSH	R0
+004                    PRM11   008 006  	PMSG	<\PRG>
+005                            005 016  	BR	$PH2
+006                                     
+007                    PRM11   011 014  $ERRHLT:PUSH	R0
+008                    PRM11   005 011  	SWITCH
+009  PRM11   011 014   PRM11   002 015  	BIT	R0,#ERSTOP	;STOP ON ERROR ?
+010                    CONS11  002 007  	BNE	1$		;YES
+011                    PRM11   011 014  	POP	R0
+012                    PRM11   008 043  	EXIT			;NO, KEEP GOING
+013                                     
+014                    PRM11   008 006  1$:	PMSG	<\ERROR>
+015                                     
+016                    PRM11   005 008  $PH2:	SETFLG
+017                                     	  .HCFLG		;ALLOW HALT CONTINUE
+018                                     
+019  PRM11   011 021                    $PH1:	MOV	(SP)+,$R0SAV	;SETUP SO "RG" CAN PRINT
+020  PRM11   011 021                    	MOV	(SP)+,$R5SAV
+021  PRM11   011 021                    	MOV	(SP)+,$R4SAV
+022  PRM11   011 021                    	MOV	(SP)+,$R3SAV
+023  PRM11   011 021                    	MOV	(SP)+,$R2SAV
+024  PRM11   011 021                    	MOV	(SP)+,$R1SAV
+025  PRM11   011 021                    	MOV	(SP)+,.HCADR
+026  PRM11   011 021                    	MOV	(SP)+,$PSSAV
+027  PRM11   011 021                    	MOV	SP,$SPSAV
+028                    PRM11   008 006  	PMSG	< HALT AT >
+029                                     
+030                    PRM11   011 014  	MOV	.HCADR,R0	;GET ADDRESS
+031                    PRM11   011 014  	SUB	#2,R0		;COMPUTE ACTUAL ADDRESS
+032                    PRM11   004 017  	PNTOCT			;PRINT ERROR HALT ADDRESS
+033                    PRM11   004 012  	PCRLF
+034                    BEG11   002 009  	JMP	$CONSL		;RETURN TO MONITOR
+035                                     
+036                                     .HC:	TST	.HCFLG
+037                    CONS11  002 007  	BNE	1$
+038                    CONS11  005 004  	JMP	$CMDER		;HC NOT ALLOWED
+039                                     1$:	CLR	.HCFLG
+040                                     
+041                                     .LIF DF BPTASB
+042  PRM11   011 022                    	JSR	PC,.BCHC
+043                                     
+044                    PRM11   011 020  	MOV	$SPSAV,R6
+045                    PRM11   011 043  	MOV	$PSSAV,PS
+046                                     	JMP	@.HCADR↓&	PRINT ASCII CHARACTER (PNTCHR)                                   SUB11.PAL[KL,SYS] 10/05/77  Page 6↓'α
+001                                     .SBTTL	PRINT ASCIZ MESSAGE (PNTAL)
+002                                     
+003                    PRM11   011 014  $PNTAL:	BICB	#200,(R0)	;CLEAR JUNK
+004                    PRM11   011 014  	TSTB	(R0)		;REACHED EOL YET?
+005                    CONS11  005 001  	BEQ	3$		;YES
+006                                     	TST	HLPPNT		;PRINTING A HELP FILE
+007                    CONS11  004 051  	BNE	4$		;YES
+008  PRM11   011 014   PRM11   013 017  	CMPB	(R0),#BKARW	;BACKARROW (-)?
+009                    CONS11  002 031  	BEQ	2$		;YES
+010  PRM11   011 014   PRM11   013 016  	CMPB	(R0),#BKSLH	;BACKSLASH (\)?
+011                    CONS11  002 007  	BEQ	1$
+012  PRM11   011 014   PRM11   011 015  4$:	MOVB	(R0)+,R1	;PUT CHAR IN R1
+013                    PRM11   004 035  	PLDBUF			;LOAD INTO OUTPUT BUFFER
+014                            006 003  	BR	$PNTAL		;DO TILL E-O-L
+015                                     
+016  PRM11   013 010   PRM11   011 015  1$:	MOV	#CR,R1		;BACKSLASH
+017                    PRM11   004 035  	PLDBUF			;OUTPUT CR & LF
+018  PRM11   013 007   PRM11   011 015  	MOV	#LF,R1
+019                    PRM11   004 035  	PLDBUF
+020                    PRM11   011 014  11$:	INC	R0
+021                            006 003  	BR	$PNTAL
+022                                     
+023                                     2$:	CLR	CTRLOF		;CLEAR CONTROL O FLAG
+024                    PRM11   004 032  	PRINTT			;BACKARROW, PRINT BUFFER
+025                    CONS11  003 018  	BR	11$
+026                                     
+027                            006 038  3$:	BR	$$PNTX
+028                                     
+029                                     .SBTTL	PRINT ASCII NUMBER (PNTNBR)
+030                                     
+031                    PRM11   011 014  $PNTNBR:BIC	#177770,R0
+032                    PRM11   011 014  	BIS	#'0,R0
+033                                     
+034                                     .SBTTL	PRINT ASCII CHARACTER (PNTCHR)
+035                                     
+036  PRM11   011 014   PRM11   011 015  $PNTCHR:MOVB	R0,R1
+037                    PRM11   004 035  	PLDBUF
+038                    PRM11   008 043  $$PNTX:	EXIT
+039                                     
+040  PRM11   013 013   PRM11   011 014  $PSPACE: MOV	#SPACE,R0
+041                            006 036  	BR	$PNTCHR
+042                                     
+043  PRM11   013 015   PRM11   011 014  $PSLASH: MOV	#SLASH,R0
+044                            006 036  	BR	$PNTCHR
+045                                     
+046  PRM11   013 014   PRM11   011 014  $PCOMMA: MOV	#COMMA,R0
+047                            006 036  	BR	$PNTCHR
+048                                     
+049  PRM11   013 005   PRM11   011 014  $PTAB:	MOV	#TAB,R0
+050                            006 036  	BR	$PNTCHR↓&	PRINT BUFFER LOAD ROUTINE                                        SUB11.PAL[KL,SYS] 10/05/77  Page 7↓'α
+001                                     .SBTTL	PRINT BUFFER LOAD ROUTINE
+002                                     
+003                    PRM11   011 014  $PLDBUF:PUSH	R0
+004                    PRM11   011 014  	MOV	$OUTPT,R0
+005                    PRM11   011 015  	BIC	#177600,R1	;STRIP TO 7 BITS
+006  PRM11   011 015   PRM11   011 014  	MOVB	R1,(R0)+	;PUT CHAR IN BUFFER
+007                    PRM11   011 014  	CLRB	(R0)		;INSERT TRAILING NULL
+008  PRM11   011 014                    	MOV	R0,$OUTPT
+009                    PRM11   011 014  	POP	R0
+010                                     	CMP	$OUTPT,#$OUTBF+140.;EXCEEDED BUFFER CAPACITY
+011                    CONS11  002 031  	BGE	2$
+012                                     
+013  PRM11   013 007   PRM11   011 015  1$:	CMPB	#LF,R1		;WAS CHAR LINE FEED
+014                    CONS11  002 031  	BEQ	2$		;YES
+015  PRM11   013 011   PRM11   011 015  	CMPB	#BELL,R1	;WAS CHAR BELL ?
+016                    CONS11  002 031  	BEQ	2$		;YES
+017  PRM11   013 035   PRM11   011 015  	CMPB	#NULL,R1	;WAS CHAR NULL ?
+018                    CONS11  002 031  	BEQ	2$		;YES
+019                            006 038  3$:	BR	$$PNTX		;NO, RETURN
+020                                     
+021                                     2$:	TST	PCMDNF		;DOING NO PRINT PROGRAM COMMAND
+022                    CONS11  005 001  	BNE	3$
+023                                     
+024                                     .LIF DF LPTASB
+025                    PRM11   004 034  	PLPT			;LINE PRINTER
+026                                     
+027                    PRM11   004 032  	PRINTT			;PRINT BUFFER
+028                                     	CLR	$TTLKF		;CLEAR TTLOOK  FLAG
+029                    PRM11   011 014  	PUSH	R0
+030                    PRM11   004 039  	PNTRST			;RESET OUTPUT POINTERS
+031                    PRM11   011 014  	POP	R0
+032                    CONS11  005 001  	BR	3$
+033                                     
+034                                     ;PRINT, BACKUP OUTPUT INSERTION POINTER
+035                                     
+036                                     $PNTBAK:CMP	$OUTPT,#$OUTBF	;ALL THE WAY BACK ?
+037                    CONS11  002 007  	BLE	1$		;YES
+038                                     	DEC	$OUTPT		;NO, BACKUP ONE BYTE
+039                            006 038  1$:	BR	$$PNTX
+040                                     
+041                                     ;TELETYPE POINTER INITIALIZATION
+042                                     
+043                                     $TTPINI:MOV	#$INBUF,$INPTC
+044                                     	MOV	#$INBUF,$INPTR
+045                                     
+046                    PRM11   011 014  $PNTRST:MOV	#$OUTBF,R0
+047  PRM11   011 014                    	MOV	R0,$OUTPT
+048  PRM11   011 014                    	MOV	R0,$OUTPP
+049                            006 038  	BR	$$PNTX↓&	TELETYPE PRINT OUTPUT ROUTINE                                    SUB11.PAL[KL,SYS] 10/05/77  Page 8↓'α
+001                                     .SBTTL	TELETYPE PRINT OUTPUT ROUTINE
+002                                     
+003                    PRM11   011 014  $PRINT:	PUSH	R0
+004                                     	TST	$FORCE		;FORCED PRINT OUT
+005                            008 018  	BNE	19$		;YES BYPASS SWITCH TEST
+006                                     
+007                                     	TSTB	LPTFLG		;PRINT ON LPT ?
+008                            008 014  	BNE	99$		;BR IF YES
+009                                     
+010                    PRM11   005 011  	SWITCH
+011  PRM11   011 014   PRM11   002 009  	BIT	R0,#NOPNT	;PRINTOUT INHIBITED
+012                    CONS11  002 007  	BEQ	1$
+013                                     
+014                                     99$:	MOV	$OUTPT,$OUTPP	;DONE, SET PRINTED TO POSITION
+015                    PRM11   011 014  	POP	R0
+016                            006 038  	BR	$$PNTX		;RETURN
+017                                     
+018                                     19$:	CLR	CTRLOF		;CLEAR CONTROL O FLAG
+019                    PRM11   011 015  1$:	MOV	$OUTPP,R1
+020                                     
+021  PRM11   013 010   PRM11   011 015  11$:	CMPB	#CR,(R1)	;IS CHAR CR?
+022                    CONS11  002 031  	BEQ	2$		;BR IF YES
+023                                     	CMP	$PRNTH,$PGWID	;NO,ARE WE AT RIGHT MARGIN
+024                    CONS11  005 001  	BLT	3$		;BR IF NO
+025  PRM11   013 010   PRM11   011 014  	MOVB	#CR,R0		;YES, FREE CR/LF
+026                    PRM11   004 033  	PTTY
+027  PRM11   013 007   PRM11   011 014  	MOVB	#LF,R0
+028                    PRM11   004 033  	PTTY
+029                                     
+030                                     2$:	INC	$TPLIT		;COUNT LINE
+031                                     
+032  PRM11   011 015   PRM11   011 014  3$:	MOVB	(R1),R0		;GET CHARACTER
+033                            008 014  	BEQ	99$		;IF NULL, DONE
+034                    PRM11   004 033  	PTTY			;PRINT CHAR
+035                    PRM11   011 015  	TSTB	(R1)+		;LOOP TILL E-O-L
+036                    CONS11  003 018  	BNE	11$
+037  PRM11   011 022   CONS11  046 058  4$:	JSR	PC,C10COP
+038  PRM11   011 022           025 038  	JSR	PC,$TORDY	;THEN WAIT FOR TTY TO BE READY
+039                    CONS11  004 051  	BCS	4$
+040                            008 014  	BR	99$↓&	TELETYPE DRIVER                                                  SUB11.PAL[KL,SYS] 10/05/77  Page 9↓'α
+001                                     .SBTTL	TELETYPE DRIVER
+002                                     
+003                    PRM11   011 016  $PTTY:	CLR	R2
+004                    PRM11   011 017  	CLR	R3
+005  PRM11   011 022           012 003  1$:	JSR	PC,$PTTYC	;DO OPERATOR CHECKS
+006                    PRM11   011 017  	TST	R3		;R3 = 0 IF NOTHING
+007                    CONS11  004 051  	BEQ	4$
+008  PRM11   013 019   PRM11   011 017  2$:	CMPB	#XON,R3
+009                    CONS11  034 069  	BEQ	6$		;XON,PRINT
+010  PRM11   013 018   PRM11   011 017  	CMPB	#XOFF,R3
+011                    CONS11  004 051  	BNE	4$
+012                    PRM11   011 016  3$:	MOV	#-1,R2		;XOFF,STOP PRINT
+013                    PRM11   011 016  4$:	TST	R2
+014                    CONS11  002 007  	BNE	1$		;IF XOFF, WAIT FOR XON
+015                                     6$:	TST	CTRLOF		;CONTROL O'D ?
+016                    CONS11  035 053  	BNE	7$		;YES
+017  PRM11   013 010   PRM11   011 014  	CMPB	#CR,R0		;CR
+018                    CONS11  035 053  	BNE	7$
+019                                     	TST	$TPLIN		;YES, IN PAGE MODE
+020                    CONS11  035 053  	BEQ	7$		;NO
+021                                     	CMP	$TPLIT,$TPLIN	;FILLED THIS PAGE
+022                    CONS11  035 053  	BLT	7$
+023                                     	CLR	$TPLIT		;YES,CLEAR COUNTER,XOFF
+024                    CONS11  005 001  	BR	3$
+025                                     
+026                    PRM11   011 016  7$:	CLR	R2
+027  PRM11   013 006   PRM11   011 014  	CMPB	#CNTRLI,R0	;IS CHAR A TAB?
+028                    CONS11  030 016  	BNE	10$
+029  PRM11   011 022           010 034  8$:	JSR	PC,$PTTY1	;COMPUTE SPACES COUNT
+030                    PRM11   011 016  9$:	INC	R2		;COMPLETED "TAB"?
+031  PRM11   013 012   PRM11   011 014  	MOVB	#BLANK,R0
+032                                     
+033  PRM11   011 022   CONS11  046 058  10$:	JSR	PC,C10COP	;PERFORM CLOCK OPERATIONS
+034                                     	TST	CTRLOF
+035                    CONS11  003 018  	BNE	11$
+036  PRM11   011 022           025 038  	JSR	PC,$TORDY	;WAIT TILL TTY IS READY
+037                    CONS11  030 016  	BCS	10$
+038  PRM11   011 014                    	MOVB	R0,$TOCHR	;PRINT CHAR
+039  PRM11   011 022           025 063  	JSR	PC,$TOOUT
+040  PRM11   011 022           010 039  19$:	JSR	PC,$PTTY2	;WILL CHAR MOVE PRINT HEAD ?
+041                                     
+042                    PRM11   011 016  11$:	TST	R2		;DOING SPACES?
+043                    CONS11  019 049  	BNE	9$		;BR IF YES↓&	TELETYPE DRIVER                                                  SUB11.PAL[KL,SYS] 10/05/77  Page 10↓'α
+001                                     	TST	CTRLOF
+002                    CONS11  030 036  	BNE	15$
+003  SBST11  002 017   PRM11   011 016  	MOV	#$DTBL0,R2	;FILLER PROCESS
+004                    PRM11   011 016  12$:	TSTB	(R2)
+005                    CONS11  030 036  	BEQ	15$		;BR IF CHAR DOESN'T REQUIRE FILLS
+006  PRM11   011 016   PRM11   011 014  	CMPB	(R2)+,R0
+007                    CONS11  030 024  	BNE	12$
+008                    PRM11   011 016  	DEC	R2		;FOUND
+009  SBST11  002 017   PRM11   011 016  	SUB	#$DTBL0,R2
+010                    PRM11   011 016  	ASL	R2
+011  SBST11  002 024   PRM11   011 016  	MOV	$DTBL1(R2),R2	;ADDRESS TO R2
+012                    PRM11   011 016  	ADD	$TTYFL,R2	;ADD FILL PARAMETER
+013  PRM11   011 016   PRM11   011 016  	MOVB	(R2),R2		;R2 = NUMBER OF FILLS
+014  PRM11   011 014   PRM11   013 010  	CMPB	R0,#CR		;CR?
+015                    CONS11  030 028  	BNE	13$		;NO
+016                                     	CMP	$PRNTH,#15.	;MORE THEN 15 CHARS ON LINE ?
+017                            010 019  	BGT	16$
+018  PRM11   011 016                    	SR	R2,1		;NO, 1/4 TH OF FILLERS THEN
+019                                     16$:	CMP	$PRNTH,#40.	;MORE THAN 40 CHARS ON LINE ?
+020                            010 022  	BGT	17$
+021  PRM11   011 016                    	SR	R2,1		;NO, 1/2 OF FILLERS THEN
+022                                     17$:	CLR	$PRNTH		;SET PRINT HEAD TO LEFT MARGIN
+023                                     
+024                    PRM11   011 016  13$:	DEC	R2		;COMPLETED FILLERS?
+025                    CONS11  030 036  	BLT	15$
+026  PRM11   011 022   CONS11  046 058  14$:	JSR	PC,C10COP	;PERFORM CLOCK OPERATIONS
+027  PRM11   011 022           025 038  	JSR	PC,$TORDY
+028                    CONS11  030 032  	BCS	14$
+029  PRM11   013 035                    	MOVB	#NULL,$TOCHR	;SEND FILLER
+030  PRM11   011 022           025 063  	JSR	PC,$TOOUT
+031                    CONS11  030 028  	BR	13$
+032                    PRM11   008 043  15$:	EXIT			;RETURN
+033                                     
+034                    PRM11   011 016  $PTTY1:	MOV	$PRNTH,R2	;HEAD POSITION
+035                    PRM11   011 016  1$:	SUB	#8.,R2		;DIVIDED BY 8
+036                    CONS11  002 007  	BGE	1$		;REMAINDER IS SPACES COUNT
+037                    PRM11   011 022  	RTS	PC
+038                                     
+039  PRM11   011 014   PRM11   013 012  $PTTY2:	CMPB	R0,#BLANK	;WILL CHAR MOVE PRINT HEAD?
+040                    CONS11  002 007  	BLT	1$		;BR IF NO
+041                                     	INC	$PRNTH		;YES
+042                    PRM11   011 022  1$:	RTS	PC↓&	LINE PRINTER DRIVER                                              SUB11.PAL[KL,SYS] 10/05/77  Page 11↓'α
+001                                     .SBTTL	LINE PRINTER DRIVER
+002                                     
+003                                     .IF DF LPASB
+004                                     
+005                    PRM11   009 003  $PLPT:	PUSH	R0
+006                                     	TST	LPTFLG		;PRINT ON LPT ?
+007                            008 014  	BPL	99$		;NO
+008                                     	TSTB	LPTFLG
+009                            008 014  	BEQ	99$
+010                                     	TST	$FORCE		;FORCED PRINT ?
+011                    CONS11  002 007  	BNE	1$		;YES, BYPASS SWITCH TEST
+012                    PRM11   005 011  	SWITCH
+013  PRM11   011 014   PRM11   002 009  	BIT	R0,#NOPNT	;PRINTOUT INHIBITED ?
+014                    CONS11  002 007  	BEQ	1$		;NO
+015                    PRM11   009 011  99$:	POP	R0
+016                    PRM11   008 043  	EXIT			;RETURN
+017                                     
+018                                     1$:	TST	LPTYPE		;LP20 OR LP11 ?
+019                            011 055  	BNE	50$		;LP20
+020                    BEG11   002 018  	TST	@$LPS		;IS LPT OK ?
+021                    CONS11  004 051  	BMI	4$		;BR IF ERROR
+022                    PRM11   011 015  	MOV	#$OUTBF,R1
+023  PRM11   011 015   PRM11   011 014  2$:	MOVB	(R1)+,R0	;GET CHAR
+024                            008 014  	BEQ	99$		;NULL, DONE
+025                    PRM11   011 016  3$:	CLR	R2
+026  PRM11   013 006   PRM11   011 014  	CMPB	#CNTRLI,R0	;TAB ?
+027                            011 031  	BNE	41$
+028  PRM11   011 022           010 034  	JSR	PC,$PTTY1	;YES, COMPUTE SPACES COUNT
+029                    PRM11   011 016  42$:	INC	R2
+030  PRM11   013 012   PRM11   011 014  	MOV	#BLANK,R0
+031  PRM11   011 022           012 003  41$:	JSR	PC,$PTTYC	;DO OPERATOR CHECKS
+032                    BEG11   002 018  32$:	TST	@$LPS		;LPT OK ?
+033                    CONS11  004 051  	BMI	4$		;NO
+034  PRM11   011 022   CONS11  046 058  	JSR	PC,C10COP	;PERFORM CLOCK OPERATIONS
+035                    BEG11   002 018  	TSTB	@$LPS		;LPT READY ?
+036                            011 031  	BPL	41$		;NO
+037  PRM11   011 014   BEG11   002 019  	MOVB	R0,@$LPB	;PRINT CHARACTER
+038  PRM11   011 022           010 039  	JSR	PC,$PTTY2	;WILL CHAR MOVE PRINT HEAD ?
+039                    PRM11   011 016  45$:	TST	R2		;COMPLETED "TAB" ?
+040                            011 029  	BNE	42$
+041  PRM11   011 014   PRM11   013 010  43$:	CMPB	R0,#CR
+042                            011 044  	BNE	44$
+043                                     	CLR	$PRNTH		;IF CR, RESET HEAD POSITION
+044                    CONS11  002 031  44$:	BR	2$
+045                                     
+046          011 079   PRM11   011 015  4$:	MOV	#$LPTOF,R1	;"LPT OFF LINE"
+047  PRM11   011 015   PRM11   011 014  5$:	MOVB	(R1),R0
+048                    PRM11   004 033  	PTTY
+049                    PRM11   011 015  	TSTB	(R1)+
+050                    CONS11  034 069  	BEQ	6$
+051                    CONS11  024 048  	BR	5$
+052                                     6$:	CLRB	LPTFLG		;PRINT ON TTY TILL RESELECTED
+053                            008 014  	BR	99$
+054                                     
+055                    PRM11   011 019  50$:	MOV	LPTYPE,R5	;LP20 DRIVER ROUTINE
+056  PRM11   042 016   PRM11   011 019  	MOV	#LPLINI!LPRERR,(R5) ;CLEAR LP20
+057                    PRM11   042 044  	DEC	LPPCTR(R5)	;CLEAR PAGE COUNTER
+058                    PRM11   011 014  	MOV	#$OUTBF,R0	;GET BUFFER ADDRESS
+059  PRM11   011 014   PRM11   042 040  	MOV	R0,LPBSAD(R5)	;SETUP LP20 BUFFER ADDRESS
+060                    PRM11   011 014  	SUB	$OUTPT,R0	;COMPUTE BYTE COUNT
+061  PRM11   011 014   PRM11   042 042  	MOV	R0,LPBCTR(R5)	;SETUP LP20 BYTE COUNT
+062  PRM11   042 024   PRM11   011 019  	MOV	#LPPENB!LPGO,(R5) ;START XFER
+063  PRM11   011 022           011 067  	JSR	PC,LP20DN	;WAIT FOR DONE
+064                    CONS11  004 051  	BCS	4$		;ERROR
+065                            008 014  	BR	99$		;DONE
+066                                     
+067  PRM11   011 022   CONS11  046 058  LP20DN:	JSR	PC,C10COP	;PERFORM CLOCK OPERATIONS
+068  PRM11   042 017   PRM11   011 019  	BIT	#LPERR!LPPZRO!LPUCHR!LPDONE,(R5)
+069                            011 067  	BEQ	LP20DN		;WAIT FOR DONE OR ERROR
+070                                     
+071                    PRM11   011 019  	TSTB	(R5)		;DONE ?
+072                    CONS11  002 007  	BPL	1$		;NO, ERROR
+073                                     	CLC
+074                    PRM11   011 022  	RTS	PC		;DONE, C-BIT CLEAR RETURN
+075                                     
+076                                     1$:	SEC
+077                    PRM11   011 022  	RTS	PC		;ERROR, C-BIT SET RETURN↓&	LINE PRINTER DRIVER                                              SUB11.PAL[KL,SYS] 10/05/77  Page 11.1↓'α
+078                                     
+079                                     $LPTOF:	.ASCIZ	/LPT OFF
+080                                     /
+081                                     .EVEN
+082                                     
+083                                     .ENDC ;.IF DF LPASB↓&	LINE PRINTER DRIVER                                              SUB11.PAL[KL,SYS] 10/05/77  Page 12↓'α
+001                                     ;OPERATOR INTERRUPT TYPEIN CHECKS
+002                                     
+003                    PRM11   011 017  $PTTYC:	CLR	R3
+004                                     	TST	$TTLKF		;INPUT CHECKS INHIBITED ?
+005                    CONS11  024 048  	BNE	5$		;YES
+006  PRM11   011 022           025 003  	JSR	PC,$TIRDY	;ANY OPERATOR ACTION ?
+007                    CONS11  024 048  	BCS	5$		;NO
+008                    PRM11   011 017  	MOVB	$TICHR,R3
+009                    PRM11   011 017  	BICB	#200,R3
+010  PRM11   011 017                    	MOV	R3,$TNCHR
+011                    PRM11   006 030  	TENCHR			;SEND CHAR TO TEN
+012  PRM11   013 023   PRM11   011 017  	CMPB	#CNTRLC,R3	;CONTROL C ?
+013                    CONS11  005 001  	BNE	3$
+014                    PRM11   003 036  	TTPINI			;FLUSH REST OF OUTPUT
+015                                     	TST	PCMDFLG		;DOING PROGRAM COMMAND ?
+016                    CONS11  002 031  	BNE	2$		;YES
+017                            023 025  	JMP	$TICC		;CONTROL C, RETURN TO CONSOLE
+018                                     
+019                    CONS11  010 031  2$:	JMP	PCMDE2		;PROGRAM COMMAND, RETURN TO CALLER
+020                                     
+021  PRM11   013 020   PRM11   011 017  3$:	CMPB	#CNTRLO,R3
+022                    CONS11  002 007  	BNE	1$
+023                                     	COM	CTRLOF		;CONTROL O, STOP OUTPUT
+024          012 044   PRM11   011 017  	MOV	#$PTCO,R3
+025  PRM11   011 022   CONS11  046 058  10$:	JSR	PC,C10COP
+026  PRM11   011 022           025 038  	JSR	PC,$TORDY
+027                    CONS11  030 016  	BCS	10$
+028  PRM11   011 017                    	MOVB	(R3)+,$TOCHR
+029                            012 032  	BNE	90$
+030                    PRM11   011 017  	CLR	R3
+031                    CONS11  024 048  	BR	5$
+032  PRM11   011 022           025 063  90$:	JSR	PC,$TOOUT
+033                    CONS11  030 016  	BR	10$
+034  PRM11   013 026   PRM11   011 017  1$:	CMPB	#CNTRLL,R3	;CONTROL L, CHANGE LPT SELECTION
+035                    CONS11  004 051  	BNE	4$
+036                                     	TST	LPTFLG
+037                    CONS11  004 051  	BPL	4$
+038                                     	COMB	LPTFLG		;ONLY IF SELECTED
+039  PRM11   013 029   PRM11   011 017  4$:	CMPB	#CNTRLX,R3	;CONTROL X, CONSOLE COMMAND
+040                    CONS11  024 048  	BNE	5$
+041                            023 043  	JMP	$TICX		;DO "TTILIN" & GO TO "$RPT"
+042                    PRM11   011 022  5$:	RTS	PC
+043                                     
+044                                     $PTCO:	.ASCIZ	/↑O
+045                                     /
+046                                     .EVEN↓&	PRINT PDP-10 ADDRESS                                             SUB11.PAL[KL,SYS] 10/05/77  Page 13↓'α
+001                                     .SBTTL	PRINT CRLF
+002                                     
+003                    PRM11   008 006  $PCRLF:	PMSG	<\>
+004                            014 046  	BR	$$PEX
+005                                     
+006                                     .SBTTL	RING TTY BELL
+007                                     
+008  PRM11   013 011   PRM11   011 014  $PBELL:	MOVB	#BELL,R0
+009                    PRM11   004 033  	PTTY			;DING THE BELL DIRECTLY
+010                            014 046  	BR	$$PEX
+011                                     
+012                                     .SBTTL	PRINT SPECIFIED OCTAL DIGITS
+013                                     
+014                    PRM11   011 015  $PODT:	MOV	@$EMADR,R1	;TRAILING PARAMETER
+015                    PRM11   011 021  	ADD	#2,12(SP)
+016                                     
+017  PRM11   011 015   PRM11   011 016  $PNTODC:MOV	R1,R2		;SETUP DIGIT COUNT
+018                    CONS11  002 007  	BGT	1$
+019                    PRM11   003 004  	FATAL
+020  PRM11   011 015                    1$:	CMP	R1,#6
+021                    CONS11  002 031  	BLE	2$
+022                    PRM11   003 004  	FATAL
+023                    PRM11   011 015  2$:	MOV	#$TTSAV+2,R1
+024                    PRM11   011 015  	CLR	(R1)		;SETUP OCTAL NUMBER
+025  PRM11   011 014   PRM11   011 015  	MOV	R0,-(R1)
+026  PRM11   011 022           015 031  	JSR	PC,$PODMV	;SETUP PARAMETERS
+027                                     	CLR	$0FLG		;NO SPACE FOLLOWING NUMBER
+028          013 032   PRM11   011 017  	MOVB	$PODCD-1(R2),R3	;GET PRESET SHIFT COUNT
+029                    PRM11   005 007  	PROL36			;PRESET NUMBER
+030                            014 030  	BR	$P23X		;GO PRINT NUMBER
+031                                     
+032                                     $PODCD:	.BYTE	33.,30.,27.,24.,21.,18.
+033                                     
+034                                     .SBTTL	PRINT PDP-10 ADDRESS
+035                                     
+036                                     ;PRINTS 23 BIT FORMAT IF ANY OF 13-17 ADDRESS BITS ARE SET.
+037                                     ;OTHERWISE PRINTS 18 BIT FORMAT.
+038                                     
+039  PRM11   011 022           013 046  $PADR:	JSR	PC,$$P23
+040                    PRM11   011 015  	BIT	#174,4(R1)	;ANY OF 13-17 SET ?
+041                            014 013  	BNE	$P23Y		;YES
+042                    PRM11   011 017  	MOV	#6,R3
+043                    PRM11   005 007  	PROL36			;NO, DUMP HI-ORDER BITS
+044                            014 027  	BR	$P18X		;PRINT 18 BITS
+045                                     
+046  PRM11   011 022           015 025  $$P23:	JSR	PC,$P36MV
+047                    PRM11   011 017  	MOV	#12.,R3
+048                    PRM11   005 007  	PROL36			;POSITION 23 BITS
+049                    PRM11   011 015  	BIC	#177600,4(R1)	;CLEAR UPPER JUNK BITS
+050                    PRM11   011 022  	RTS	PC↓&	PRINT 36 BIT NUMBER                                              SUB11.PAL[KL,SYS] 10/05/77  Page 14↓'α
+001                                     .SBTTL	PRINT LOWER 18 BITS OF 36 BIT NUMBER
+002                                     
+003  PRM11   011 022           015 025  $PNT18:	JSR	PC,$P36MV
+004                                     
+005                    PRM11   011 017  	MOV	#18.,R3
+006                    PRM11   005 007  	PROL36			;SHIFT LOWER 18 BITS TO UPPER
+007                            014 027  	BR	$P18X
+008                                     
+009                                     .SBTTL	PRINT LOWER 23 BITS OF 36 BIT NUMBER
+010                                     
+011  PRM11   011 022           013 046  $PNT23:	JSR	PC,$$P23
+012                                     
+013                    PRM11   011 016  $P23Y:	MOV	#2,R2
+014                    PRM11   011 018  	INC	R4
+015                            014 030  	BR	$P23X
+016                                     
+017                                     .SBTTL	PRINT 36 BIT NUMBER IN BINARY
+018                                     
+019  PRM11   011 022           015 025  $P36B:	JSR	PC,$P36MV
+020                    PRM11   011 019  	COM	R5
+021                            014 026  	BR	$P36BX
+022                                     
+023                                     .SBTTL	PRINT 36 BIT NUMBER
+024                                     
+025  PRM11   011 022           015 025  $PNT36:	JSR	PC,$P36MV
+026                    PRM11   011 018  $P36BX:	INC	R4
+027                                     $P18X=.
+028                                     
+029                    PRM11   011 016  2$:	MOV	#6,R2
+030                                     $P23X=.
+031                    PRM11   011 017  1$:	MOV	#3,R3
+032                                     
+033                    PRM11   005 007  	PROL36			;ROTATE 3
+034  PRM11   011 022           015 001  	JSR	PC,$PRT36	;PRINT OCTAL
+035                                     
+036                    PRM11   011 016  	DEC	R2		;FINISHED HALF WORD YET ?
+037                    CONS11  002 007  	BNE	1$
+038                                     
+039                                     	TST	$0FLG
+040                    CONS11  005 001  	BEQ	3$
+041                    PRM11   004 013  	PSPACE
+042                                     
+043                    PRM11   011 018  3$:	DEC	R4		;FINISHED FULL WORD YET ?
+044                    CONS11  002 031  	BPL	2$
+045                                     
+046                    PRM11   008 043  $$PEX:	EXIT↓&	PRINT 36 BIT NUMBER                                              SUB11.PAL[KL,SYS] 10/05/77  Page 15↓'α
+001  PRM11   011 015   PRM11   011 014  $PRT36:	MOV	4(R1),R0	;GET THE WORD
+002                    PRM11   011 014  	SWAB	R0
+003                    PRM11   011 019  	TST	R5
+004                    CONS11  002 007  	BNE	1$
+005                    PRM11   004 011  	PNTNBR			;PRINT OCTAL
+006                    PRM11   011 022  	RTS	PC
+007                                     
+008                    PRM11   011 018  1$:	PUSH	R4
+009  PRM11   011 014   PRM11   011 018  	MOV	R0,R4
+010                    PRM11   011 017  	MOV	#177776,R3
+011  PRM11   011 014                    	SR	R0,2
+012  PRM11   011 017   PRM11   011 014  	BIC	R3,R0
+013                    PRM11   004 011  	PNTNBR			;PRINT HI-BIT OF OCTAL
+014  PRM11   011 018   PRM11   011 014  	MOV	R4,R0
+015  PRM11   011 014                    	SR	R0,1
+016  PRM11   011 017   PRM11   011 014  	BIC	R3,R0
+017                    PRM11   004 011  	PNTNBR			;PRINT MIDDLE-BIT OF OCTAL
+018  PRM11   011 018   PRM11   011 014  	MOV	R4,R0
+019  PRM11   011 017   PRM11   011 014  	BIC	R3,R0
+020                    PRM11   004 011  	PNTNBR			;PRINT LO-BIT OF OCTAL
+021                    PRM11   004 013  	PSPACE
+022                    PRM11   011 018  	POP	R4
+023                    PRM11   011 022  	RTS	PC
+024                                     
+025                    PRM11   011 017  $P36MV:	MOV	#6,R3		;MOVE 6 BYTES
+026                    PRM11   011 016  	MOV	#$TTSAV,R2	;TO SETUP DATA
+027  PRM11   011 016   PRM11   011 015  	MOV	R2,R1
+028  PRM11   011 014   PRM11   011 016  1$:	MOVB	(R0)+,(R2)+
+029                    PRM11   011 017  	DEC	R3
+030                    CONS11  002 007  	BNE	1$
+031                    PRM11   011 019  $PODMV:	CLR	R5
+032                    PRM11   011 018  	CLR	R4
+033                    PRM11   011 017  	MOV	#4,R3
+034  PRM11   011 017                    	MOV	R3,$0FLG	;SET SPACE FLAG
+035                    PRM11   005 007  	PROL36			;PRESET NUMBER
+036                    PRM11   011 022  	RTS	PC
+037                                     
+038                    PRM11   011 015  $PROL36:ROL	(R1)
+039                    PRM11   011 015  	ROL	2(R1)
+040                    PRM11   011 015  	ROL	4(R1)
+041                    PRM11   011 017  	DEC	R3
+042                            015 038  	BNE	$PROL36
+043                            014 046  	BR	$$PEX↓&	PRINT OCTAL ZERO SUPRRESS                                        SUB11.PAL[KL,SYS] 10/05/77  Page 16↓'α
+001                                     .SBTTL	PRINT OCTAL
+002                                     
+003                    PRM11   011 018  $PNTOCT:MOV	#-1,R4		;PRINT OCTAL
+004                            016 009  	BR	$PNTO
+005                                     
+006                                     .SBTTL	PRINT OCTAL ZERO SUPRRESS
+007                                     
+008                    PRM11   011 018  $PNTOSC:CLR	R4		;PRINT OCTAL ZERO SUPPRESS
+009                    PRM11   011 015  $PNTO:	MOV	#6,R1		;SET FOR 6 DIGITS
+010  PRM11   011 014   PRM11   011 016  	MOV	R0,R2		;SAVE INPUT NUMBERS
+011                    PRM11   011 019  	CLR	R5		;CLEAR THE ZERO FILL FLAG
+012                    PRM11   011 018  	TST	R4		;ZERO SUPPRESS ?
+013                    CONS11  030 016  	BNE	10$		;NO
+014                    PRM11   011 014  	TST	R0		;TEST FOR A ZERO INPUT NUMBER
+015                    CONS11  002 007  	BNE	1$
+016                    PRM11   011 015  	CLR	R1		;INPUT = 0 PRINT AND EXIT
+017                    CONS11  024 048  	BR	5$
+018                                     
+019                    PRM11   011 019  10$:	INC	R5
+020                    PRM11   011 014  1$:	CLR	R0
+021                    PRM11   011 016  	ROL	R2		;MSD TO C BIT
+022                    CONS11  005 001  	BR	3$
+023                                     
+024                    PRM11   011 016  2$:	ROL	R2
+025                    PRM11   011 016  	ROL	R2
+026                    PRM11   011 016  	ROL	R2
+027  PRM11   011 016   PRM11   011 014  	MOV	R2,R0
+028                    PRM11   011 014  3$:	ROL	R0
+029                                     
+030                    PRM11   011 014  	BIC	#177770,R0	;GET RID OF JUNK
+031                    CONS11  004 051  	BEQ	4$
+032                    PRM11   011 019  	INC	R5		;SET ZERO FILL FLAG
+033                                     
+034                    PRM11   011 019  4$:	TST	R5		;SUPPRESS ?
+035                    CONS11  034 069  	BEQ	6$
+036                    PRM11   004 011  5$:	PNTNBR			;PRINT DIGIT
+037                    PRM11   011 015  6$:	DEC	R1
+038                    CONS11  002 031  	BGT	2$
+039                                     
+040                    PRM11   011 018  	TST	R4
+041                    CONS11  035 053  	BEQ	7$
+042                    PRM11   004 013  	PSPACE			;SPACE UNLESS OCTAL SUPPRESS
+043                            017 038  7$:	BR	$$PEX1↓&	CONVERT BINARY TO DECIMAL AND TYPE ROUTINE                       SUB11.PAL[KL,SYS] 10/05/77  Page 17↓'α
+001                                     .SBTTL	CONVERT BINARY TO DECIMAL AND TYPE ROUTINE
+002                                     
+003                    PRM11   011 015  $PNTDEC:MOV	#5,R1		;SET FOR 5 DIGIT
+004  PRM11   011 014   PRM11   011 016  	MOV	R0,R2		;SAVE INPUT NUMBER
+005                    PRM11   011 019  	CLR	R5		;CLEAR ZERO FILL FLAG
+006                    PRM11   011 014  	TST	R0		;TEST SIGN OF INPUT NUMBER
+007                    CONS11  002 007  	BPL	1$		;POSITIVE GO TYPE IT
+008                    PRM11   011 014  	MOVB	#'-,R0		;PRINT A MINUS SIGN
+009                    PRM11   004 009  	PNTCHR			;SEND TO BUFFER
+010                    PRM11   011 016  	NEG	R2		;NEGATE THE NUMBER
+011  PRM11   011 016   PRM11   011 014  	MOV	R2,R0		;GET NUMBER AGAIN
+012                    PRM11   011 014  	BIC	#100000,R0	;CLEAR SIGN BIT
+013                    PRM11   011 014  1$:	TST	R0		;TEST FOR A ZERO INPUT NUMBER
+014                    CONS11  002 031  	BNE	2$		;NON ZERO
+015                    PRM11   004 011  	PNTNBR			;PRINT A SINGLE ZERO AND EXIT
+016                    CONS11  019 049  	BR	9$		;EXIT
+017                    PRM11   011 017  2$:	CLR	R3		;ZERO THE CONSTANTS INDEX
+018                    PRM11   011 014  3$:	CLR	R0		;CLEAR THE BCD NUMBER
+019  SBST11  002 040   PRM11   011 016  4$:	SUB	$DTBL(R3),R2	;FORM THIS BCD DIGIT
+020                    CONS11  024 048  	BLT	5$		;BR IF DONE
+021                    PRM11   011 014  	INC	R0		;INCREASE THE BCD DIGIT BY 1
+022                    CONS11  004 051  	BR	4$
+023  SBST11  002 040   PRM11   011 016  5$:	ADD	$DTBL(R3),R2	;ADD BACK THE CONSTANT
+024                    PRM11   011 014  	TST	R0		;TEST IF DIGIT IS A ZERO
+025                    CONS11  034 069  	BEQ	6$		;YES
+026                    PRM11   011 019  	INC	R5		;NO SET ZERO FILL FLAG
+027                    CONS11  035 053  	BR	7$
+028                                     
+029                    PRM11   011 019  6$:	TST	R5		;IS ZERO FILL FLAG SET
+030                    CONS11  035 063  	BEQ	8$		;YES EXIT
+031                    PRM11   011 014  7$:	BIS	#'0,R0		;MAKE THE BCD DIGIT ASCII
+032                    PRM11   004 009  	PNTCHR
+033                    PRM11   011 017  8$:	TST	(R3)+		;JUST INCREMENTING
+034                    PRM11   011 015  	DEC	R1		;DONE YET
+035                    CONS11  005 001  	BGT	3$		;GO DO THE NEXT DIGIT
+036                    PRM11   004 010  9$:	PNTCI
+037                                     	'.			;PRINT DECIMAL POINT
+038                    PRM11   008 043  $$PEX1:	EXIT			;RETURN TO USER↓&	TTY ALT-MODE CHECK ROUTINE                                       SUB11.PAL[KL,SYS] 10/05/77  Page 18↓'α
+001                                     .SBTTL	TTY INPUT ROUTINE TTICHR
+002                                     
+003                    PRM11   011 014  $TTICHR:CLR	R0
+004                                     	CMP	$INPTC,$INPTR	;ARE WE AT END ON CURRENT BUFFER
+005                            018 011  	BGT	$TTIX2		;YES EXIT
+006                    PRM11   011 014  	MOVB	@$INPTC,R0	;FETCH CHARACTER FROM BUFFER
+007                                     	INC	$INPTC
+008                                     
+009                    PRM11   011 014  $TTIX1:	BIC	#177600,R0
+010                            018 044  	BR	$$PSX2		;OK RETURN
+011                            018 042  $TTIX2:	BR	$$PEX2		;ERROR RETURN
+012                                     
+013                                     .SBTTL	TTY LOOK
+014                                     
+015                                     ;*TELETYPE KEYBOARD CHECK ROUTINE
+016                                     ;*CHECKS FOR ANY KEY STRUCK,RETURNS IMMEDIATELY
+017                                     ;*RETURNS WITH C-BIT SET IF NO TYPEIN
+018                                     
+019                                     $TTLOOK:INC	$TTLKF		;SET INHIBIT INPUT CHECKS
+020                    PRM11   011 014  	CLR	R0
+021  PRM11   011 022           025 003  	JSR	PC,$TIRDY	;ANYTHING BEEN TYPED
+022                            018 011  	BCS	$TTIX2		;NO, C-BIT RETURN
+023                    PRM11   011 014  	MOVB	$TICHR,R0	;YES, PUT IT IN R0
+024                                     	CLR	$TTLKF		;CLEAR INHIBIT INPUT CHECKS
+025                            018 009  	BR	$TTIX1		;RETURN
+026                                     
+027                                     .SBTTL	TTY ALT-MODE CHECK ROUTINE
+028                                     
+029                                     ;*CHECK FOR ALT-MODE IF NOTHING TYPED OR NOT ALTMODE C-BIT SET
+030                                     ;*IF ALT-MODE WAS TYPED THEN C-BIT CLEAR
+031                                     
+032                    PRM11   003 020  $TTALTM:TTLOOK			;ANYTHING TYPED
+033                    CONS11  002 031  	 BCS	2$		;NO
+034                                     
+035  PRM11   011 014                    	CMPB	R0,#175
+036                    CONS11  005 001  	BEQ	3$
+037  PRM11   011 014                    	CMPB	R0,#176
+038                    CONS11  005 001  	BEQ	3$
+039  PRM11   011 014   PRM11   013 032  	CMPB	R0,#ALTMOD
+040                    CONS11  002 007  	BEQ	1$
+041                                     
+042                                     $$PEX2=.
+043                    PRM11   008 051  2$:	EXITERR			;EXIT
+044                                     $$PSX2=.
+045                    PRM11   008 043  1$:	EXIT			;OK RETURN
+046                                     
+047  PRM11   013 032   PRM11   011 014  3$:	MOVB	#ALTMOD,R0
+048                    CONS11  002 007  	BR	1$↓&	BACKUP TTY INPUT BUFFER POINTER                                  SUB11.PAL[KL,SYS] 10/05/77  Page 19↓'α
+001                                     .SBTTL	TTIYES YES OR NO ROUTINE
+002                                     
+003                                     ; NO BITS SET IF YES
+004                                     ; N-BIT SET IF NO
+005                                     ; C-BIT SET IF NEITHER
+006                                     
+007                    PRM11   003 018  $TTIYES:TTICHR			;GET INPUT CHARACTER
+008                            018 042  	 BCS	$$PEX2		;NO CHAR AVAILABLE
+009                    PRM11   011 014  	CMPB	#'Y,R0		;WAS THE CHAR A "Y" ?
+010                            018 044  	BEQ	$$PSX2		;BR IF YES
+011                    PRM11   011 014  	CMPB	#'N,R0		;WAS THE CHAR AN "N" ?
+012                            018 042  	BNE	$$PEX2		;BR IF NO, NEITHER
+013  PRM11   011 007   PRM11   011 021  	BIS	#NBIT,14(SP)	;"NO", SET N-BIT
+014                            018 044  	BR	$$PSX2
+015                                     
+016                                     .SBTTL	PRINT A SELECTED NUMBER OF SPACES
+017                                     
+018                    PRM11   011 015  $PNTSPC:DEC	R1
+019                    CONS11  002 007  	BLT	1$
+020                                     
+021                    PRM11   004 013  	PSPACE			;PRINT SPACE
+022                            019 018  	BR	$PNTSPC
+023                                     
+024                    PRM11   011 022  1$:	RTS	PC
+025                                     
+026                                     .SBTTL	BACKUP TTY INPUT BUFFER POINTER
+027                                     
+028                                     $TTBACK:CMP	$INPTC,#$INBUF
+029                            018 042  	BLE	$$PEX2		;CAN'T, C-BIT SET RETURN
+030                                     	DEC	$INPTC		;BACKUP POINTER
+031                            018 044  	BR	$$PSX2↓&	CLEAR FORCE PRINT FLAG                                           SUB11.PAL[KL,SYS] 10/05/77  Page 20↓'α
+001                                     .SBTTL	READ SWITCH REGISTER
+002                                     
+003  PRM11   011 045   PRM11   011 014  $SWITCH:MOV	SWR,R0		;PUT SWR INTO R0
+004                                     
+005  PRM11   011 014                    1$:	MOV	R0,$SWTCH	;SAVE A COPY FOR FUTURE REFERENCE
+006                            020 023  	BR	$$PEX3		;RETURN TO USER
+007                                     
+008                                     .SBTTL	RETURN WITH COPY OF SWITCHES 
+009                                     
+010                    PRM11   011 014  $SWTSAM:MOV	$SWTCH,R0	;COPY OF SWITCHES TO RO
+011                            020 023  	BR	$$PEX3
+012                                     
+013                                     .SBTTL	SET FORCE PRINT FLAG
+014                                     
+015                    PRM11   005 008  $PFORCE:SETFLG
+016                                     	  $FORCE		;177777 TO FORCE FLAG
+017                            020 023  	BR	$$PEX3		;RETURN
+018                                     
+019                                     
+020                                     .SBTTL	CLEAR FORCE PRINT FLAG
+021                                     
+022                                     $PNORML:CLR	$FORCE		;0 TO FORCE FLAG
+023                    PRM11   008 043  $$PEX3:	EXIT			;RETURN
+024                                     
+025                                     ;TTILIN ENTRY POINT FROM RUNLP
+026                                     
+027                                     $TILRN:	CLR	TILNWF		;CLEAR TTY WAIT FLAG
+028  PRM11   011 022           020 033  	JSR	PC,$TILN3	;INIT TTILIN ROUTINE
+029                    PRM11   009 003  	PUSH	$FORCE
+030                    PRM11   011 015  	MOV	#$INBUF,R1
+031                            021 022  	BR	$TILN2		;GO INPUT, 1ST CHAR ALREADY AVAILABLE
+032                                     
+033                                     $TILN3:	CLR	CTRLOF		;CLEAR CONTROL O FLAG
+034                                     	CMP	#$OUTBF,$OUTPT	;ANY OUTPUT WAITING ?
+035                    CONS11  002 007  	BEQ	1$		;NO
+036                    PRM11   004 032  	PRINTT			;YES, PRINT IT
+037                                     1$:	CLR	$TPLIT		;CLEAR LINES ON PAGE
+038                                     	CLR	$0FLG		;CLEAR RUBOUT FLAG
+039                                     	CLR	$TTYTIM		;CLEAR TTY TIMEOUT
+040                    PRM11   011 022  	RTS	PC↓&	INPUT A STRING FROM TTY                                          SUB11.PAL[KL,SYS] 10/05/77  Page 21↓'α
+001                                     .SBTTL	INPUT A STRING FROM TTY
+002                                     
+003                    PRM11   005 008  $TTILNW:SETFLG			;SET TTY WAIT FLAG
+004                                     	  TILNWF
+005                            021 009  	BR	$TILNX
+006                                     
+007                                     $TTILIN:CLR	TILNWF		;CLEAR TTY WAIT FLAG
+008                                     
+009  PRM11   011 022           020 033  $TILNX:	JSR	PC,$TILN3	;INIT ROUTINE
+010                    PRM11   009 003  	PUSH	$FORCE
+011                    PRM11   004 026  	PFORCE
+012                    PRM11   011 015  95$:	MOV	#$INBUF,R1
+013                                     $TILN1=.
+014  PRM11   011 022   CONS11  046 058  2$:	JSR	PC,C10COP	;PERFORM CLOCK OPERATIONS
+015                                     	TST	TILNWF		;WAIT FOREVER ?
+016                    CONS11  013 027  	BNE	21$		;YES, NO TIMEOUT
+017                                     	CMP	$TTYTIM,#<3*60.*60.>;TTY TIMED OUT ?
+018                            008 014  	BGT	99$		;YES, C-BIT SET EXIT
+019                                     
+020  PRM11   011 022           025 003  21$:	JSR	PC,$TIRDY	;TTY IN FLAG SET
+021                    CONS11  002 031  	BCS	2$
+022                                     $TILN2=.
+023                                     	CLR	$TTYTIM
+024                    PRM11   011 015  	MOVB	$TICHR,(R1)	;MOVE CHARACTER TO BUFFER
+025                    PRM11   011 015  	BICB	#200,(R1)
+026  PRM11   011 015                    	MOVB	(R1),$TNCHR	;SAVE CHAR FOR TEN
+027                    CONS11  002 031  	BEQ	2$		;NULL, IGNORE
+028                    PRM11   006 030  	TENCHR			;SEND TEN THE CHAR
+029                                     
+030                    PRM11   011 019  	CLR	R5		;DO SPECIAL CHAR PROCESS
+031  PRM11   011 015           024 003  80$:	CMPB	(R1),TILINC(R5)
+032                            021 038  	BEQ	81$		;FOUND
+033                    PRM11   011 019  	INC	R5
+034                            024 003  	TSTB	TILINC(R5)
+035                            022 001  	BEQ	82$		;IF 0, END OF LIST
+036                            021 031  	BR	80$
+037                                     
+038  PRM11   011 019                    81$:	SL	R5,1		;DISPATCH
+039                            024 014  	JMP	@TILINA(R5)↓&	INPUT A STRING FROM TTY                                          SUB11.PAL[KL,SYS] 10/05/77  Page 22↓'α
+001  PRM11   011 015                    82$:	CMPB	(R1),#141
+002                            022 007  	BLT	83$
+003  PRM11   011 015                    	CMPB	(R1),#172
+004                            022 007  	BGT	83$
+005                    PRM11   011 015  	BICB	#40,(R1)	;CONVERT LOWER TO UPPER CASE
+006                                     
+007                    PRM11   011 015  83$:	PUSH	R1
+008  PRM11   011 015   PRM11   011 015  	MOVB	(R1),R1		;PUT CHAR IN R1
+009                    PRM11   004 035  	PLDBUF			;INSERT FOR LPT
+010                                     	INC	$OUTPP		;MOVE PRINTED-TO-POSITION
+011                    PRM11   011 015  	POP	R1
+012                                     
+013                                     10$:	TST	$0FLG		;RUBOUT KEY SET?
+014                    CONS11  003 018  	BEQ	11$		;BR IF NO
+015                                     
+016  PRM11   013 016   PRM11   011 014  	MOVB	#BKSLH,R0	;TYPE A BACK SLASH
+017                    PRM11   004 033  	PTTY
+018                                     	CLR	$0FLG		;CLEAR RUBOUT FLAG
+019                                     
+020  PRM11   011 015   PRM11   011 014  11$:	MOVB	(R1)+,R0	;CHAR TO R0
+021                    PRM11   004 033  	PTTY			;PRINT IT
+022                    CONS11  002 031  	BR	2$		;BACK FOR MORE
+023                                     
+024  PRM11   011 015                    99$:	MOV	R1,$INPTR	;SAVE INPUT POINTER
+025                    PRM11   009 011  	POP	$FORCE
+026                    PRM11   008 051  	EXITERR			;TIMED OUT, C-BIT SET RETURN
+027                                     
+028                                     $TIRUB:	TST	$0FLG		;MULTIPLE RUBOUTS ?
+029                    CONS11  002 007  	BNE	1$		;YES
+030                                     	INC	$0FLG		;SET RUBOUT FLAG
+031  PRM11   013 016   PRM11   011 014  	MOVB	#BKSLH,R0	;TYPE A BACKSLASH
+032                    PRM11   004 033  	PTTY
+033                                     
+034                    PRM11   011 015  1$:	DEC	R1		;BACKUP BY ONE
+035  PRM11   011 015                    	CMP	R1,#$INBUF-1	;INPUT BUFFER EMPTY ?
+036                    CONS11  002 031  	BNE	2$		;NO
+037                                     
+038                    PRM11   004 012  	PCRLF			;EMPTY, PRINT CR/LF
+039                    PRM11   009 011  	POP	$FORCE
+040                            021 009  	BR	$TILNX		;AWAIT NEW LINE
+041                                     
+042  PRM11   011 015   PRM11   011 014  2$:	MOVB	(R1),R0		;PRINT RUBBED OUT CHAR
+043                    PRM11   004 033  	PTTY
+044                            021 013  	BR	$TILN1↓&	INPUT A STRING FROM TTY                                          SUB11.PAL[KL,SYS] 10/05/77  Page 23↓'α
+001                                     ;SPECIAL CHAR PROCESS
+002                                     
+003                    PRM11   008 006  $TICU:	PMSG	<↑U\>		;CONTROL U, DUMP LINE
+004                    PRM11   009 011  	POP	$FORCE
+005                            021 009  	BR	$TILNX
+006                                     
+007                    PRM11   011 015  $TICR:	INC	R1		;CARRIAGE RETURN
+008  PRM11   013 007   PRM11   011 015  	MOVB	#LF,(R1)	;INSERT LF ALSO
+009                                     
+010                    PRM11   004 012  $TIBELL:PCRLF			;PRINT CR/LF
+011                                     
+012  PRM11   011 015                    $TIEXT:	MOV	R1,$INPTR	;UPDATE INPUT POINTER
+013                                     	MOV	#$INBUF,$INPTC	;INIT CHAR POINTER
+014                    PRM11   009 011  	POP	$FORCE
+015                    PRM11   008 043  	EXIT			;RETURN
+016                                     
+017  PRM11   013 032   PRM11   011 015  $TIALT:	MOVB	#ALTMOD,(R1)	;ALTMODE
+018                    PRM11   008 006  	PMSG	<$\>		;PRINT DOLLAR SIGN CR/LF
+019                            023 012  	BR	$TIEXT
+020                                     
+021                    PRM11   004 012  $TIBKS:	PCRLF			;BACKSLASH, DO LOCAL CR/LF
+022                            021 013  	BR	$TILN1
+023                                     
+024                                     
+025                    PRM11   004 010  $TICC:	PNTCI			;CONTROL C, ABORT
+026                                     	"↑C
+027                    BEG11   002 007  	JMP	$CNTLC
+028                                     
+029                                     $TICL:	TST	LPTFLG		;CONTROL L, LPT SELECTION
+030                            021 013  	BPL	$TILN1
+031                                     	COMB	LPTFLG
+032                            021 013  	BR	$TILN1
+033                                     
+034  PRM11   011 015   PRM11   011 014  $TILF:	MOVB	(R1),R0		;LINE FEED
+035                    PRM11   004 033  	PTTY
+036                            023 012  	BR	$TIEXT
+037                                     
+038                                     $TICO:	CLR	CTRLOF		;CLEAR CONTROL O FLAG
+039                    PRM11   004 010  	PNTCI
+040                                     	"↑O
+041                            023 010  	BR	$TIBELL		;CR/LF & TERMINATE
+042                                     
+043                    PRM11   003 036  $TICX:	TTPINI
+044                    PRM11   004 010  	PNTCI
+045                                     	"↑X
+046                    PRM11   003 015  	TTILIN			;GET COMMAND LINE
+047                            023 025  	 BCS	$TICC		;TIMED OUT
+048                    PRM11   011 021  	MOV	$KONSP,SP	;RESTORE STACK POINTER
+049                    CONS11  004 030  	JMP	$RPT		;GO PROCESS COMMAND↓&	INPUT A STRING FROM TTY                                          SUB11.PAL[KL,SYS] 10/05/77  Page 24↓'α
+001                                     ;SPECIAL CHARACTERS
+002                                     
+003  PRM11   013 010   PRM11   013 007  TILINC:	.BYTE	CR,LF
+004  PRM11   013 011   PRM11   013 032  	.BYTE	BELL,ALTMOD
+005                                     	.BYTE	175,176
+006  PRM11   013 026   PRM11   013 021  	.BYTE	CNTRLL,CNTRLU
+007  PRM11   013 023   PRM11   013 016  	.BYTE	CNTRLC,BKSLH
+008  PRM11   013 031   PRM11   013 020  	.BYTE	RUBOUT,CNTRLO
+009  PRM11   013 019   PRM11   013 018  	.BYTE	XON,XOFF
+010  PRM11   013 029                    	.BYTE	CNTRLX,0
+011                                     
+012                                     ;SPECIAL CHAR DISPATCH TABLE
+013                                     
+014                            023 007  TILINA:	$TICR
+015                            023 034  	$TILF
+016                            023 010  	$TIBELL
+017                            023 017  	$TIALT
+018                            023 017  	$TIALT
+019                            023 017  	$TIALT
+020                            023 029  	$TICL
+021                            023 003  	$TICU
+022                            023 025  	$TICC
+023                            023 021  	$TIBKS
+024                            022 028  	$TIRUB
+025                            023 038  	$TICO
+026                            023 010  	$TIBELL
+027                            023 010  	$TIBELL
+028                            023 043  	$TICX↓&	CTY & FSTTY DL11 DRIVERS                                         SUB11.PAL[KL,SYS] 10/05/77  Page 25↓'α
+001                                     .SBTTL	CTY & FSTTY DL11 DRIVERS
+002                                     
+003                    BEG11   002 013  $TIRDY:	TSTB	@$TKS		;ANY CTY INPUT ?
+004                    CONS11  002 031  	BPL	2$		;NO
+005                    BEG11   002 014  	BIT	#20000,@$TKB	;YES. BREAK?
+006                    CONS11  024 048  	BNE	5$		;BRANCH IF YES
+007  BEG11   002 014                    	MOVB	@$TKB,$TICHR	;GET CHAR
+008                                     	BICB	#200,$TICHR	;CLEAR PARITY BIT
+009                                     1$:	CLC			;C-BIT CLEAR RETURN
+010                    PRM11   011 022  	RTS	PC
+011                                     
+012  PRM11   013 003                    5$:	MOVB	#MSWCHR,$TICHR	;BREAK SEEN. 
+013                    CONS11  002 007  	BR	1$
+014                                     
+015                                     2$:
+016                    KLDCP   003 018  .IF NDF TELASB
+017                                     	TST	DL11EFLG	;DOING DL11E ?
+018                    CONS11  005 001  	BEQ	3$		;NO
+019  PRM11   035 015   BEG11   002 021  	BIT	#DLCTS,@$FSTKS	;YES, STILL HAVE CLEAR TO SEND ?
+020                    CONS11  004 051  	BEQ	4$		;NO
+021                                     .IFF
+022                                     	TST FSFLG		;DOING DL11E?
+023                    CONS11  005 001  	BEQ 3$			;NO
+024  PRM11   035 015   BEG11   002 021  	BIT #DLCTS,@$FSTKS	;STILL HAVE CLEAR TO SEND?
+025                    CONS11  005 001  	BEQ 3$			;NO
+026                                     .ENDC
+027                    BEG11   002 021  	TSTB	@$FSTKS		;ANY FSTTY INPUT ?
+028                    CONS11  005 001  	BPL	3$		;NO
+029  BEG11   002 022                    	MOVB	@$FSTKB,$TICHR	;YES, GET CHAR
+030                    CONS11  002 007  	BR	1$		;C-BIT CLEAR RETURN
+031                                     
+032                                     3$:	SEC			;NO INPUT, C-BIT SET RETURN
+033                    PRM11   011 022  	RTS	PC
+034                                     
+035                    KLDCP   003 018  .LIF NDF TELASB
+036                    CONS11  061 030  4$:	JMP	FSDISC		;DL11E DISCONNECT
+037                                     
+038                    BEG11   002 015  $TORDY:	TSTB	@$TPS		;IS CTY READY ?
+039                    CONS11  002 031  	BPL	2$		;NO
+040                    KLDCP   003 018  .IF NDF TELASB
+041                                     	TST	DL11EFLG	;DOING DL11E ?
+042                    CONS11  002 007  	BEQ	1$		;NO
+043  PRM11   035 015   BEG11   002 021  	BIT	#DLCTS,@$FSTKS	;STILL HAVE CLEAR TO SEND ?
+044                    CONS11  005 001  	BEQ	3$		;NO
+045                                     .IFF
+046                                     	TST FSFLG
+047                    CONS11  002 007  	BEQ 1$
+048  PRM11   035 015   BEG11   002 021  	BIT #DLCTS,@$FSTKS	;STILL HAVE CLEAR TO SEND?
+049                    CONS11  002 007  	BEQ 1$			;NO
+050                                     .ENDC
+051                    BEG11   002 023  	TSTB	@$FSTPS		;IS FSTTY READY ?
+052                    CONS11  002 031  	BPL	2$		;NO
+053                                     
+054                                     1$:	CLC			;ALL READY, C-BIT CLEAR RETURN
+055                    PRM11   011 022  	RTS	PC
+056                                     
+057                                     2$:	SEC			;NOT READY
+058                    PRM11   011 022  	RTS	PC
+059                                     
+060                    KLDCP   003 018  .LIF NDF TELASB
+061                    CONS11  061 030  3$:	JMP	FSDISC		;DL11E DISCONNECT
+062                                     
+063                    BEG11   002 016  $TOOUT:	MOVB	$TOCHR,@$TPB	;PRINT ON CTY
+064                                     
+065                    KLDCP   003 018  .IF NDF TELASB
+066                                     	TST	DL11EFLG
+067                    CONS11  002 007  	BEQ	1$
+068                                     .IFF
+069                                     	TST FSFLG
+070                    CONS11  002 007  	BEQ 1$
+071  PRM11   035 015   BEG11   002 021  	BIT #DLCTS,@$FSTKS	;STILL HAVE CLEAR TO SEND
+072                    CONS11  002 007  	BEQ 1$
+073                                     .ENDC
+074                    BEG11   002 024  	MOVB	$TOCHR,@$FSTPB	;PRINT ON FSTTY
+075                    PRM11   011 022  1$:	RTS	PC↓&	READ AN OCTAL NUMBER FROM THE TTY                                SUB11.PAL[KL,SYS] 10/05/77  Page 26↓'α
+001                                     .SBTTL	READ AN OCTAL NUMBER FROM THE TTY
+002                                     
+003                                     ;REGISTER USAGE
+004                                     ;R0 = TTY CHARACTER 7 BIT FROM $INBUF
+005                                     ;R2 = WORK REGISTER
+006                                     ;R3 = CLEARED/SET = NO OCTAL CHARS/AT LEAST 1 OCTAL CHAR
+007                                     
+008                    PRM11   011 016  $TTIOCT:CLR	R2		;CLEAR WORK REGISTER
+009  PRM11   011 022           026 040  	JSR	PC,$TMINUS	;CHECK FOR PLUS & MINUS
+010                    PRM11   003 018  1$:	TTICHR			;PICKUP THIS CHARACTER
+011                    CONS11  002 031  	 BCS	2$
+012                                     
+013  PRM11   011 014                    	CMPB	R0,#60		;MAKE SURE THIS CHARACTER
+014                    CONS11  002 031  	BLT	2$		;IS AN OCTAL DIGIT
+015  PRM11   011 014                    	CMPB	R0,#67
+016                    CONS11  002 031  	BGT	2$
+017                                     
+018                    PRM11   011 017  	INC	R3		;TO SHOW I GOT ONE CHARACTER
+019                                     
+020                    PRM11   011 016  	ASL	R2
+021                    PRM11   011 016  	ASL	R2
+022                    PRM11   011 016  	ASL	R2
+023                                     
+024                    PRM11   011 014  	BIC	#177770,R0
+025  PRM11   011 014   PRM11   011 016  	ADD	R0,R2
+026                    CONS11  002 007  	BR	1$
+027                                     
+028                    PRM11   011 014  2$:	CLR	R0		;SET UP FOR EXIT
+029                                     
+030                    PRM11   011 017  	TST	R3		;DID WE GET ANY DATA
+031                            026 038  	BEQ	$$PEX7		;NO, ERROR RETURN
+032                                     
+033  PRM11   011 016   PRM11   011 014  	MOV	R2,R0
+034                    PRM11   011 018  	TST	R4		;NEGATE FLAG SET ?
+035                            026 037  	BEQ	$$PEX6		;NO
+036                    PRM11   011 014  	NEG	R0		;YES, MAKE NUMBER NEGATIVE
+037                            033 008  $$PEX6:	JMP	$TTERM		;VERIFY TERMINATION & EXIT
+038                    PRM11   008 051  $$PEX7:	EXITERR			;ERROR RETURN
+039                                     
+040                    PRM11   011 017  $TMINUS:CLR	R3		;CLEAR CHAR COUNTER
+041                    PRM11   011 018  	CLR	R4		;CLEAR NEGATE FLAG
+042                    PRM11   011 019  	MOV	$INPTC,R5	;SAVE INPUT POINTER
+043                    PRM11   003 018  	TTICHR			;GET 1ST CHAR
+044                            022 001  	 BCS	82$		;NONE AVAILABLE
+045                    PRM11   011 014  	CMPB	#'+,R0
+046                            021 031  	BEQ	80$
+047                    PRM11   011 014  	CMPB	#'-,R0		;NEGATE ?
+048                            021 038  	BNE	81$		;BR IF NO
+049                    PRM11   011 018  	INC	R4		;YES, SET NEGATE FLAG
+050                    PRM11   011 019  80$:	INC	R5		;YES, ADVANCE PAST -
+051  PRM11   011 019                    81$:	MOV	R5,$INPTC
+052                    PRM11   011 022  82$:	RTS	PC↓&	READ A DECIMAL NUMBER FROM THE TTY                               SUB11.PAL[KL,SYS] 10/05/77  Page 27↓'α
+001                                     .SBTTL	READ A DECIMAL NUMBER FROM THE TTY
+002                                     
+003                    PRM11   011 016  $TTIDEC:MOV	#$TTSAV,R2	;RESERVE STORAGE
+004  PRM11   011 022           026 040  	JSR	PC,$TMINUS	;CHECK FOR PLUS & MINUS
+005                    PRM11   003 018  1$:	TTICHR			;READ IN A CHARACTER
+006                    CONS11  002 031  	 BCS	2$
+007  PRM11   011 014                    	CMPB	R0,#60		;MAKE SURE THIS CHARACTER
+008                    CONS11  002 031  	BLT	2$		;IS A DIGIT BETWEEN 0 & 9
+009  PRM11   011 014                    	CMPB	R0,#71
+010                    CONS11  002 031  	BGT	2$
+011                    PRM11   011 017  	INC	R3		;SO I KNOW I GOT A DIGIT
+012                    PRM11   011 014  	BIC	#177760,R0	;DON'T LET NUMBER GET TO BIG
+013  PRM11   011 014   PRM11   011 016  	MOVB	R0,(R2)+
+014                    CONS11  002 007  	BR	1$
+015                    PRM11   011 014  2$:	CLR	R0		;CLEAR OUTPUT
+016                    PRM11   011 017  	TST	R3		;DID WE GET ANY THING
+017                    CONS11  034 069  	BEQ	6$		;NO
+018                                     
+019                                     ;NOW WE CONVERT IT
+020                                     
+021                    PRM11   011 015  	CLR	R1		;CLEAR TABLE INDEX
+022  PRM11   011 016                    3$:	CMP	R2,#$TTSAV
+023                    CONS11  024 048  	BLT	5$		;YES NORMAL EXIT
+024  PRM11   011 016   PRM11   011 019  	MOVB	-(R2),R5	;PUT IN R5
+025                    PRM11   011 019  4$:	DEC	R5		;DONE YET
+026                    CONS11  035 053  	BLT	7$
+027  SBST11  002 045   PRM11   011 014  	ADD	$TBLL(R1),R0	;TALLY IT UP
+028                    CONS11  004 051  	BR	4$
+029                    PRM11   011 015  7$:	TST	(R1)+		;UPDATE TABLE TALLY
+030                    CONS11  005 001  	BR	3$
+031                    PRM11   011 018  5$:	TST	R4		;NEGATE NUMBER ?
+032                    CONS11  019 049  	BEQ	9$
+033                    PRM11   011 014  	NEG	R0		;YES
+034                            026 037  9$:	BR	$$PEX6		;RETURN
+035                            026 038  6$:	BR	$$PEX7		;ERROR RETURN↓&	READ A 12 DIGIT OCTAL (36 BIT) NUMBER                            SUB11.PAL[KL,SYS] 10/05/77  Page 28↓'α
+001                                     .SBTTL	READ A 12 DIGIT OCTAL (36 BIT) NUMBER
+002                                     
+003                                     ;$0FLG, 0=NO DATA; 0,-1=ONE DATA WORD; -1,-1= TWO PART DATA
+004                                     ;DATA IS TRUNCATED TO 6 OCTALS IN EITHER HALF OF 2 PART DATA
+005                                     ;DATA IS TRUNCATED TO 12 OCTALS IN 1 PART DATA
+006                                     ;DURING CONVERSION
+007                                     ;1 PART DATA; $0FLG =0
+008                                     ;2 PART DATA; $0FLG=-1,0 DURING HI6; 0,-1 DURING LO6
+009                                     
+010  PRM11   011 022           030 050  $TTI36:	JSR	PC,$TI36C
+011                                     	CLR	$SVH
+012                                     	CLR	$SVM
+013                                     	CLR	$0FLG
+014                                     	CLR	$NEG
+015  PRM11   011 022           026 040  	JSR	PC,$TMINUS
+016                    PRM11   011 018  	TST	R4
+017                    CONS11  002 007  	BEQ	1$
+018                                     	INCB	$NEG+1		;SET NEGATE FLAG
+019                                     
+020                    PRM11   003 018  1$:	TTICHR			;READ A CHAR
+021                            028 037  99$:	 BCS	98$		;BUFFER EMPTY
+022                                     
+023  PRM11   011 014                    	CMPB	R0,#60		;MAKE SURE ITS OCTAL
+024                    CONS11  002 031  	BLT	2$
+025  PRM11   011 014                    	CMPB	R0,#67
+026                    CONS11  002 031  	BGT	2$
+027                                     
+028                                     	MOVB	#-1,$0FLG	;WE GOT AT LEAST 1 DIGIT
+029                    CONS11  002 007  	BR	1$
+030                                     
+031                                     2$:	TSTB	$0FLG
+032                    CONS11  037 025  	BEQ	69$
+033  PRM11   011 014   PRM11   013 012  	CMPB	R0,#BLANK	;WAS IT A SPACE ?
+034                    CONS11  005 001  	BNE	3$		;NOPE
+035                                     	MOVB	#-1,$0FLG+1	;SET 2 WORD FLAG
+036                    PRM11   003 018  	TTICHR			;GET 1ST CHAR OF 2ND PART
+037                            029 005  98$:	 BCS	97$
+038                    PRM11   011 014  	CMPB	#'+,R0
+039                            028 045  	BEQ	71$
+040                    PRM11   011 014  	CMPB	#'-,R0		;IS IT MINUS ?
+041                    CONS11  013 027  	BEQ	21$		;YES
+042                                     	DEC	$INPTC		;NO, BACKUP INPUT POINTER
+043                    CONS11  002 007  	BR	1$
+044                                     21$:	INCB	$NEG		;SET 2ND PART NEGATE FLAG
+045                    CONS11  002 007  71$:	BR	1$		;PROCESS 2ND HALF WORD↓&	READ A 12 DIGIT OCTAL (36 BIT) NUMBER                            SUB11.PAL[KL,SYS] 10/05/77  Page 29↓'α
+001  PRM11   011 019                    3$:	MOV	R5,$INPTC	;RESET INPUT POINTER
+002                                     	CLRB	$0FLG
+003                                     
+004                    PRM11   003 018  4$:	TTICHR
+005                            029 037  97$:	 BCS	96$
+006  PRM11   011 014                    	CMPB	R0,#60
+007                    CONS11  024 048  	BLT	5$
+008  PRM11   011 014                    	CMPB	R0,#67
+009                    CONS11  024 048  	BGT	5$
+010                                     
+011                    PRM11   011 014  	BICB	#370,R0
+012                    PRM11   011 015  	MOV	#3,R1
+013                                     
+014  PRM11   011 022           030 028  6$:	JSR	PC,SHFT36	;SHIFT 36 BIT WORD LEFT 3
+015                                     
+016  PRM11   011 014                    	BISB	R0,$DRAM	;INSERT NEW CHAR
+017                    CONS11  004 051  	BR	4$
+018                                     
+019                                     5$:	TSTB	$0FLG+1		;DOING 2 PART NUMBER ?
+020                    CONS11  035 063  	BEQ	8$		;BR IF NO
+021                                     
+022                                     51$:	TSTB	$NEG+1		;NEGATE UPPER PART ?
+023                            029 027  	BEQ	52$		;NO
+024                                     
+025  PRM11   011 022           030 039  	JSR	PC,NEG36	;NEGATE 36 BIT WORD
+026                                     
+027                    PRM11   011 015  52$:	MOV	#18.,R1		;YES, MOVE NUMBER TO UPPER 18 BITS
+028                                     
+029  PRM11   011 022           030 028  7$:	JSR	PC,SHFT36	;SHIFT 36 BIT WORD LEFT 18
+030                                     
+031  PRM11   011 019                    	MOV	-(R5),$SVH	;SAVE UPPER BITS
+032  PRM11   011 019                    	MOV	-(R5),$SVM	;SAVE MIDDLE BITS
+033  PRM11   011 022           030 050  	JSR	PC,$TI36C
+034                                     
+035                                     	SWAB	$0FLG		;MAKE $0FLG 0,-1
+036                    PRM11   003 018  	TTICHR			;GET 1ST CHAR OF 2ND PART
+037                    CONS11  019 049  96$:	 BCS	9$
+038                    PRM11   011 014  	CMPB	#'+,R0
+039                    CONS11  004 051  	BEQ	4$
+040                    PRM11   011 014  	CMPB	#'-,R0		;IS IT MINUS ?
+041                    CONS11  004 051  	BEQ	4$		;YES
+042                                     	DEC	$INPTC		;NO, BACKUP INPUT POINTER
+043                    CONS11  004 051  	BR	4$↓&	READ A 12 DIGIT OCTAL (36 BIT) NUMBER                            SUB11.PAL[KL,SYS] 10/05/77  Page 30↓'α
+001                                     8$:	TSTB	$0FLG
+002                    CONS11  030 016  	BEQ	10$		;BR IF 1 PART
+003                                     	TSTB	$NEG		;NEGATE LOWER PART ?
+004                            021 038  	BEQ	81$		;NO
+005                                     
+006  PRM11   011 022           030 039  	JSR	PC,NEG36	;NEGATE 36 BIT WORD
+007                                     
+008                    PRM11   011 015  81$:	MOV	#$DRAM+2,R1
+009                    PRM11   011 015  	BIC	#177774,(R1)
+010                    PRM11   011 015  	BIS	$SVM,(R1)+
+011                    PRM11   011 015  	CLR	(R1)		;CLEAR BITS 0-17
+012                    PRM11   011 015  	BIS	$SVH,(R1)	;REINSERT UPPER BITS
+013                    CONS11  030 024  	BR	12$
+014                                     
+015                                     10$:	TSTB	$NEG+1		;MAKE NUMBER NEGATIVE ?
+016                    CONS11  030 024  	BEQ	12$		;BR IF NO
+017  PRM11   011 022           030 039  	JSR	PC,NEG36	;NEGATE 36 BIT WORD
+018                                     
+019                                     12$:	BIC	#177760,$DRAM+4	;STRIP OVERFLOW
+020                    PRM11   011 014  	MOV	#$DRAM,R0	;RETURN STORAGE ADR IN R0
+021                            033 008  	JMP	$TTERM		;VERIFY TERMINATION & EXIT
+022                    PRM11   011 014  69$:	CLR	R0		;NO DIGITS TYPED
+023                    PRM11   003 035  9$:	TTERM			;VERIFY TERMINATION
+024                    PRM11   008 051  	EXITERR			;ERROR RETURN
+025                                     
+026                                     ;SHIFT 36 BIT WORD C(R1) PLACES LEFT
+027                                     
+028                    PRM11   011 019  SHFT36:	MOV	#$DRAM,R5
+029                                     	CLC
+030                    PRM11   011 019  	ROL	(R5)+
+031                    PRM11   011 019  	ROL	(R5)+
+032                    PRM11   011 019  	ROL	(R5)+
+033                    PRM11   011 015  	DEC	R1
+034                            030 028  	BGT	SHFT36
+035                    PRM11   011 022  	RTS	PC
+036                                     
+037                                     ;NEGATE - TWO'S COMPLEMENT 36 BIT WORD
+038                                     
+039                    PRM11   011 015  NEG36:	MOV	#$DRAM,R1	;MAKE 1'S COMPLEMENT
+040                    PRM11   011 015  	COM	(R1)+
+041                    PRM11   011 015  	COM	(R1)+
+042                    PRM11   011 015  	COM	(R1)
+043                    PRM11   011 015  	MOV	#$DRAM,R1
+044                    PRM11   011 015  	ADD	#1,(R1)+	;MAKE THAT 2'S COMPLEMENT
+045                    PRM11   011 015  	ADC	(R1)+
+046                    PRM11   011 015  	ADC	(R1)
+047                    PRM11   011 015  	BIC	#177760,(R1)	;STRIP OVERFLOW
+048                    PRM11   011 022  	RTS	PC
+049                                     
+050                    PRM11   011 014  $TI36C:	MOV	#$DRAM,R0	;CLEAR STORAGE
+051                    PRM11   011 014  	CLR	(R0)+
+052                    PRM11   011 014  	CLR	(R0)+
+053                    PRM11   011 014  	CLR	(R0)+
+054                    PRM11   011 022  	RTS	PC↓&	SIGNED MULTIPLY SUBROUTINE                                       SUB11.PAL[KL,SYS] 10/05/77  Page 31↓'α
+001                                     .SBTTL	SIGNED MULTIPLY SUBROUTINE
+002                                     
+003                    PRM11   011 014  $MULTP:	PUSH	R0
+004  PRM11   011 021   PRM11   011 015  	MOV	22(SP),R1
+005  PRM11   011 021   PRM11   011 014  	MOV	20(SP),R0	;MULTIPLICAND
+006                    PRM11   011 018  	CLR	R4		;CLEAR SIGN
+007                    PRM11   011 014  	TST	R0		;TEST SIGN
+008                    CONS11  002 007  	BPL	1$
+009                                     
+010                    PRM11   011 018  	INC	R4		;SET SIGN BIT
+011                    PRM11   011 014  	NEG	R0		;MAKE MULTIPLICAND POSITIVE
+012                                     
+013                    PRM11   011 015  1$:	TST	R1		;TEST SIGN OF MULTIPLIER
+014                    CONS11  002 031  	BPL	2$
+015                                     
+016                    PRM11   011 018  	DEC	R4		;UPDATE SIGN BIT
+017                    PRM11   011 015  	NEG	R1		;MAKE MULTIPLIER POSITIVE
+018                                     
+019                    PRM11   011 017  2$:	MOV	#17.,R3		;SET LOOP COUNT
+020                    PRM11   011 016  	CLR	R2		;SET UP FOR MULTIPLY LOOP
+021                                     
+022                    CONS11  004 051  3$:	 BCC	4$		;DONT ADD IF MULTIPLICAND IS ZERO
+023  PRM11   011 015   PRM11   011 016  	ADD	R1,R2
+024                                     
+025                    PRM11   011 016  4$:	ROR	R2		;POSITION THE PARTIAL PRODUCT
+026                    PRM11   011 014  	ROR	R0		;AND THE MULTIPLICAND
+027                    PRM11   011 017  	DEC	R3		;DONE YET
+028                    CONS11  005 001  	BNE	3$		;NOPE
+029                                     
+030                    PRM11   011 018  	TST	R4		;TEST SIGN
+031                    CONS11  024 048  	BEQ	5$		;PRODUCT IS POSITIVE
+032                                     
+033                    PRM11   011 014  	NEG	R0		;PRODUCT SHOULD BE NEGATIVE
+034                    PRM11   011 016  	NEG	R2
+035                    PRM11   011 014  	SBC	R0		;SUBTRACT CARRY
+036                                     
+037  PRM11   011 014   PRM11   011 021  5$:	MOV	R0,20(SP)	;MOST SIGNIFICANT BITS
+038  PRM11   011 016   PRM11   011 021  	MOV	R2,22(SP)	;LEAST SIGNIFICANT BITS
+039                    PRM11   011 014  	POP	R0
+040                    PRM11   008 043  	EXIT			;EXIT↓&	TELETYPE INPUT SPACE DELETE ROUTINE                              SUB11.PAL[KL,SYS] 10/05/77  Page 32↓'α
+001                                     .SBTTL	BREAK CHARACTER
+002                                     
+003                                     $TTIBRK:DEC	$INPTC		;BACKUP INPUT POINTER
+004                    PRM11   003 018  	TTICHR
+005                            034 019  	 BCC	$$PEX4		;NOTHING IN BUFFER
+006                    PRM11   008 051  $$PEX5:	EXITERR
+007                                     
+008                                     .SBTTL	TELETYPE INPUT SPACE DELETE ROUTINE
+009                                     
+010                    PRM11   003 018  $TTSDL:	TTICHR
+011                            032 037  	 BCS	$TTSDX		;BUFFER EMPTY
+012  PRM11   011 014   PRM11   013 012  	CMPB	R0,#BLANK
+013                            032 010  	BEQ	$TTSDL		;DELETE SPACES
+014  PRM11   011 014   PRM11   013 005  	CMPB	R0,#TAB
+015                            032 010  	BEQ	$TTSDL		;DELETE TABS
+016                    PRM11   011 014  	CMPB	#'-,R0			;TREAT + OR -
+017                    CONS11  005 001  	BEQ	3$			;SAME AS NUMBER
+018                    PRM11   011 014  	CMPB	#'+,R0
+019                    CONS11  005 001  	BEQ	3$
+020  PRM11   011 014                    	CMPB	R0,#60
+021                    CONS11  002 007  	BLT	1$		;BR IF NON-NUMBER
+022  PRM11   011 014                    	CMPB	R0,#71
+023                    CONS11  002 007  	BGT	1$		;BR IF NON-NUMBER
+024                                     3$:	DEC	$INPTC		;NUMBER, BACKUP INPUT POINTER
+025                            034 019  	BR	$$PEX4		;C-BIT CLEAR RETURN
+026  PRM11   011 014                    1$:	CMPB	R0,#':		;COLON OR SLASH, V-BIT & C-BIT SET
+027                    CONS11  030 016  	BEQ	10$
+028  PRM11   011 014                    	CMPB	R0,#'/
+029                    CONS11  030 016  	BEQ	10$
+030  PRM11   011 014                    	CMPB	R0,#'↑		;UPARROW, Z-BIT & C-BIT SET
+031                            032 006  	BNE	$$PEX5
+032  PRM11   011 008   PRM11   011 021  	BIS	#ZBIT,14(SP)
+033                            032 006  	BR	$$PEX5
+034                                     
+035  PRM11   011 009   PRM11   011 021  10$:	BIS	#VBIT,14(SP)
+036                            032 006  	BR	$$PEX5
+037                    CONS11  060 034  $TTSDX:	JMP	$PARAM↓&	TELETYPE INPUT TERMINATION CHECK                                 SUB11.PAL[KL,SYS] 10/05/77  Page 33↓'α
+001                                     .SBTTL	TELETYPE INPUT TERMINATION CHECK
+002                                     
+003                                     $TTITRM:INC	$INPTC		;BECAUSE "TTERM" DECREMENTS
+004                    PRM11   003 035  $TTBTRM:TTERM			;VERIFY TERMINATOR
+005                            032 037  	BCS	$TTSDX		;BAD, C-BIT SET RETURN
+006                            034 019  	BR	$$PEX4		;OK
+007                                     
+008                    PRM11   011 014  $TTERM:	PUSH	R0
+009                                     	DEC	$INPTC		;BACKUP INPUT POINTER
+010                    PRM11   003 018  	TTICHR			;GET TERMINATION CHAR
+011                    CONS11  002 031  	 BCS	2$		;NONE
+012          033 023   PRM11   011 015  	MOV	#TRMTAB,R1	;SETUP TERMINATION SCAN POINTER
+013  PRM11   011 014   PRM11   011 015  1$:	CMPB	R0,(R1)		;CHAR MATCH LEGAL TERMINATOR ?
+014                    CONS11  002 031  	BEQ	2$		;YES
+015                    PRM11   011 015  	TSTB	(R1)+		;NOT YET, GO TO NEXT
+016                    CONS11  005 001  	BEQ	3$		;NO MATCH, ERROR
+017                    CONS11  002 007  	BR	1$
+018                    PRM11   011 014  2$:	POP	R0
+019                            034 019  	BR	$$PEX4		;OK, C-BIT CLEAR RETURN
+020                    PRM11   011 014  3$:	POP	R0
+021                            032 006  	BR	$$PEX5		;ERROR, C-BIT SET RETURN
+022                                     
+023  PRM11   013 013   PRM11   013 005  TRMTAB:	.BYTE	SPACE,TAB
+024  PRM11   013 014   PRM11   013 010  	.BYTE	COMMA,CR
+025  PRM11   013 032                    	.BYTE	ALTMOD,72	;COLON
+026                                     	.BYTE	57,0		;SLASH↓&	TELETYPE INPUT C-RAM ADDRESS                                     SUB11.PAL[KL,SYS] 10/05/77  Page 34↓'α
+001                                     .SBTTL	INPUT & CHECK OCTAL NUMBER
+002                                     
+003                    PRM11   003 029  $TTCOCT:TTISDL
+004                            032 037  	 BCS	$TTSDX
+005                    PRM11   003 021  	TTIOCT
+006                            032 037  	 BCS	$TTSDX		;NON-OCTAL
+007                            034 019  	BR	$$PEX4		;OK
+008                                     
+009                    PRM11   003 022  $TOCTE:	TTCOCT
+010                    PRM11   011 014  	BIT	#1,R0		;ONLY EVEN OCTAL
+011                            032 037  	BNE	$TTSDX
+012                            034 019  	BR	$$PEX4
+013                                     
+014                                     .SBTTL	TELETYPE DELETE SPACES & INPUT OCTAL NUMBER
+015                                     
+016                    PRM11   003 022  $TTSDO:	TTCOCT
+017                    PRM11   011 014  	TST	R0		;MUST BE POSITIVE ALSO
+018                            032 037  	BMI	$TTSDX
+019                                     $$PEX4=.
+020                    PRM11   008 043  	EXIT
+021                                     
+022                                     .SBTTL	TELETYPE DELETE SPACES & INPUT 36BIT NUMBER
+023                                     
+024                    PRM11   003 029  $TTS36:	TTISDL			;DELETE SPACES
+025                            032 037  	 BCS	$TTSDX
+026                    PRM11   003 027  	TTI36			;INPUT 36 BIT NUMBER
+027                            032 037  	 BCS	$TTSDX
+028                            034 019  	BR	$$PEX4
+029                                     
+030                                     .SBTTL	TELETYPE INPUT C-RAM ADDRESS
+031                                     
+032                    PRM11   003 030  $TICRA:	TTISDO			;GET ADDRESS
+033  PRM11   011 014                    	CMP	R0,#2777
+034                            034 019  	BLE	$$PEX4
+035                    CONS11  058 001  	JMP	ADRERR		;TOO BIG↓&	PRINT CHARACTER IMMEDIATE                                        SUB11.PAL[KL,SYS] 10/05/77  Page 35↓'α
+001                                     .SBTTL	SHIFT R0 RIGHT/LEFT ROUTINES
+002                                     
+003                    PRM11   011 015  $SHFTR:	MOV	@$EMADR,R1	;GET SHIFT COUNT
+004                    PRM11   011 014  1$:	ASR	R0		;SHIFT RIGHT
+005                    PRM11   011 015  	DEC	R1
+006                    CONS11  002 007  	BGT	1$
+007                    PRM11   008 047  $SHFTX:	EXITSKP			;SKIP OVER TRAILING PARAMETER
+008                                     
+009                    PRM11   011 015  $SHFTL:	MOV	@$EMADR,R1
+010                    PRM11   011 014  1$:	ASL	R0		;SHIFT LEFT
+011                    PRM11   011 015  	DEC	R1
+012                    CONS11  002 007  	BGT	1$
+013                            035 007  	BR	$SHFTX
+014                                     
+015                                     .SBTTL	PRINT MESSAGE, CONDITIONAL DEPENDING ON "RPTFLG"
+016                                     
+017                                     $$PMSR:	TSTB	RPTFLG		;DOES REPEAT FLAG ALLOW PRINTING ?
+018                            035 007  	BNE	$SHFTX		;NO
+019                                     
+020                                     .SBTTL	PRINT MESSAGE
+021                                     
+022                    PRM11   011 014  $$PMSG:	MOV	@$EMADR,R0	;MESSAGE ADDRESS TO R0
+023                    PRM11   004 006  	PNTAL			;PRINT
+024                            035 007  	BR	$SHFTX		;SKIP RETURN
+025                                     
+026                                     .SBTTL	PRINT CHARACTER IMMEDIATE
+027                                     
+028                    PRM11   011 016  $PNTCI:	MOV	$EMADR,R2	;GET DATA ADDRESS
+029  PRM11   011 016   PRM11   011 015  	MOVB	(R2)+,R1	;GET FIRST BYTE
+030                    PRM11   004 035  	PLDBUF			;INSERT IN BUFFER
+031  PRM11   011 016   PRM11   011 015  	MOVB	(R2),R1		;GET 2ND BYTE
+032                    CONS11  002 007  	BEQ	1$		;IS THERE ANY ?
+033                    PRM11   004 035  	PLDBUF			;YES, INSERT IN BUFFER
+034                            035 007  1$:	BR	$SHFTX		;SKIP RETURN↓&	SAVE AND RESTORE R0-R5 ROUTINES                                  SUB11.PAL[KL,SYS] 10/05/77  Page 36↓'α
+001                                     .SBTTL	SMALL TIME DELAY
+002                                     
+003                    PRM11   011 015  $DELAY:	MOV	#10.,R1
+004                    PRM11   011 015  1$:	DEC	R1
+005                    CONS11  002 007  	BNE	1$
+006                    PRM11   008 043  	EXIT
+007                                     
+008                                     ;CONSOLE TIME DELAY FOR REPEAT LOOPS
+009                                     
+010                    PRM11   003 029  .TD:	TTISDL
+011                    CONS11  002 007  	 BCS	1$		;NO ARG, DO ONCE
+012                    PRM11   003 024  	TTIDEC
+013                    CONS11  002 007  	 BCS	1$		;DO ONCE ANYWAY
+014  PRM11   011 014   PRM11   011 015  	MOV	R0,R1		;SAVE DELAY COUNT
+015                    CONS11  002 031  	BR	2$
+016                    PRM11   011 015  1$:	CLR	R1
+017                    PRM11   005 010  2$:	TDELAY			;SMALL TIME DELAY
+018                    PRM11   011 015  	DEC	R1		;DONE REQUESTED DELAYS ?
+019                    CONS11  002 031  	BGT	2$
+020                    CONS11  003 001  	JMP	$KONSL
+021                                     
+022                                     .SBTTL	SAVE AND RESTORE R0-R5 ROUTINES
+023                                     
+024                    PRM11   011 014  $REGSAV:PUSH	R0
+025                    PRM11   011 021  	PUSH	16(SP)
+026                    PRM11   011 021  	PUSH	16(SP)
+027                                     	RTI
+028                                     
+029                                     ;*RESTORE R0-R5
+030                                     
+031  PRM11   011 021   PRM11   011 021  $REGRST:MOV	14(SP),34(SP)
+032  PRM11   011 021   PRM11   011 021  	MOV	12(SP),32(SP)
+033                    PRM11   011 021  	ADD	#16,SP
+034  PRM11   011 016   PRM11   011 015  	POP	<R0,R5,R4,R3,R2,R1>
+035                                     	RTI↓&	SAVE AND RESTORE R0-R5 ROUTINES                                  SUB11.PAL[KL,SYS] 10/05/77  Page 37↓'α
+001                                     ;FATAL VECTOR INTERRUPT
+002                                     
+003                    PRM11   011 014  $FATLE:	PUSH	R0
+004                    PRM11   003 004  	PMSG	<?FATAL INTR>
+005                            037 014  	BR	$EOR
+006                                     
+007                    PRM11   011 014  $TIMOT:	PUSH	R0
+008                    PRM11   008 006  	PMSG	<?BUS TIMEOUT>
+009                            037 014  	BR	$EOR
+010                                     
+011                    PRM11   011 014  $RESVD:	PUSH	R0
+012                    PRM11   008 006  	PMSG	<?RESERVED INST>
+013                                     
+014                                     $EOR:	CLR	TENRUN
+015                    PRM11   011 014  	POP	R0
+016  PRM11   011 019   PRM11   011 014  	PUSH	<R1,R2,R3,R4,R5,R0>
+017                            037 028  	BR	$EOR2
+018                                     
+019                                     ;STACK UNDERFLOW
+020                                     
+021  PRM11   011 003   PRM11   011 021  $STUF:	MOV	#STACK-2,SP
+022  PRM11   011 021                    	MOV	SP,$KONSP
+023                    PRM11   008 006  	PMSG	<?ST UNFLO>
+024                                     	CLR	PCMDFLG
+025                    BEG11   002 007  	JMP	$CNTLC
+026                                     
+027                    PRM11   008 006  $NOTAS:	PMSG	<?UNAS EMT>
+028                                     $EOR2:	CLR	PCMDFLG
+029                            005 019  	JMP	$PH1
+030                                     
+031                    PRM11   011 014  $FATAL:	PUSH	R0
+032                    PRM11   003 004  	PMSG	<?FATAL>
+033                            037 028  	BR	$EOR2↓&	EMT TABLE                                                        SUB11.PAL[KL,SYS] 10/05/77  Page 38↓'α
+001                                     .SBTTL	EMT DECODER
+002                                     
+003                                     ;*THIS ROUTINE WILL PICKUP THE LOWER BYTE OF THE "EMT" INSTRUCTION
+004                                     ;*AND USE IT TO INDEX THROUGH THE EMT TABLE FOR THE STARTING ADDRESS
+005                                     ;*OF THE DESIRED ROUTINE. THEN USING THE ADDRESS OBTAINED IT WILL
+006                                     ;*GO TO THAT ROUTINE.
+007                                     
+008  PRM11   011 021                    $EMTRP:	CMP	SP,#COREND-600+20
+009                            037 021  	BLE	$STUF			;OFF BOTTOM OF STACK
+010  PRM11   011 019   PRM11   011 014  	PUSH	<R1,R2,R3,R4,R5,R0>
+011  PRM11   011 021   PRM11   011 014  	MOV	14(SP),R0		;GET EMT ADDRESS (+2)
+012                    PRM11   011 021  	BIC	#17,16(SP)		;CLEAR ALL STATUS BITS
+013  PRM11   011 014                    	MOV	R0,$EMADR		;SAVE
+014  PRM11   011 014   PRM11   011 014  	MOV	-(R0),R0		;GET RIGHT BYTE OF EMT
+015                    PRM11   011 014  	BIC	#177400,R0
+016  PRM11   011 014           038 029  	CMP	R0,#<<$EMTAE-$EMTAD>/2>
+017                            037 027  	BGE	$NOTAS			;EMT IN RANGE ?
+018  PRM11   011 014                    	SL	R0,1			;ROUND TO WORD ADDRESS
+019          038 029   PRM11   011 014  	MOV	$EMTAD(R0),R0		;INDEX TO TABLE
+020                    PRM11   011 014  	RTS	R0			;GO TO ROUTINE
+021                                     
+022                                     .SBTTL	EMT TABLE
+023                                     
+024                                     ;*THIS TABLE CONTAINS THE STARTING ADDRESSES OF THE ROUTINES CALLED
+025                                     ;*BY THE "EMT" INSTRUCTION.
+026                                     
+027                                     ;	ROUTINE
+028                                     ;	-------
+029                            037 031  $EMTAD:	$FATAL		;EMT + 0
+030                            005 007  	$ERRHLT		; 1
+031                            005 003  	$PRGHLT		; 2
+032                    CONS11  039 006  	$RUNLP		; 3
+033                            021 007  	$TTILIN		; 4	
+034                            018 003  	$TTICHR		; 5
+035                            018 019  	$TTLOOK		; 6
+036                            026 008  	$TTIOCT		; 7
+037                            034 003  	$TTCOCT		;EMT + 10
+038                            027 003  	$TTIDEC		; 11	
+039                            019 007  	$TTIYES		; 12
+040                            018 032  	$TTALTM		; 13
+041                            028 010  	$TTI36		; 14	
+042                            032 003  	$TTIBRK		; 15
+043                            032 010  	$TTSDL		; 16
+044                            034 016  	$TTSDO		; 17
+045                            034 024  	$TTS36		;EMT + 20
+046                            034 032  	$TICRA		; 21
+047                            033 003  	$TTITRM		; 22
+048                            033 004  	$TTBTRM		; 23
+049                            006 003  	$PNTAL		; 24	
+050                            035 022  	$$PMSG		; 25
+051                            035 017  	$$PMSR		; 26
+052                            006 036  	$PNTCHR		; 27↓&	EMT TABLE                                                        SUB11.PAL[KL,SYS] 10/05/77  Page 39↓'α
+001                            006 031  	$PNTNBR		;EMT + 30
+002                            013 003  	$PCRLF		; 31
+003                            006 040  	$PSPACE		; 32
+004                            006 043  	$PSLASH		; 33
+005                            006 046  	$PCOMMA		; 34
+006                            016 003  	$PNTOCT		; 35
+007                            016 008  	$PNTOSC		; 36	
+008                            017 003  	$PNTDEC		; 37
+009                            014 003  	$PNT18		;EMT + 40
+010                            014 011  	$PNT23		; 41
+011                            014 025  	$PNT36		; 42
+012                            020 015  	$PFORCE		; 43
+013                            020 022  	$PNORML		; 44	
+014                            013 008  	$PBELL		; 45
+015                            013 017  	$PNTODC		; 46
+016                            013 014  	$PODT		; 47
+017                            036 024  	$REGSAV		;EMT + 50	
+018                            036 031  	$REGRST		; 51
+019                            045 057  	$CMP36		; 52	
+020                            035 003  	$SHFTR		; 53
+021                            035 009  	$SHFTL		; 54
+022                            043 006  	$SETFLG		; 55
+023                            036 003  	$DELAY		; 56
+024                            020 003  	$SWITCH		; 57	
+025                            020 010  	$SWTSAM		;EMT + 60
+026                            003 019  	$EOP		; 61	
+027                            004 016  	$ERREOP		; 62
+028                            003 003  	$EOPSET		; 63
+029                                     .IF DF MONASB
+030                    APT11   010 001  	$COMLIN		; 64
+031                    APT11   008 001  	$COMSND		; 65
+032                    APT11   005 005  	$COMACK		; 66
+033                    APT11   005 009  	$COMNAK		; 67
+034                    APT11   014 001  	$COMCLR		;EMT + 70
+035                    APT11   009 003  	$COMCTL		; 71
+036                                     .IFF
+037                                     .REPT 6
+038                            037 031  	$FATAL		;64-71
+039                                     .ENDR
+040                                     .ENDC
+041                            031 003  	$MULTP		; 72	
+042                    BR11    010 009  	$WCRAM		; 73
+043                    BR11    012 003  	$RCRAM		; 74
+044                    BR11    009 003  	$WWADR		; 75
+045                    BR11    008 022  	$MRESET		; 76	
+046                            048 003  	$TENSP		; 77
+047                            046 003  	$SM		;EMT + 100
+048                            047 003  	$XCT		; 101
+049                    BR11    022 010  	$LODAR		; 102
+050                            044 058  	$EXAM		; 103
+051                            044 052  	$EXAMT		; 104
+052                            044 035  	$DPOS		; 105
+053                            044 033  	$DPOST		; 106
+054                            045 015  	$DPOSVR		; 107↓&	EMT TABLE                                                        SUB11.PAL[KL,SYS] 10/05/77  Page 40↓'α
+001                            045 013  	$DPSVT		;EMT + 110
+002                            044 023  	$D10MON		; 111
+003                            044 006  	$D10ZRO		; 112
+004                    BR11    002 039  	$DTEBAS		; 113
+005                    BR11    004 026  	$DFXCT		; 114
+006                    BR11    004 014  	$DXCTT		; 115
+007                    BR11    003 013  	$DFRD		; 116
+008                    BR11    007 006  	$DFRDMV		; 117	
+009                    BR11    006 020  	$DFWRT		;EMT + 120
+010                    BR11    005 027  	$DFWIR		; 121
+011                    BR11    004 020  	$DFSCLK		; 122
+012                    BR11    024 009  	$DFPC		; 123
+013                    BR11    024 013  	$DFVMA		; 124
+014                    BR11    024 015  	$DFADB		; 125
+015                    BR11    018 003  	$RDRAM		; 126
+016                    BR11    017 003  	$WDRAM		; 127
+017                    BR11    019 001  	$DRAMAD		;EMT + 130
+018                    BR11    021 003  	$BURST		; 131
+019                    CONS11  022 013  	$PNTCPU		; 132
+020                    CONS11  010 006  	$PRGCMD		; 133	
+021                            014 019  	$P36B		; 134
+022                            047 024  	$ECLOK		; 135
+023                            041 074  	$ESYNC		; 136
+024                            013 039  	$PADR		; 137
+025                    BR11    003 010  	$DFRDT		;EMT + 140
+026                    BR11    007 019  	$DWRTT		; 141
+027                    FD11    004 003  	$PCRAM		; 142
+028                    FD11    011 003  	$PDRAM		; 143
+029                            019 028  	$TTBACK		; 144
+030                    CONS11  047 003  	$TENSW		; 145
+031                            015 038  	$PROL36		; 146
+032                    BR11    022 037  	$SETMPH		; 147
+033                    BR11    024 007  	$DFVMH		;EMT + 150
+034                            008 003  	$PRINTT		; 151
+035                            009 003  	$PTTY		; 152
+036                                     
+037                                     .IF DF LPTASB
+038                            011 005  	$PLPT		; 153
+039                                     .IFF
+040                            037 031  	$FATAL
+041                                     .ENDC
+042                                     
+043                            007 003  	$PLDBUF		; 154
+044                    DTA11   023 003  	$R50UPK		; 155
+045                    DTA11   022 019  	$DTINIT		; 156
+046                                     
+047                                     .IF DF RPASB
+048                                     	$RPINIT		; 157
+049                                     .IFF
+050                            037 031  	$FATAL
+051                                     .ENDC
+052                                     
+053                    DTA11   021 018  	$DVDATA		;EMT + 160
+054                    DTA11   025 003  	$DTREAD		; 161
+055                                     
+056                                     .IF DF RPASB
+057                                     	$RPREAD		; 162
+058                                     .IFF
+059                            037 031  	$FATAL
+060                                     .ENDC
+061                                     
+062                    DTA11   021 003  	$DVFRAM		; 163
+063                    DTA11   022 009  	$DVWRD		; 164
+064                    DTA11   027 010  	$ASCR50		; 165
+065                                     
+066                                     .IF DF RPASB
+067                                     	$RPLOAD		; 166
+068                                     	$RPFIND		; 167↓&	EMT TABLE                                                        SUB11.PAL[KL,SYS] 10/05/77  Page 41↓'α
+001                                     	$RPLKUP		;EMT + 170
+002                                     	$RPRDFL		; 171
+003                                     	$RPWRFL		; 172
+004                                     	$RPWRIT		; 173
+005                                     	$RPADDR		; 174
+006                                     	$RPBASE		; 175
+007                                     .IFF
+008                                     .REPT 8
+009                            037 031  	$FATAL
+010                                     .ENDR
+011                                     .ENDC
+012                                     
+013                    CONS11  047 042  	$TENCHR		; 176
+014                            007 036  	$PNTBAK		; 177
+015                            034 009  	$TOCTE		;EMT + 200
+016                            033 008  	$TTERM		; 201
+017                    BR11    020 035  	$CLKPRM		; 202
+018                    BR11    015 005  	$MICNUL		; 203
+019                    BR11    016 003  	$MICFIL		; 204
+020                    DTA11   025 006  	$DTWRT		; 205
+021                    DTA11   003 003  	$NAMEXT		; 206
+022                    DTA11   018 048  	$DTAFILE	; 207
+023                                     
+024                                     .IF DF RPASB
+025                                     	$RPFILE		;EMT + 210
+026                                     .IFF
+027                            037 031  	$FATAL
+028                                     .ENDC
+029                                     
+030                    DTA11   024 003  	$DTRDFL		; 211
+031                    DTA11   024 019  	$DTWTFL		; 212
+032                    DTA11   024 029  	$DTBASE		; 213
+033                            035 028  	$PNTCI		; 214
+034                            007 046  	$PNTRST		; 215
+035                    CONS11  010 003  	$PRGNPT		; 216
+036                            007 043  	$TTPINI		; 217
+037                                     .IF DF MONASB
+038                    APT11   005 012  	$COMCMD		;EMT + 220
+039                    APT11   009 001  	$CMRTRY		; 221
+040                    APT11   013 001  	$COMENQ		; 222
+041                    APT11   013 037  	$COMEOT		; 223
+042                                     .IFF
+043                                     .REPT 4
+044                            037 031  	$FATAL
+045                                     .ENDR
+046                                     .ENDC
+047                            021 003  	$TTILNW		; 224
+048                    CONS11  011 003  	$TTICCL		; 225
+049                    CONS11  024 055  	$DFLEGAL	; 226
+050                            006 049  	$PTAB		; 227
+051                                     
+052                                     .IF DF RXASB
+053                                     	$RXFILE		;EMT + 230
+054                                     	$RXINIT		; 231
+055                                     	$RXRDFL		; 232
+056                                     	$RXWTFL		; 233
+057                                     	$RXBASE		; 234
+058                                     	$RXREAD		; 235
+059                                     	$RXWRT		; 236
+060                                     .IFF
+061                                     .REPT 7
+062                            037 031  	$FATAL
+063                                     .ENDR
+064                                     .ENDC
+065                                     
+066                                     .IF DF RPASB
+067                                     	$RPERR		; 237
+068                                     .IFF
+069                            037 031  	$FATAL
+070                                     .ENDC
+071                                     
+072                                     $EMTAE=.
+073                                     
+074                    PRM11   011 014  $ESYNC:	PUSH	R0
+075                            037 027  	JMP	$NOTAS↓&	POWER DOWN AND UP ROUTINES                                       SUB11.PAL[KL,SYS] 10/05/77  Page 42↓'α
+001                                     .SBTTL	POWER DOWN AND UP ROUTINES
+002                                     
+003          042 009   PRM11   011 033  $PWRDN:	MOV	#$PWRUP,@#PWRVEC	;SET UP VECTOR
+004                                     $ILLUP:	HALT
+005                            042 004  	BR	$ILLUP			;HANG UP
+006                                     
+007                                     ;POWER UP ROUTINE
+008                                     
+009  PRM11   012 045   PRM11   011 043  $PWRUP:	MOV	#CPUPR,PS		;SET CPU PRIORITY
+010  PRM11   011 003   PRM11   011 021  	MOV	#STACK,SP		;SET SP 
+011                    KLDCP   002 006  .LIF DF SAILVR
+012  PRM11   011 022           049 004  	JSR PC,CLKSTA			;START CLOCK
+013                    PRM11   011 019  	CLR	R5			;WAIT LOOP FOR THE TTY
+014                    PRM11   011 019  1$:	INC	R5			;WAIT FOR THE INC
+015                    CONS11  002 007  	BNE	1$			;OF  WORD
+016          042 003   PRM11   011 033  	MOV	#$PWRDN,@#PWRVEC	;SET UP THE POWER DOWN VECTOR
+017                    PRM11   011 004  	CLR	CONSOL-2
+018                                     	CLR	LPTFLG			;DISCONNECT LINE PRINTER
+019                    KLDCP   003 018  .IF NDF TELASB
+020                                     	CLR	DL11EFLG		;DISCONNECT KLINIK !!!
+021                                     .IFF
+022                                     	CLR FSFLG
+023  PRM11   035 023   BEG11   002 021  	MOV #DLRTS,@$FSTKS
+024                    PRM11   011 014  	MOV #40000.,R0			;40000*2.36USEC = 94.4 MS
+025  PRM11   011 014                    	SOB R0,.			;WAIT FOR DATA SET TO HANG UP
+026  PRM11   035 021   BEG11   002 021  	BIS #DLRTS!DLDTR!DLDIE,@$FSTKS	;SET DATA TERM READY AND DATA SET INT EN
+                                        					;B
+027                                     		;LEAVE REQUEST TO SEND UP ALTHOUGH WE DON'T USE IT
+028                                     .ENDC
+029                                     	INC	$PWRCNT			;COUNT POWER RESTARTS
+030                                     
+031                    KLDCP   002 006  .IF NDF SAILVR
+032  PRM11   034 005   PRM11   011 017  	MOV	#KWLKS,R3
+033                    PRM11   011 019  	CLR	R5
+034                    PRM11   011 017  10$:	TSTB	(R3)		;WAIT FOR CLOCK TICK
+035                    CONS11  030 016  	BPL	10$
+036                    PRM11   011 017  	BIC	#200,(R3)
+037                                     .IFF
+038                                     	CLR	CLKFLG
+039                                     10$:	TST	CLKFLG
+040                    CONS11  030 016  	BEQ	10$
+041                                     	CLR	CLKFLG
+042                                     .ENDC
+043                    PRM11   011 019  	INC	R5		;COUNT IT
+044  PRM11   011 019                    	CMP	R5,#<5.*60.>	;WAITED 5 SEC FOR TTY POWER ?
+045                    CONS11  030 016  	BLE	10$		;NOT YET
+046                    PRM11   008 006  	PMSG	<\"POWER RESTART" >
+047                    PRM11   011 014  	MOV	$PWRCNT,R0
+048                    PRM11   004 019  	PNTDEC
+049                    PRM11   004 012  	PCRLF
+050                    PRM11   011 019  	CLR	R5		;CLEAR TIME-UP COUNTER
+051  PRM11   011 022           025 003  2$:	JSR	PC,$TIRDY	;ANY OPERATOR INTERRUPT ?
+052                    CONS11  005 001  	BCS	3$		;NO
+053                    PRM11   011 018  	MOVB	$TICHR,R4	;YES, GET CHAR
+054                    PRM11   011 018  	BICB	#200,R4
+055  PRM11   013 023   PRM11   011 018  	CMPB	#CNTRLC,R4	;IS IT CONTROL C ?
+056                    CONS11  004 051  	BEQ	4$		;YES, ABORT TIME-UP WAIT
+057                                     3$:
+058                    KLDCP   002 006  .IF NDF SAILVR
+059                    PRM11   011 017  	TSTB	(R3)		;CLOCK SET ?
+060                    CONS11  002 031  	BPL	2$		;NO
+061                    PRM11   011 017  	BIC	#200,(R3)
+062                                     .IFF
+063                                     	TST CLKFLG
+064                    CONS11  002 031  	BEQ 2$
+065                                     .ENDC
+066                    PRM11   011 019  	INC	R5		;COUNT CLOCK TICK
+067  PRM11   011 019                    	CMP	R5,#<5.*60.>	;WAITED 5 SECONDS FOR KL10 ?
+068                    CONS11  002 031  	BLE	2$		;NOT YET
+069                    BEG11   002 006  4$:	JMP	START↓&	EXIT SUBROUTINE                                                  SUB11.PAL[KL,SYS] 10/05/77  Page 43↓'α
+001                                     .SBTTL	EXIT SUBROUTINE
+002                                     
+003  PRM11   011 006   PRM11   011 021  $EXITE:	BIS	#CBIT,14(SP)	;SET C-BIT ERROR
+004                            043 010  	BR	$EXIT
+005                                     
+006                    PRM11   011 015  $SETFLG:MOV	@$EMADR,R1		;SET -1 TO FLAG WORD
+007                    PRM11   011 015  	MOV	#-1,(R1)
+008                                     
+009                    PRM11   011 021  $EXITS:	ADD	#2,12(SP)		;SKIP RETURN
+010  PRM11   011 016   PRM11   011 015  $EXIT:	POP	<R5,R4,R3,R2,R1>
+011                                     1$:	RTT				;RETURN TO USER
+012                                     
+013                                     ;MEMORY PARITY
+014                                     
+015                                     MEMPE:	TST	MEMPEF		;BEEN HERE ALREADY ?
+016                    CONS11  002 007  	BPL	1$
+017                    PRM11   003 004  	FATAL			;YES
+018                                     1$:	COM	MEMPEF		;SET FLAG
+019  PRM11   034 022   PRM11   034 013  	BIC	#MMPIE,MMLPBA	;CLEAR ENABLE
+020  PRM11   034 016   PRM11   034 013  	BIT	#MMERRF,MMLPBA	;ERROR SET ?
+021                    CONS11  002 031  	BNE	2$
+022                    PRM11   003 004  	FATAL			;NO, HOW DID THIS GET HERE ?
+023                    PRM11   008 006  2$:	PMSG	<?PARITY>
+024                    BEG11   002 007  	JMP	$CNTLC↓&	PDP10 OPERATIONS                                                 SUB11.PAL[KL,SYS] 10/05/77  Page 44↓'α
+001                                     .SBTTL	PDP10 OPERATIONS
+002                                     
+003                                     ;PDP-10 MEMORY ZERO
+004                                     ; R0 = COUNT, R1 = POINTER TO START ADDRESS
+005                                     
+006  PRM11   011 014   PRM11   011 019  $D10ZRO: MOV	R0,R5		;SAVE COUNT
+007                    PRM11   011 019  	DEC	R5
+008                    PRM11   011 018  	MOV	#.DPXAD,R4
+009  PRM11   011 015   PRM11   011 018  	MOVB	(R1)+,(R4)+
+010  PRM11   011 015   PRM11   011 018  	MOVB	(R1)+,(R4)+
+011  PRM11   011 015   PRM11   011 018  	MOVB	(R1),(R4)
+012                    PRM11   011 018  	TST	-(R4)
+013                                     	CLR	@.DAT1		;CLEAR DTE20 DATA WORDS
+014                                     	CLR	@.DAT2
+015                                     	CLR	@.DAT3
+016                                     
+017  PRM11   011 018   PRM11   011 015  $D10ZX: MOV	R4,R1		;POINTER TO ADDRESS
+018                            044 049  	BR	$DPSX1
+019                                     
+020                                     ;PDP-10 SET -1 TO FLAG WORD
+021                                     ; ADDRESS IN TRAILING PARAMETER
+022                                     
+023                    PRM11   011 015  $D10MON: MOV	#L10ADR+2,R1	;SETUP 10 ADR BLOCK POINTER
+024                    PRM11   011 015  	CLR	(R1)
+025                    PRM11   011 015  	MOV	@$EMADR,-(R1)	;PUT 10 ADR IN ADR BLOCK
+026  BEG11   002 037   PRM11   011 014  	MOV	#TENMO,R0	;SETUP -1 DATA WORD
+027                    PRM11   011 021  	ADD	#2,12(SP)	;SKIP RETURN OVER TRAILING PARAMETER
+028                    PRM11   011 019  	CLR	R5
+029                            044 037  	BR	$DPOSX
+030                                     
+031                                     ;EXAMINE AND DEPOSIT 10 MEMORY
+032                                     
+033  PRM11   011 022           045 070  $DPOST:	JSR PC,$10ADR		;SETUP PARAMETERS
+034                                     
+035                    PRM11   011 019  $DPOS:	CLR R5
+036  PRM11   011 022           045 001  	JSR PC,$D10ADR		;SETUP PDP-10 ADDRESS
+037                    PRM11   011 016  $DPOSX:	MOV #$TEMP0,R2		;STUFF THE DEXWRDS
+038  PRM11   011 014   PRM11   011 016  	MOVB (R0)+,(R2)+
+039  PRM11   011 014   PRM11   011 016  	MOVB (R0)+,(R2)+
+040  PRM11   011 014   PRM11   011 016  	MOVB (R0)+,(R2)+
+041  PRM11   011 014   PRM11   011 016  	MOVB (R0)+,(R2)+
+042  PRM11   011 014   PRM11   011 016  	MOVB (R0)+,(R2)+
+043  PRM11   011 014   PRM11   011 016  	MOVB (R0),(R2)+
+044                    PRM11   011 016  	BIC #177760,-(R2)
+045                    PRM11   011 017  	MOV .DAT1,R3
+046  PRM11   011 016   PRM11   011 017  	MOV (R2),(R3)		;BITS 00-03 TO .DAT1
+047  PRM11   011 016   PRM11   011 017  	MOV -(R2),-(R3)		;BITS 04-19 TO .DAT2
+048  PRM11   011 016   PRM11   011 017  	MOV -(R2),-(R3)		;BITS 20-35 TO .DAT3
+049  PRM11   015 009   PRM11   011 015  $DPSX1:	BIS #DEP,2(R1)		;SET FLAG
+050                            044 063  	BR $EXDEP
+051                                     
+052  PRM11   011 022           045 070  $EXAMT:	JSR PC,$10ADR		;SETUP PARAMETERS
+053                            044 061  	BR $EXAMX
+054                                     
+055                                     ;EXAMINE 10 CORE.  R0 POINTS TO 2 WORDS CONTAINING THE 10 ADDRESS
+056                                     ;	(BITS 20:35 IN FIRST WORD, 14:19 IN SECOND WORD)
+057                                     ;	RESULT RETURNED IN $DRAM (20:35), $DRAM+2 (4:19), $DRAM+4 (0:3)
+058  PRM11   011 014   PRM11   011 015  $EXAM:	MOV R0,R1	
+059  PRM11   011 022           045 001  	JSR PC,$D10ADR		;SETUP PDP-10 ADDRESS
+060                    PRM11   011 014  	MOV #$DRAM,R0
+061                    PRM11   011 019  $EXAMX:	CLR R5
+062  PRM11   015 009   PRM11   011 015  	BIC #DEP,2(R1)		;CLEAR FLAG BIT
+063  PRM11   017 014                    $EXDEP:	MOV #EBUSPC,@.STDTE	;E-BUS PARITY CLEAR
+064                                     
+065                    KLDCP   003 014  .IF EQ EPTREL
+066  PRM11   015 010   PRM11   011 015  	BIS #PHYS!PRTOFF,2(R1)
+067                                     .IFF
+068                    PRM11   011 015  	BIS $TADSP,2(R1)	;$TADSP DESIGNATES ADDR MODE
+069  PRM11   015 010                    	MOV #PHYS!PRTOFF,$TADSP	;RESET ADDR MODE FOR NEXT EXDEP
+070                                     .ENDC
+071                                     	TST VRBFLG
+072                            044 085  	BEQ 70$
+073  PRM11   015 047                    	BIT #KLRUN,@.DIAG1
+074                            044 085  	BNE 70$
+075                    PRM11   011 014  	PUSH R0
+076                    PRM11   009 003  	PUSH @.DAT1		;IF VERBOSE AND KL IS NOT RUNNING THEN USE
+077                    PRM11   009 003  	PUSH @.DAT2		;APR FLAGS TO DETERMINE NXM, ETC.↓&	PDP10 OPERATIONS                                                 SUB11.PAL[KL,SYS] 10/05/77  Page 44.1↓'α
+078                    PRM11   009 003  	PUSH @.DAT3
+079          044 167   PRM11   011 014  	MOV #$$CLRF,R0
+080                    PRM11   006 033  	EXCT			;EXECUTE A CONO APR,23400 TO CLR NXM,IOPGF,MB PA
+                                        				;R
+081                    PRM11   009 011  	POP @.DAT3
+082                    PRM11   009 011  	POP @.DAT2
+083                    PRM11   009 011  	POP @.DAT1
+084                    PRM11   011 014  	POP R0
+085  PRM11   011 015                    70$:	MOV 2(R1),@.TENA1
+086  PRM11   011 015                    	MOV (R1),@.TENA2	;START DTE20
+087  BEG11   002 053   PRM11   011 021  	MOV EMTIMO,-(SP)	;SET TIMEOUT COUNT
+088  PRM11   017 034                    93$:	BIT #DEXDON,@.STDTE	;TEST BIT
+089                    PRM11   023 029  	BNE 94$			;LEAVE IF NOW A ONE(OK)
+090                    PRM11   011 021  	DEC (SP)		;DECREMENT COUNT
+091                    PRM11   023 022  	BNE 93$			;CONTINUE LOOP
+092                                     	TST RPTFLG		;OTHERWISE TIMEOUT
+093                    PRM11   023 029  	BNE 94$			;UNLESS UNDER REPEAT
+094                                     	TST VRBFLG
+095                            021 012  	BEQ 95$
+096                    PRM11   011 014  	PUSH R0
+097  PRM11   006 040           044 097  	PMSG <EXAM/DEPOSIT TIMEOUT, ADDRESS = >
+098  PRM11   011 015   PRM11   011 014  	MOV R1,R0
+099                    PRM11   011 014  	PUSH 2(R0)
+100                    PRM11   011 014  	BIC #177700,2(R0)
+101                    PRM11   004 025  	PNTADR
+102                    PRM11   004 012  	PCRLF
+103                    PRM11   011 015  	POP 2(R1)
+104                    PRM11   011 014  	POP R0
+105                                     95$:	CLR TENRUN		;CLEAR TEN RUNNING
+106                    PRM11   011 019  	CLR R5			;CLEAR BLOCK ZERO INDICATOR
+107  PRM11   011 006   PRM11   011 021  	BIS #CBIT,16(SP)
+108                                     94$:	TST VRBFLG
+109                            029 037  	BEQ 96$
+110  PRM11   015 047                    	BIT #KLRUN,@.DIAG1
+111                            029 037  	BNE 96$			;KL IS STILL RUNNING
+112                    PRM11   011 014  	PUSH R0
+113                    PRM11   009 003  	PUSH @.DAT1
+114                    PRM11   009 003  	PUSH @.DAT2
+115                    PRM11   009 003  	PUSH @.DAT3
+116                    PRM11   011 021  	MOV #0,-(SP)		;PUSH FLAG
+117                    PRM11   011 014  	MOV #110,R0
+118                    PRM11   007 004  	DFRD			;BIT 7 IS APR NXM ERR IN
+119  PRM11   012 028                    	BIT #BIT12,@.DAT2	;BITS 4-19 (TEST BIT 7)
+120                            044 123  	BEQ 89$			;BRANCH IF NOT SET
+121                    PRM11   011 021  	INC (SP)		;INC FLAG
+122                    PRM11   008 006  	PMSG <MBOX DETECTED NXM\>
+123  PRM11   012 025                    89$:	BIT #BIT10,@.DAT2	;TEST BIT 9
+124                            044 127  	BEQ 88$			;EBUS BIT 9 IS APR MB PAR ERR IN
+125                    PRM11   011 021  	INC (SP)
+126                    PRM11   008 006  	PMSG <MB PARITY ERROR DETECTED\>
+127  PRM11   012 026                    88$:	BIT #BIT11,@.DAT2	;TEST BIT 8
+128                            044 131  	BEQ 87$			;EBUS BIT 8 IS APR I/O PF ERR IN
+129                    PRM11   011 021  	INC (SP)
+130                    APT11   004 006  	PMSG <IOPGF (PROB AR PAR ERR) DETECTED\>
+131                    PRM11   011 021  87$:	TST (SP)+		;TEST AND FLUSH FLAG, ZERO IF NO ERRORS DETECTED
+132                            044 142  	BEQ 86$			;BRANCH IF NO ERRORS
+133                                     	TST RPTFLG
+134                            044 142  	BEQ 86$
+135                    PRM11   008 006  	PMSG <ADDR = >		;ERROR UNDER REPEAT, GIVE ADDRESS
+136  PRM11   011 015   PRM11   011 014  	MOV R1,R0
+137                    PRM11   011 014  	PUSH 2(R0)
+138                    PRM11   011 014  	BIC #177700,2(R0)
+139                    PRM11   004 025  	PNTADR
+140                    PRM11   004 012  	PCRLF
+141                    PRM11   011 015  	POP 2(R1)
+142                    PRM11   009 011  86$:	POP @.DAT3
+143                    PRM11   009 011  	POP @.DAT2
+144                    PRM11   009 011  	POP @.DAT1
+145                    PRM11   011 014  	POP R0
+146                    PRM11   011 021  96$:	TST (SP)+		;RESET STACK
+147  PRM11   015 009   PRM11   011 015  	BIT #DEP,2(R1)
+148                    CONS11  002 007  	BNE 1$			;DEPOSIT BRANCHES
+149                    PRM11   011 014  	PUSH R0
+150                    PRM11   011 017  	MOV .DAT3,R3
+151  PRM11   011 017   PRM11   011 014  	MOV (R3)+,(R0)+		;BITS 20-35 FROM .DAT3
+152  PRM11   011 017   PRM11   011 014  	MOV (R3)+,(R0)+		;BITS 04-19 FROM .DAT2
+153  PRM11   011 017   PRM11   011 014  	MOV (R3),(R0)		;BITS 00-03 FROM .DAT1↓&	PDP10 OPERATIONS                                                 SUB11.PAL[KL,SYS] 10/05/77  Page 44.2↓'α
+154                    PRM11   011 014  	BIC #177760,(R0)
+155                    PRM11   011 014  	POP R0
+156  PRM11   017 032                    	BIT #BPARER,@.STDTE	;E-BUS PARITY ERROR ?
+157                    CONS11  002 007  	BEQ 1$			;NO
+158  PRM11   011 008   PRM11   011 021  	BIS #CBIT!VBIT!NBIT!ZBIT,14(SP) ;SET ALL COND BITS
+159                    PRM11   011 019  1$:	TST R5			;EXAM, DPOS OR FINISHED BLOCK ZERO ?
+160                    CONS11  002 031  	BEQ 2$			;YES
+161                    PRM11   011 019  	DEC R5			;BLOCK ZERO, DECREMENT COUNT
+162                    PRM11   011 018  	ADD #1,(R4)		;INCREMENT PDP-10 ADDRESS
+163                    PRM11   011 018  	ADC 2(R4)
+164                            044 017  	JMP $D10ZX		;CLEAR NEXT WORD
+165                    PRM11   008 043  2$:	EXIT
+166                                     
+167                                     $$CLRF:	IO10 CONO,APR,,23400	;CLEAR APR NXM, IO PG FAIL, MB PAR ERR
+168                                     .EVEN↓&	PDP10 OPERATIONS                                                 SUB11.PAL[KL,SYS] 10/05/77  Page 45↓'α
+001                    PRM11   011 018  $D10ADR:MOV	#L10ADR,R4
+002  PRM11   011 015   PRM11   011 018  	MOVB	(R1)+,(R4)+
+003  PRM11   011 015   PRM11   011 018  	MOVB	(R1)+,(R4)+
+004  PRM11   011 015   PRM11   011 018  	MOVB	(R1),(R4)
+005                    PRM11   011 018  	BIC	#177700,(R4)
+006                    PRM11   011 015  	MOV	#L10ADR,R1
+007                    PRM11   011 022  	RTS	PC
+008                                     
+009                                     
+010                                     $EBPAR:	.ASCIZ/?E-BUS PARITY ERROR /
+011                                     .EVEN
+012                                     
+013  PRM11   011 022           045 070  $DPSVT:	JSR	PC,$10ADR	;SETUP PARAMETERS
+014                                     
+015                    PRM11   011 014  $DPOSVR:PUSH R0
+016  KLDCP   003 014   PRM11   009 003  .IIF NZ EPTREL,	PUSH $TADSP		;PUSH ADDRESS SPACE
+017                    PRM11   006 042  	DPOS
+018                            045 032  	 BCS $DPVRP
+019  KLDCP   003 014   PRM11   009 011  .IIF NZ EPTREL,	POP $TADSP		;USE SAME ADDRESS SPACE FOR VERIFY
+020  PRM11   011 015   PRM11   011 014  	MOV R1,R0
+021                    PRM11   006 040  	EXAM
+022                            045 037  	 BCS $DPVRE
+023  PRM11   011 021   PRM11   011 014  	MOV (SP),R0
+024                    PRM11   011 015  	PUSH R1				;SAVE ADDRESS
+025                    PRM11   011 015  	MOV #$DRAM,R1
+026                    PRM11   006 049  	CMPR36
+027                            045 040  	BCS $DPVRV			;VERIFY ERROR
+028                    PRM11   011 015  $DPVRY:	POP R1
+029                    PRM11   011 014  $DPVRX:	POP R0
+030                    PRM11   008 043  	EXIT
+031                                     
+032                                     $DPVRP:					;DEPOSIT HALF OF DEPOSIT VERIFY LOST.
+033  KLDCP   003 014   PRM11   011 021  .IIF NZ EPTREL, TST (SP)+		;ADJUST STACK (REMOVE ADDR. SPACE)
+034  PRM11   011 007   PRM11   011 021  	BIS #CBIT!NBIT,16(SP)
+035                            045 029  	BR $DPVRX			;NO, JUST GIVE ERROR RETURN
+036                                     
+037  PRM11   011 008   PRM11   011 021  $DPVRE:	BIS #CBIT!ZBIT,16(SP)		;EXAMINE HALF OF DEPOSIT VERIFY LOST
+038                            045 029  	BR $DPVRX
+039                                     
+040  PRM11   011 009   PRM11   011 021  $DPVRV:	BIS #CBIT!VBIT,20(SP)		;SET C & V FOR VERIFY ERROR
+041                                     	TST VRBFLG
+042                            045 028  	BEQ $DPVRY
+043                            044 097  	PMSG <\ADDRESS = >
+044                    PRM11   011 014  	POP R0
+045                    PRM11   004 025  	PNTADR
+046                    PRM11   008 006  	PMSG <DEPOSIT DATA = >
+047                    PRM11   011 014  	POP R0
+048                    PRM11   004 023  	PNT36
+049                    PRM11   008 006  	PMSG < EXAMINE DATA = >
+050                    PRM11   011 014  	MOV #$DRAM,R0
+051                    PRM11   004 023  	PNT36
+052                    PRM11   004 012  	PCRLF
+053                    PRM11   008 043  	EXIT
+054                                     
+055                                     ;5-BYTE COMPARE ROUTINE, C & V BIT SET IF ERROR
+056                                     
+057                    PRM11   011 015  $CMP36:	PUSH	R1
+058                    PRM11   011 016  	MOV	#5,R2
+059  PRM11   011 014   PRM11   011 015  1$:	CMPB	(R0)+,(R1)+
+060                    CONS11  002 031  	BNE	2$
+061                    PRM11   011 016  	DEC	R2
+062                    CONS11  002 007  	BNE	1$
+063                    CONS11  005 001  	BR	3$
+064  PRM11   011 009   PRM11   011 021  2$:	BIS	#CBIT!VBIT,16(SP)	;SET C & V FOR VERIFY ERROR
+065                    PRM11   011 014  3$:	POP	R0			;POINT TO ACTUAL
+066                    PRM11   008 043  	EXIT
+067                                     
+068                                     ;PDP-10 ADDRESS PARAMETER SETUP
+069                                     
+070                    PRM11   011 019  $10ADR:	MOV	$EMADR,R5	;SETUP TRAILING PARAMETER PICKUP
+071                    PRM11   011 015  	MOV	#L10ADR+2,R1	;SETUP 10 ADR BLOCK POINTER
+072                    PRM11   011 015  	CLR	(R1)		;CLEAR HI ADR
+073                                     
+074  PRM11   011 019   PRM11   011 015  	MOV	(R5)+,-(R1)	;SETUP PDP-10 ADDRESS
+075  PRM11   011 019   PRM11   011 014  	MOV	(R5),R0		;POINTER TO DATA BLOCK IN R0
+076                    PRM11   011 021  	ADD	#4,14(SP)	;RETURN OVER TRAILING PARAMETERS
+077                    PRM11   011 022  	RTS	PC↓&	PDP10 OPERATIONS                                                 SUB11.PAL[KL,SYS] 10/05/77  Page 46↓'α
+001                                     ;START MICROCODE
+002                                     
+003                    PRM11   011 014  $SM:	PUSH	R0
+004                    PRM11   006 024  	MRESET			;RESET KL10
+005                    PRM11   011 014  	CLR	R0		;SELECT UCODE START ADR
+006                    PRM11   006 020  	WWADR
+007                    PRM11   007 002  	DFXCTT			;GET CLOCK GOING
+008                    PRM11   018 004  	  STRCLK
+009                                     
+010                    PRM11   011 015  	MOV	#2,R1
+011          046 027   PRM11   011 014  	MOV	#$SMTAB,R0
+012                    PRM11   011 014  1$:	PUSH	R0
+013                    PRM11   006 033  	EXCT			;DO TEN INSTR
+014                    CONS11  002 031  	 BCS	2$
+015                    PRM11   011 014  	POP	R0
+016                    PRM11   011 014  	ADD	#5,R0		;NEXT
+017                    PRM11   011 015  	DEC	R1
+018                    CONS11  002 007  	BNE	1$
+019                                     
+020                    PRM11   011 014  	POP	R0
+021                    PRM11   008 043  	EXIT
+022                                     
+023                    PRM11   011 014  2$:	POP	R0
+024                    PRM11   011 014  	POP	R0
+025                    PRM11   008 051  $SMERR:	EXITERR
+026                                     
+027                                     $SMTAB:	IO10	CONO,APR,,200000	;IO SYS CLEAR
+028                                     	IO10	CONO,PI,,10000		;PI SYS CLEAR
+029                                     	.EVEN↓&	PDP10 OPERATIONS                                                 SUB11.PAL[KL,SYS] 10/05/77  Page 47↓'α
+001                                     ;PDP-10 INSTRUCTION EXECUTE
+002                                     
+003                    PRM11   006 034  $XCT:	LODAR
+004                    CONS11  034 069  	 BCS	6$
+005                    PRM11   007 002  	DFXCTT			;SET CONTINUE BUTTON
+006                    PRM11   019 022  	  CONBUT
+007                    PRM11   007 002  	DFXCTT			;RUN THE CLOCK
+008                    PRM11   018 004  	  STRCLK
+009                                     
+010                                     	TST	RPTFLG		;DOING REPEAT ?
+011                    CONS11  002 031  	BNE	2$		;YES, NO CHECK
+012                                     
+013                    PRM11   011 015  	MOV	#1000.,R1
+014  PRM11   015 046                    4$:	BIT	#HALTLP,@.DIAG1
+015                    CONS11  002 031  	BNE	2$
+016                    PRM11   011 015  	DEC	R1		;NO, WAITED LONG ENOUGH
+017                    CONS11  004 051  	BNE	4$
+018                            046 025  6$:	BR	$SMERR
+019                                     
+020                    PRM11   008 043  2$:	EXIT
+021                                     
+022                                     ;ECLOK - GIVE A COMPLETE EBOX CLOCK
+023                                     
+024                    PRM11   011 019  $ECLOK:	MOV	#4000.,R5
+025                                     
+026                    PRM11   007 012  91$:	DFSCLK			;STEP RAW CLOCK
+027                    PRM11   007 005  	DFRDT			;READ CLOCK STATE
+028                                     	104
+029  PRM11   012 008                    	BIT	#BIT2,@.DAT3	;CLK E BOX SOURCE HIGH ?
+030                    PRM11   023 012  	BNE	92$
+031                    PRM11   011 019  	DEC	R5
+032                    PRM11   023 005  	BNE	91$
+033                                     	TST	RPTFLG
+034                    PRM11   023 012  	BNE	92$
+035  PRM11   011 006   PRM11   011 021  	BIS	#CBIT,14(SP)	;REPORT TIMEOUT
+036                                     
+037                    PRM11   007 002  92$:	DFXCTT
+038                    PRM11   018 007  	  CECLK
+039                    PRM11   008 043  	EXIT↓&	PDP10 OPERATIONS                                                 SUB11.PAL[KL,SYS] 10/05/77  Page 48↓'α
+001                                     ;PDP-10 CONTROLLED STOP ROUTINE
+002                                     
+003                    PRM11   011 014  $TENSP:	PUSH	R0
+004                                     	CLR	TENRUN		;CLEAR LOGICAL TEN RUNNING FLAG
+005                                     ;;;;;	CLR	TENCLK		;CLEAR TEN USING CLOCK FLAG
+006                                     ;;;;;	DON'T CLEAR TENCLK.  YOU MIGHT WANT TO CONTINUE THE SYSTEM
+007                                     
+008  PRM11   019 020                    	MOV	#DCOMST!DFUNC!<CLRRUN*1000>,@.DIAG1
+009  PRM11   011 022   BR11    005 014  	JSR	PC,$$DFXDN	;CLEAR RUN FLOP
+010                                     
+011                    PRM11   011 015  	MOV	#1000.,R1
+012  PRM11   015 046                    1$:	BIT	#HALTLP,@.DIAG1
+013                    CONS11  002 031  	BNE	2$		;TEN RETURNED TO HALT LOOP
+014                    PRM11   011 015  	DEC	R1
+015                    CONS11  002 007  	BNE	1$
+016                    CONS11  024 048  	BR	5$		;FAILED TO RETURN TO HALT LOOP
+017                                     
+018                    PRM11   007 005  2$:	DFRDT
+019                                     	  131
+020  PRM11   012 006                    	BIT	#BIT1,@.DAT2	;BIT 18, CON CACHE LOOK
+021                    CONS11  004 051  	BEQ	4$		;FALSE, CACHE IS NOT ON
+022                                     
+023  CONS11  025 043   PRM11   011 014  	MOV	#$$CF,R0
+024                    PRM11   006 033  	EXCT			;EXECUTE CACHE FLUSH
+025                    CONS11  024 048  	  BCS	5$		;FAILED
+026                                     
+027                    PRM11   011 015  	MOV	#1000.,R1
+028                    PRM11   007 005  3$:	DFRDT
+029                                     	  110
+030  PRM11   012 008                    	BIT	#BIT2,@.DAT1	;BIT 1, SWEEP BUSY ENABLE
+031                    CONS11  004 051  	BEQ	4$		;FINISHED SWEEP
+032                    PRM11   011 015  	DEC	R1
+033                    CONS11  005 001  	BNE	3$
+034                    CONS11  024 048  	BR	5$		;FAILED TO FINISH CACHE SWEEP
+035                                     
+036                    PRM11   011 014  4$:	POP	R0		;SUCESSFUL RETURN
+037                    PRM11   008 043  	EXIT
+038                                     
+039                    PRM11   011 014  5$:	POP	R0		;FAILED RETURN
+040                    PRM11   008 051  	EXITERR↓&	CLOCK INITIALIZATION, INTERRUPTS                                 SUB11.PAL[KL,SYS] 10/05/77  Page 49↓'α
+001                                     	.SBTTL	CLOCK INITIALIZATION, INTERRUPTS
+002                    KLDCP   002 006  .IF DF SAILVR
+003                                     
+004                    PRM11   011 014  CLKSTA:	PUSH R0
+005  PRM11   034 003   PRM11   011 014  	MOV #KWLIV,R0
+006          049 027   PRM11   011 014  	MOV #CLKINT,(R0)+
+007  PRM11   012 045   PRM11   011 014  	MOV #CPUPR,(R0)
+008                                     	CLR KTIMBS		;ASSUME WE'RE NOT KEEPING TIMEBASE
+009                    PRM11   011 014  	MOV #TIMBAS,R0
+010                    PRM11   011 014  	CLR (R0)+
+011                    PRM11   011 014  	CLR (R0)+
+012                    PRM11   011 014  	CLR (R0)
+013                    PRM11   011 014  	MOV #TIM11,R0
+014                    PRM11   011 014  	CLR (R0)+
+015                    PRM11   011 014  	CLR (R0)+
+016                    PRM11   011 014  	CLR (R0)
+017                                     	CLR CLKFLG
+018                    PRM11   034 005  	BIC #300,KWLKS		;CLEAR CLOCK FLAG AND INTERRUPT ENABLE
+019                    PRM11   034 005  1$:	TSTB KWLKS
+020                    CONS11  002 007  	BPL 1$			;LOOP UNTIL CLOCK FLAG COMES ON
+021                    PRM11   034 005  	BIC #200,KWLKS		;CLEAR CLOCK FLAG
+022                    PRM11   034 005  	BIS #100,KWLKS		;SET INTERRUPT ENABLE.
+023                    PRM11   011 014  	POP R0
+024                    PRM11   011 022  	RTS PC
+025                                     
+026                                     
+027                    PRM11   034 005  CLKINT:	BIC #200,KWLKS		;CLEAR CLOCK FLAG
+028                                     	INC CLKFLG		;INCREMENT SOFTWARE CLOCK FLAG
+029                                     	INC TIM11
+030                                     	ADC TIM11+2
+031                                     	ADC TIM11+4
+032                                     	TST FSCLKA
+033                    CONS11  005 001  	BEQ 3$			;NO FS CLOCK REQUESTS
+034                                     	CMP TIM11+4,FSRTIM+4
+035                    CONS11  002 031  	BGT 2$
+036                    CONS11  005 001  	BNE 3$
+037                                     	CMP TIM11+2,FSRTIM+2
+038                    CONS11  002 031  	BGT 2$
+039                    CONS11  005 001  	BNE 3$
+040                                     	CMP TIM11,FSRTIM
+041                    CONS11  005 001  	BLT 3$
+042                    PRM11   011 014  2$:	PUSH R0
+043                    PRM11   011 014  	MOV FSCLKA,R0
+044                                     	CLR FSCLKA
+045  PRM11   011 022   PRM11   011 014  	JSR PC,@R0
+046                    PRM11   011 014  	POP R0
+047                                     3$:	TST KTIMBS
+048                    CONS11  004 051  	BEQ 4$			;JUMP IF NOT KEEPING A TIMEBASE
+049                                     	INC TIMBAS
+050                                     	ADC TIMBAS+2
+051                                     	ADC TIMBAS+4
+052  PRM11   035 023   BEG11   002 021  4$:	BIT #DLRTS,@$FSTKS	;SEE IF REQUEST TO SEND IS UP (CLEARED BY INIT)
+053                    CONS11  024 048  	BNE 5$			;YES, HAVEN'T BEEN RESET
+054  PRM11   011 022   CONS11  062 086  	JSR PC,HANGU1
+055                                     5$:	RTT			;DISMISS INTERRUPT
+056                                     
+057                                     .ENDCSymbol Table for:    SUB11.PAL[KL,SYS]                                       10/05/77  Page I
+                     
+
+$$CLRF   044 167   $PBELL   013 008   $TILF    023 034   1$       025 054   2$       043 023   51$      029*022 
+$$ILOA   002 007   $PCOMM   006 046   $TILN1 = 021 013   1$       025 075   2$       044 165   52$      029 027 
+$$P23    013 046   $PCRLF   013 003   $TILN2 = 021 022   1$       026 010   2$       045 064   6$       009 015 
+$$PEX    014 046   $PFORC   020 015   $TILN3   020 033   1$       027 005   2$       046 023   6$       011 052 
+$$PEX1   017 038   $PH1     005 019   $TILNX   021 009   1$       028 020   2$       047 020   6$       016 037 
+$$PEX2 = 018 042   $PH2     005 016   $TILRN   020 027   1$       031 013   2$       048 018   6$       017 029 
+$$PEX3   020 023   $PLDBU   007 003   $TIMOT   037 007   1$       032 026   2$       049 042   6$       027 035 
+$$PEX4 = 034 019   $PLPT    011 005   $TIRDY   025 003   1$       033 013   21$      002 066   6$       029 014 
+$$PEX5   032 006   $PNORM   020 022   $TIRUB   022 028   1$       035 004   21$      021 020   6$       047 018 
+$$PEX6   026 037   $PNT18   014 003   $TMINU   026 040   1$       035 010   21$      028 044   69$      030 022 
+$$PEX7   026 038   $PNT23   014 011   $TOCTE   034 009   1$       035 034   3$       002 110   7$       009 026 
+$$PMSG   035 022   $PNT36   014 025   $TOOUT   025 063   1$       036 004   3$       004 009   7$       016 043 
+$$PMSR   035 017   $PNTAL   006 003   $TORDY   025 038   1$       036 016   3$       006 027   7$       017 031 
+$$PNTX   006 038   $PNTBA   007 036   $TTALT   018 032   1$       042 014   3$       007 019   7$       027 029 
+$$PSX2 = 018 044   $PNTCH   006 036   $TTBAC   019 028   1$       043 011   3$       008 032   7$       029 029 
+$10ADR   045 070   $PNTCI   035 028   $TTBTR   033 004   1$       043 018   3$       009 012   70$      044 085 
+$CKSUM   002 130   $PNTDE   017 003   $TTCOC   034 003   1$       044 159   3$       011 025   71$      028 045 
+$CMCLR   002 124   $PNTNB   006 031   $TTERM   033 008   1$       045 059   3$       012 021   8$       009 029 
+$CMP36   045 057   $PNTO    016 009   $TTI36   028 010   1$       046 012   3$       014 043   8$       017 033 
+$D10AD   045 001   $PNTOC   016 003   $TTIBR   032 003   1$       048 012   3$       016 028   8$       030 001 
+$D10MO   044 023   $PNTOD   013 017   $TTICH   018 003   1$       049 019   3$       017 018   80$      021 031 
+$D10ZR   044 006   $PNTOS   016 008   $TTIDE   027 003   10$      009 033   3$       018 047   80$      026 050 
+$D10ZX   044 017   $PNTRS   007 046   $TTILI   021 007   10$      012 025   3$       025 032   81$      021 038 
+$DELAY   036 003   $PNTSP   019 018   $TTILN   021 003   10$      016 019   3$       025 061   81$      026 051 
+$DPOS    044 035   $PODCD   013 032   $TTIOC   026 008   10$      022 013   3$       027 022   81$      030 008 
+$DPOST   044 033   $PODMV   015 031   $TTITR   033 003   10$      030 015   3$       029 001   82$      022 001 
+$DPOSV   045 015   $PODT    013 014   $TTIX1   018 009   10$      032 035   3$       031 022   82$      026 052 
+$DPOSX   044 037   $PRGHL   005 003   $TTIX2   018 011   10$      042 034   3$       032 024   83$      022 007 
+$DPSVT   045 013   $PRINT   008 003   $TTIYE   019 007   10$      042 039   3$       033 020   86$      044 142 
+$DPSX1   044 049   $PROL3   015 038   $TTLOO   018 019   11$      002 065   3$       042 057   87$      044 131 
+$DPVRE   045 037   $PRT36   015 001   $TTPIN   007 043   11$      006 020   3$       045 065   88$      044 127 
+$DPVRP   045 032   $PSLAS   006 043   $TTS36   034 024   11$      008 021   3$       048 028   89$      044 123 
+$DPVRV   045 040   $PSPAC   006 040   $TTSDL   032 010   11$      009 042   3$       049 047   9$       009 030 
+$DPVRX   045 029   $PTAB    006 049   $TTSDO   034 016   11$      022 020   32$      011 032   9$       017 036 
+$DPVRY   045 028   $PTCO    012 044   $TTSDX   032 037   12$      010 004   4$       002 120   9$       027 034 
+$EBPAR   045 010   $PTTY    009 003   $XCT     047 003   12$      030 019   4$       003 027   9$       030 023 
+$ECLOK   047 024   $PTTY1   010 034   .EP      003 008   13$      010 024   4$       006 012   90$      012 032 
+$EMTAD   038 029   $PTTY2   010 039   .HC      005 036   14$      010 026   4$       008 037   91$      047 026 
+$EMTAE = 041 072   $PTTYC   012 003   .TD      036 010   15$      010 032   4$       009 013   92$      047 037 
+$EMTRP   038 008   $PWRDN   042 003   1$       002 010   16$      010 019   4$       011 046   93$      044 088 
+$EOP     003 019   $PWRUP   042 009   1$       002 029   17$      010 022   4$       012 039   94$      044 108 
+$EOPSE   003 003   $REGRS   036 031   1$       002 125   19$      008 018   4$       016 034   95$      021 012 
+$EOR     037 014   $REGSA   036 024   1$       003 015   19$      009 040   4$       017 019   95$      044 105 
+$EOR2    037 028   $RESVD   037 011   1$       003 037   2$       002 133   4$       025 036   96$      029 037 
+$EROP    004 021   $SBRIN   002 019   1$       005 014   2$       004 001   4$       027 025   96$      044 146 
+$ERREO   004 016   $SETFL   043 006   1$       005 039   2$       006 023   4$       029 004   97$      029 005 
+$ERRHL   005 007   $SHFTL   035 009   1$       006 016   2$       007 021   4$       031 025   98$      028 037 
+$ESYNC   041 074   $SHFTR   035 003   1$       007 013   2$       008 030   4$       042 069   99$      008 014 
+$EXAM    044 058   $SHFTX   035 007   1$       007 039   2$       009 008   4$       047 014   99$      011 015 
+$EXAMT   044 052   $SM      046 003   1$       008 019   2$       011 023   4$       048 036   99$      022 024 
+$EXAMX   044 061   $SMERR   046 025   1$       009 005   2$       012 019   4$       049 052   99$      028 021 
+$EXDEP   044 063   $SMTAB   046 027   1$       010 035   2$       013 023   41$      011 031   ADDR   = 044*135 
+$EXIT    043 010   $STUF    037 021   1$       010 042   2$       014 029   42$      011 029   ADDRES = 044 097 
+$EXITE   043 003   $SWITC   020 003   1$       011 018   2$       016 024   43$      011*041   ADDRES = 045 043 
+$EXITS   043 009   $SWTSA   020 010   1$       011 076   2$       017 017   44$      011 044   CLKINT   049 027 
+$FATAL   037 031   $TENSP   048 003   1$       012 034   2$       018 043   45$      011*039   CLKSTA   049 004 
+$FATLE   037 003   $TI36C   030 050   1$       013 020   2$       021 014   5$       011 047   DATA   = 045 046 
+$ILLUP   042 004   $TIALT   023 017   1$       014 031   2$       022 042   5$       012 042   DATA   = 045 049 
+$LPTOF   011 079   $TIBEL   023 010   1$       015 008   2$       025 015   5$       016 036   LP20DN   011 067 
+$MULTP   031 003   $TIBKS   023 021   1$       015 028   2$       025 057   5$       017 023   MEMPE    043 015 
+$NOTAS   037 027   $TICC    023 025   1$       016 020   2$       026 028   5$       025 012   NEG36    030 039 
+$P18X  = 014 027   $TICL    023 029   1$       017 013   2$       027 015   5$       027 031   NOPAR    002 122 
+$P23X  = 014 030   $TICO    023 038   1$       018 045   2$       028 031   5$       029 019   SHFT36   030 028 
+$P23Y    014 013   $TICR    023 007   1$       019 024   2$       031 019   5$       031 037   SWR    = 002 104 
+$P36B    014 019   $TICRA   034 032   1$       020 005   2$       033 018   5$       048 039   TILINA   024 014 
+$P36BX   014 026   $TICU    023 003   1$       020 037   2$       036 017   5$       049 055   TILINC   024 003 
+$P36MV   015 025   $TICX    023 043   1$       022 034   2$       042 051   50$      011 055   TRMTAB   033 023 
+$PADR    013 039   $TIEXT   023 012   1$       025 009   

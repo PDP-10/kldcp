@@ -1,0 +1,141 @@
+COMMENT ⊗   VALID 00005 PAGES
+C REC  PAGE   DESCRIPTION
+C00001 00001
+C00002 00002	  1) SBST11.PAL[KL,SYS] and 2) SBST11.TVR[KL,SYS]	12-03-84 13:23	pages 4,4
+C00004 00003	  1) CONS11.PAL[KL,SYS] and 2) CONS11.TVR[KL,SYS]	12-03-84 13:24	pages 39,39
+C00005 00004	  1) QMP11.PAL[KL,SYS] and 2) QMP11.TVR[KL,SYS]	12-03-84 13:24	pages 6,6
+C00009 00005	  1) KLDCP.PAL[KL,SYS] and 2) KLDCP.TVR[KL,SYS]	12-03-84 13:24	pages 3,3
+C00011 ENDMK
+C⊗;
+  1) SBST11.PAL[KL,SYS] and 2) SBST11.TVR[KL,SYS]	12-03-84 13:23	pages 4,4
+
+**** File 1) SBST11.PAL[KL,SYS]/4P/84L
+1)	;	.BUFW	FREEAD		;ADDRESS OF BEGINNING OF FREE MEMORY
+**** File 2) SBST11.TVR[KL,SYS]/4P/84L
+2)		.BUFW	QMPSTS,3	;STATUS OF TO-11 XFER
+2)	;	.BUFW	FREEAD		;ADDRESS OF BEGINNING OF FREE MEMORY
+***************
+
+
+  1) CONS11.PAL[KL,SYS] and 2) CONS11.TVR[KL,SYS]	12-03-84 13:24	pages 39,39
+
+**** File 1) CONS11.PAL[KL,SYS]/39P/23L
+1)	.LIF NDF %%QMP
+**** File 2) CONS11.TVR[KL,SYS]/39P/22L
+2)		JSR	PC,SNDQM2		;SEND STATUS OF TO 11 TRANSFER
+2)	.LIF NDF %%QMP
+***************
+
+
+**** File 1) CONS11.PAL[KL,SYS]/41P/45L
+1)		JMP C10DN2	;DONG 10, WAIT FOR NEXT COMMAND
+**** File 2) CONS11.TVR[KL,SYS]/41P/45L
+2)		D10MON		;*** BUGTRAP
+2)		  $ECMD
+2)		JMP C10DN2	;DONG 10, WAIT FOR NEXT COMMAND
+***************
+
+
+  1) QMP11.PAL[KL,SYS] and 2) QMP11.TVR[KL,SYS]	12-03-84 13:24	pages 6,6
+
+**** File 1) QMP11.PAL[KL,SYS]/6P/10L
+1)		MOV	#DON11C!ERR11C,@.STDTE	; Clear DONE and ERROR in DTE STATUS
+1)		MOV	FR10Q,R0		; ADDRESS OF BUFFER BLOCK
+**** File 2) QMP11.TVR[KL,SYS]/6P/10L
+2)	;;	BIT	#7777,@.BC11	; Is there a transfer still in progress?
+2)	;;	  BEQ	DTE11B		;   No, good
+2)	;;	PMSG	<\DTE11B>
+2)	;;	PCRLF
+2)	DTE11B:	MOV	#DON11C!ERR11C,@.STDTE	; Clear DONE and ERROR in DTE STATUS
+2)		MOV	R3,QMPSTS		; Set status for sending to KL
+2)		MOV	FR10Q,R0		; ADDRESS OF BUFFER BLOCK
+***************
+
+
+**** File 1) QMP11.PAL[KL,SYS]/7P/4L
+1)	;		R5 = 14 IN THE HIGH BYTE
+**** File 2) QMP11.TVR[KL,SYS]/6P/98L
+2)	SNDQM2:	TST	QMPSTS			; Time to send new status?
+2)		BEQ	77$			;   No
+2)	.IIF NE EPTREL, MOV	#XEPT!PRTOFF,$TADSP	; SET ADDR MODE FOR NXT EXDEP
+2)		DPOST				; Put status where KL can see it
+2)		  $DTQM2
+2)		  QMPSTS
+2)		MOV	#TO10DB,@.STDTE		; Now, signal KL
+2)		CLR	QMPSTS			; Remember we're sent it
+2)	77$:	RTS	PC
+2)	; QMPCMD - ROUTINE CALLED FROM KLDCP WHEN 10 SENDS ITEM COUNT
+2)	;
+2)	;	ENTERED WITH:
+2)	;		R5 = 14 IN THE HIGH BYTE
+***************
+
+
+**** File 1) QMP11.PAL[KL,SYS]/7P/12L
+1)		BIT	#7777,@.BC11	; Is there a transfer already in progress?
+1)		  BNE	QMPCXT		;   Yes, the '10 goofed. We'll just ignore it and
+1)					;	let the current transfer finish.
+**** File 2) QMP11.TVR[KL,SYS]/7P/12L
+2)	$98:	BIT	#7777,@.BC11	; Is there a transfer already in progress?
+2)		  BNE	QMPOVR		;   Yes, the '10 goofed. We'll just ignore it and
+2)					;	let the current transfer finish.
+***************
+
+
+**** File 1) QMP11.PAL[KL,SYS]/7P/34L
+1)	;
+**** File 2) QMP11.TVR[KL,SYS]/7P/35L
+2)	QMPOVR:	PMSG	<\QMPOVR\>
+2)		MOV	#-1,QMPSTS	; Tell '10 it's losing 
+2)		CALL	SNDQM2
+2)		BR	QMPCXT
+2)	;
+***************
+
+
+**** File 1) QMP11.PAL[KL,SYS]/8P/6L
+1)	SND10:	SAVVR			; SAVE REGS R0-R2
+**** File 2) QMP11.TVR[KL,SYS]/8P/6L
+2)	;	which is an operation which is not interlocked.  Sigh...
+2)	;
+2)	SND10:	SAVVR			; SAVE REGS R0-R2
+***************
+
+
+**** File 1) QMP11.PAL[KL,SYS]/8P/13L
+1)		INC	DTEBCT		; increment the busy count
+1)		BNE	3$		; if it counts out, restart pending xfer
+**** File 2) QMP11.TVR[KL,SYS]/8P/15L
+2)	;;	INC	DTEBCT		; increment the busy count
+2)		INCB	DTEBCT		; **** AT LEAST THIS WAY WE TIMEOUT IN 256/60 SEC.
+2)		BNE	3$		; if it counts out, restart pending xfer
+***************
+
+
+  1) KLDCP.PAL[KL,SYS] and 2) KLDCP.TVR[KL,SYS]	12-03-84 13:24	pages 3,3
+
+**** File 1) KLDCP.PAL[KL,SYS]/3P/3L
+1)	KLDCP=	1	;ASSEMBLE KLDCP
+**** File 2) KLDCP.TVR[KL,SYS]/3P/1L
+2)	;ASSEMBLY PARAMETERS
+2)	KLDCP=	1	;ASSEMBLE KLDCP
+***************
+
+
+**** File 1) KLDCP.PAL[KL,SYS]/3P/27L
+1)	PCKASB==1	;Assemble checksumming of incoming PUPs (QMP11)
+1)	$NB=	8.	;USE 8 BREAKPOINTS
+**** File 2) KLDCP.TVR[KL,SYS]/3P/27L
+2)	;;PCKASB==1	;Assemble checksumming of incoming PUPs (QMP11)
+2)	$NB=	8.	;USE 8 BREAKPOINTS
+***************
+
+
+**** File 1) KLDCP.PAL[KL,SYS]/4P/1L
+1)	;KLDCPU UTILITY PROGRAM PARAMETERS
+**** File 2) KLDCP.TVR[KL,SYS]/3P/68L
+2)	$DTQM2= 461	;DTE20 11 STATE OF TRANSFER (0 - BUSY, -1 ERROR, OTHERWISE STATUS)
+2)	;KLDCPU UTILITY PROGRAM PARAMETERS
+***************
+
+

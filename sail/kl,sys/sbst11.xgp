@@ -1,0 +1,525 @@
+/FONT#0=FIX20.FNT[XGP,SYS]
+/BMAR=1
+/TMAR=128
+/RMAR=1699
+/LMAR=128
+/PMAR=2065
+/XLINE=4
+SAIL JBR        15:11:33 Wednesday, October 5, 1977   LQ+17H.6M.9S.
+SBST11.PAL[KL,SYS] Created 14:30 Friday, January 21, 1977   NM+2D.1H.50M.3S.
+
+   SSSSSSSSS         BBBBBBBBBBBB            SSSSSSSSS         TTTTTTTTTTTTTTT            111                  111      
+   SSSSSSSSS         BBBBBBBBBBBB            SSSSSSSSS         TTTTTTTTTTTTTTT            111                  111      
+   SSSSSSSSS         BBBBBBBBBBBB            SSSSSSSSS         TTTTTTTTTTTTTTT            111                  111      
+SSS         SSS      BBB         BBB      SSS         SSS            TTT               111111               111111      
+SSS         SSS      BBB         BBB      SSS         SSS            TTT               111111               111111      
+SSS         SSS      BBB         BBB      SSS         SSS            TTT               111111               111111      
+SSS                  BBB         BBB      SSS                        TTT                  111                  111      
+SSS                  BBB         BBB      SSS                        TTT                  111                  111      
+SSS                  BBB         BBB      SSS                        TTT                  111                  111      
+   SSSSSSSSS         BBBBBBBBBBBB            SSSSSSSSS               TTT                  111                  111      
+   SSSSSSSSS         BBBBBBBBBBBB            SSSSSSSSS               TTT                  111                  111      
+   SSSSSSSSS         BBBBBBBBBBBB            SSSSSSSSS               TTT                  111                  111      
+            SSS      BBB         BBB                  SSS            TTT                  111                  111      
+            SSS      BBB         BBB                  SSS            TTT                  111                  111      
+            SSS      BBB         BBB                  SSS            TTT                  111                  111      
+SSS         SSS      BBB         BBB      SSS         SSS            TTT                  111                  111      
+SSS         SSS      BBB         BBB      SSS         SSS            TTT                  111                  111      
+SSS         SSS      BBB         BBB      SSS         SSS            TTT                  111                  111      
+   SSSSSSSSS         BBBBBBBBBBBB            SSSSSSSSS               TTT               111111111            111111111   
+   SSSSSSSSS         BBBBBBBBBBBB            SSSSSSSSS               TTT               111111111            111111111   
+   SSSSSSSSS         BBBBBBBBBBBB            SSSSSSSSS               TTT               111111111            111111111   
+
+SAIL JBR        15:11:34 Wednesday, October 5, 1977   LQ+17H.6M.10S.
+SBST11.PAL[KL,SYS] Created 14:30 Friday, January 21, 1977   NM+2D.1H.50M.3S.
+
+PPPPPPPPPPPP               AAA            LLL            
+PPPPPPPPPPPP               AAA            LLL            
+PPPPPPPPPPPP               AAA            LLL            
+PPP         PPP         AAA   AAA         LLL            
+PPP         PPP         AAA   AAA         LLL            
+PPP         PPP         AAA   AAA         LLL            
+PPP         PPP      AAA         AAA      LLL            
+PPP         PPP      AAA         AAA      LLL            
+PPP         PPP      AAA         AAA      LLL            
+PPPPPPPPPPPP         AAA         AAA      LLL            
+PPPPPPPPPPPP         AAA         AAA      LLL            
+PPPPPPPPPPPP         AAA         AAA      LLL            
+PPP                  AAAAAAAAAAAAAAA      LLL            
+PPP                  AAAAAAAAAAAAAAA      LLL            
+PPP                  AAAAAAAAAAAAAAA      LLL            
+PPP                  AAA         AAA      LLL            
+PPP                  AAA         AAA      LLL            
+PPP                  AAA         AAA      LLL            
+PPP                  AAA         AAA      LLLLLLLLLLLLLLL
+PPP                  AAA         AAA      LLLLLLLLLLLLLLL
+PPP                  AAA         AAA      LLLLLLLLLLLLLLL
+
+KLDCP.PAL[KL,SYS]      PRM11.PAL[KL,SYS]      BEG11.PAL[KL,SYS]      CONS11.PAL[KL,SYS]     SUB11.PAL[KL,SYS]
+FD11.PAL[KL,SYS]       DTA11.PAL[KL,SYS]      BOOT.PAL[KL,SYS]       APT11.PAL[KL,SYS]      BR11.PAL[KL,SYS]
+SBST11.PAL[KL,SYS]
+
+
+Switch Settings: L[PALX11] C[KLDCP.ATC] % I 5000S 78V 120W X[Noqueue] ↑ 
+Fonts: F[FIX20.FNT[XGP,SYS],,] 
+LREC File:  SAIL:KLDCP.LRC[KL,SYS]
+↓&	                                                                 SBST11.PAL[KL,SYS] 10/05/77  Page 1↓'α
+001                                     COMMENT ⊗   VALID 00009 PAGES
+002                                     C REC  PAGE   DESCRIPTION
+003                                     C00001 00001
+004                                     C00002 00002	.SBTTL	*STORE* PROGRAM STORAGE FILE, 5-AUG-75
+005                                     C00004 00003	BUFFER CREATION MACROS
+006                                     C00005 00004	PROGRAM BUFFERS & STORAGE AREA
+007                                     C00009 00005	COMMON STORAGE
+008                                     C00014 00006	DECTAPE PARAMETER STORAGE
+009                                     C00017 00007	TELETYPE BUFFERS
+010                                     C00020 00008	CONSOLE PARAMETER STORAGE
+011                                     C00022 00009	MISCELLANEOUS STORAGE
+012                                     C00025 ENDMK
+013                                     C⊗;↓&	*STORE* PROGRAM STORAGE FILE, 5-AUG-75                           SBST11.PAL[KL,SYS] 10/05/77  Page 2↓'α
+001                                     .SBTTL	*STORE* PROGRAM STORAGE FILE, 5-AUG-75
+002                                     
+003          002 005                    .MACRO	INFORM	A,B
+004                                     .IF P2
+005                                     .PRINT	\A=B
+006                                     \
+007                                     .ENDC
+008                                     .ENDM
+009                                     
+010          002 003                    INFORM	PROGRAM END,\.
+011                                     
+012                                     ;.NLIST
+013                    KLDCP   003 003  .IF	DF KLDCP
+014                                     ;.LIST
+015                                     ;DECISION TABLES FOR KL10/11 SUBROUTINE PACKAGE
+016                                     
+017                                     $DTBL0:
+018                                     $LF:	.BYTE	12
+019                                     $CR:	.BYTE	15
+020                                     $BELL:	.BYTE	07
+021                                     	.BYTE	00
+022                                     .EVEN
+023                                     
+024                            002 028  $DTBL1:	$LFTBL			;LINE FEED FILL TABLE
+025                            002 032  	$CRTBL			;CARRIAGE RETURN FILL TABLE
+026                            002 036  	$BELLT			;BELL FILL TABLE
+027                                     
+028                                     $LFTBL:	.BYTE	1,1
+029                                     	.BYTE	2,1
+030                                     	.BYTE	2,4
+031                                     
+032                                     $CRTBL:	.BYTE	0,0
+033                                     	.BYTE	9.,1
+034                                     	.BYTE	2,4
+035                                     
+036                                     $BELLT:	.BYTE	2,2
+037                                     	.BYTE	2,2
+038                                     	.BYTE	2,2
+039                                     
+040                                     $DTBL:	10000.
+041                                     	1000.
+042                                     	100.
+043                                     	10.
+044                                     	1.
+045                                     $TBLL:	1.
+046                                     	10.
+047                                     	100.
+048                                     	1000.
+049                                     	10000.
+050                                     
+051                                     ;.NLIST
+052                                     .ENDC	;IF DF KLDCP
+053                                     ;.LIST
+054                                     ;THIS SECTION CONTAINS ALL PROGRAM TEXT LITERALS
+055                                     
+056                    PRM11   008 003  $$FF:	$$CLIT
+057                                     
+058                                     $$LITT=.
+059                    PRM11   008 003  $$$FF=$$CLIT
+060                                     
+061          002 003   PRM11   008 003  INFORM LITERAL END,\$$CLIT
+062                                     
+063                                     .IF P2
+064                    PRM11   008 003  .=$$CLIT
+065                                     PATCH:	.BLKW 40
+066                                     PATEND==.
+067                                     .ENDC↓&	*STORE* PROGRAM STORAGE FILE, 5-AUG-75                           SBST11.PAL[KL,SYS] 10/05/77  Page 3↓'α
+001                                     ;BUFFER CREATION MACROS
+002                                     
+003                                     $$BUF==	COREND-600		;ROOM FOR STACK
+004                                     
+005                                     ;WORD BUFFER ASSIGNMENT MACRO
+006          003 014                    .MACRO	.BUFW	$BTAG,$BARG
+007          003 003           003 003  	.IIF	NE $$BUF&1,$$BUF==$$BUF-1
+008                                     	.IIF	B $BARG,$$BARG==1
+009                                     	.IIF	NB $BARG,$$BARG==$BARG
+010                            003 008  	$$BUF==$$BUF-<$$BARG*2>
+011                                     	.NLIST
+012                                     	.LIST	ME	
+013                                     	.LIST
+014                            003 003  $BTAG==	$$BUF
+015                                     	.NLIST	ME
+016                                     .ENDM
+017                                     
+018                                     ;BYTE BUFFER ASSIGNMENT MACRO
+019          003 014                    .MACRO	.BUFB	$BTAG,$BARG
+020                                     	.IIF	B $BARG,$$BARG==1
+021                                     	.IIF	NB $BARG,$$BARG==$BARG
+022                            003 008  	$$BUF==$$BUF-$$BARG
+023                                     	.NLIST
+024                                     	.LIST	ME
+025                                     	.LIST
+026                            003 003  $BTAG==	$$BUF
+027                                     	.NLIST	ME
+028                                     .ENDM
+029                                     
+030                                     	.NLIST	LOC↓&	*STORE* PROGRAM STORAGE FILE, 5-AUG-75                           SBST11.PAL[KL,SYS] 10/05/77  Page 4↓'α
+001                                     ;PROGRAM BUFFERS & STORAGE AREA
+002                                     ;CLEARED ON INITIALIZATION
+003                                     
+004                                     ;STORAGE FOR DTE20 ADDRESS POINTERS
+005                                     
+006                            003 006  	.BUFW	.DIAG3		;XXX36
+007                            003 006  	.BUFW	.STDTE		;XXX34
+008                            003 006  	.BUFW	.DIAG2		;XXX32
+009                            003 006  	.BUFW	.DIAG1		;XXX30
+010                            003 006  	.BUFW	.T11DT		;XXX26
+011                            003 006  	.BUFW	.T10DT		;XXX24
+012                            003 006  	.BUFW	.T11AD		;XXX22
+013                            003 006  	.BUFW	.T10AD		;XXX20
+014                            003 006  	.BUFW	.BC11		;XXX16
+015                            003 006  	.BUFW	.BC10		;XXX14
+016                            003 006  	.BUFW	.TENA2		;XXX12
+017                            003 006  	.BUFW	.TENA1		;XXX10
+018                            003 006  	.BUFW	.DAT1		;XXX06
+019                            003 006  	.BUFW	.DAT2		;XXX04
+020                            003 006  	.BUFW	.DAT3		;XXX02
+021                            003 006  	.BUFW	.DELAY		;XXX00
+022                                     
+023                                     
+024                                     ;SPECIAL LOAD ONLY CLEAR & SETUP AREA (HERE TO $ILDCLR IS ZEROED AT LOAD TIME)
+025                                     
+026                            003 006  	.BUFW	$ONETM		;ONE TIME FLAG
+027                            003 006  	.BUFW	$ILDSUM		;"KLDCP" CHECKSUM
+028                            003 006  	.BUFW	$PWRCNT		;POWER RESTART COUNT
+029                            003 006  	.BUFW	DEVTYP		;DEVICE TYPE: -1=ACT, 0=DTA, 1=RP04
+030                            003 006  	.BUFW	FLOPPY		;-1, USE RX11/RX01 FLOPPY
+031                            003 006  	.BUFW	LPTFLG		;LINE PRINTER FLAG
+032                            003 006  	.BUFW	LPTYPE		;LINE PRINTER TYPE
+033                            003 006  	.BUFW	RXUNIT		;FLOPPY UNIT
+034                            003 006  	.BUFW	DTUNIT		;DECTAPE UNIT
+035                            003 006  	.BUFW	RPUNIT		;RP04 UNIT
+036                            003 006  	.BUFW	$BKFLG		;BREAKPOINT FLAG
+037          003 006                    	.BUFW	CLKPE,3		;CLOCK PE DFWRT STORAGE
+038                            003 006  	.BUFW	PEBITS		;CLOCK STOP PARITY ENABLE BITS
+039          003 006                    	.BUFW	PAGDFL,3	;KL10 "DATAO PAG,0" DEFAULT
+040          003 006                    	.BUFW	CLKDFL,3	;KL10 CLOCK DEFAULT
+041          003 006                    	.BUFW	SWS10,3		;PDP-10 SWITCHES
+042          003 006                    	.BUFW	$SWS10,3
+043                            003 006  	.BUFW	$$SWR
+044          003 006                    	.BUFW	$$STJRS,3	;PDP-10 START "JRST"
+045                            003 006  	.BUFW	$STODD		;"SETMPH" VARIABLES
+046                            003 006  	.BUFW	$MPHMK		;MASK, A OR B CHANGE  - used to be byte  --jbr 4
+                                        				;/27
+047                            003 006  	.BUFW	$MPHDF		;DIAG FCN, A OR B CHANGE	"
+048          003 006                    	.BUFW	TGOADR,2	;PDP-10 GO START ADDRESS
+049          003 006                    	.BUFW	PGOADR,2	;PROGRAM GO ADDRESS
+050                            003 006  	.BUFW	PGOCTL		;PROGRAM GO CONTROL
+051                            003 006  	.BUFW	SEADR		;PDP-11 START ADDRESS
+052                                     
+053                    KLDCP   002 006  .IF DF SAILVR
+054          003 006                    	.BUFW TIM11,3		;PDP11 TIME COUNTER
+055          003 006                    	.BUFW	TIMBAS,3	;PDP-10 TIME BASE
+056                            003 006  	.BUFW	KTIMBS		;NON-ZERO IF TIMEBASE WAS SET FROM 10.
+057                            003 006  	.BUFW	CLKFLG		;NON-ZERO WHEN THE CLOCK TICKS
+058          003 006                    	.BUFW	TIMTMP,3	;TEMP CELL FOR TIME BASE EXAMINE-DEPOSIT
+059          003 006                    	.BUFW	TIMADR,3	;TEMP CELL FOR PDP-10 ADDRESS FOR EXAM, DEPO
+060                                     .ENDC
+061                                     
+062                                     ;DSKDMP BOOT STORAGE
+063                    KLDCP   003 016  .IF DF BOOASB
+064          003 006   PRM11   043 004  	.BUFW BOOTBF,BOOTSZ
+065          003 006                    	.BUFW BOOTSA,2
+066          003 006                    	.BUFW BOOTBG,2
+067                                     .ENDC
+068                                     
+069                                     
+070                    KLDCP   003 018  .IF NDF TELASB
+071                                     ;KLINIK FIELD SERVICE REMOTE FLAG
+072                                     
+073                            003 006  	.BUFW DL11EFLG
+074                                     .IFF
+075          003 006                    	.BUFW FSSTATE,1		;STATE OF FS TELETYE LINE
+076          003 006                    	.BUFW FSTPTR,1		;POINTER TO TEXT AT FSTYP↓&	*STORE* PROGRAM STORAGE FILE, 5-AUG-75                           SBST11.PAL[KL,SYS] 10/05/77  Page 4.1↓'α
+077          003 006                    	.BUFW FSTYPR,1		;SAVED RETURN ADDRESS FROM FSTYP
+078          003 019   CONS11  062 005  	.BUFB FSRBUF,FSRLEN	;INPUT BUFFER
+079          003 006                    	.BUFW FSRPTR,1		;POINTER TO FSRBUF
+080          003 006                    	.BUFW FSFLG,1		;SET FLAG TO INDICATE USE OF FS DL11E
+081          003 006                    	.BUFW FSCLKA,1		;FS CLOCK REQUEST ADDRESS
+082          003 006                    	.BUFW FSRTIM,3		;TIME WHEN FS CLOCK REQUEST SHOULD BE DONE
+083                                     .ENDC
+084                                     
+085                                     ;BP TABLE; INST, ADR, CNT
+086                                     
+087                                     .IF DF BPTASB
+088          003 006   KLDCP   003 022  	.BUFW	$BT,<$NB*3>	;BP TABLE
+089                            003 006  	.BUFW	$BCA		;BP CONTINUE ADDRESS
+090                            003 006  	.BUFW	$BTIS		;BP TEMP
+091                                     .ENDC
+092                                     
+093                            003 003  $ILDCLR=$$BUF↓&	*STORE* PROGRAM STORAGE FILE, 5-AUG-75                           SBST11.PAL[KL,SYS] 10/05/77  Page 5↓'α
+001                                     ;COMMON STORAGE
+002                                     
+003                            003 006  	.BUFW	$SWMON		;MONITOR LOW ORDER SWITCHES
+004                            003 006  	.BUFW	MONCTL		;0=STANDALONE, -1=MONITOR
+005                            003 006  	.BUFW	TENSWD		;PDP-10 SWITCH DEPOSIT FLAG
+006                            003 006  	.BUFW	TENCLK		;PDP-10 CLOCK FLAG
+007                            003 006  	.BUFW	PCMDFLG		;PROGRAM COMMAND FLAG
+008                            003 006  	.BUFW	PCMDNF		;PROGRAM CMD NO PRINT FLAG
+009                            003 006  	.BUFW	$ITERA		;ITERATION REGISTER
+010                            003 006  	.BUFW	$ENDCT		;END OF PASS REPORT COUNT
+011                            003 006  	.BUFW	$EOPCT		;END OF PASS COUNT
+012                            003 006  	.BUFW	$ERRPC		;ERROR PC
+013                            003 006  	.BUFW	$ERTTL		;TOTAL ERRORS DETECTED
+014                            003 006  	.BUFW	$ERFLG		;ERROR FLAG
+015                            003 006  	.BUFW	$PASS		;PASS COUNT
+016                            003 006  	.BUFW	$CMTAG		;COMMON TAG
+017                                     
+018                                     ;DECTAPE/RP04 AND LOADING BUFFERS
+019                                     
+020          003 006                    	.BUFW	DVBUF,256.	;DEVICE BUFFER
+021                                     VFUDAT=DVBUF
+022                                     
+023          003 006                    	.BUFW	EXTBF,2		;ASCII EXTENSION BUFFER
+024          003 006                    	.BUFW	NAMBF,3		;ASCII NAME BUFFER
+025                            003 006  	.BUFW	DIRST4
+026                            003 006  	.BUFW	DIRST3
+027                            003 006  	.BUFW	DIRST2
+028                            003 006  	.BUFW	DIRST1
+029                            003 006  	.BUFW	DIRST0		;PSEUDO DIRECTORY CONVERSION STORAGE
+030                            003 006  	.BUFW	DTEXT		;RAD50 EXT
+031          003 006                    	.BUFW	DTEXTS,3	;UNPACKED EXT (ASCII)
+032                                     
+033                            003 006  	.BUFW	DTLNGTH		;DECTAPE FILE LENGTH
+034                            003 006  	.BUFW	DTSTRT		;DECTAPE FILE START BLOCK
+035                            003 006  	.BUFW	DVADR		;DEVICE DATA ADDRESS POINTER
+036                            003 006  	.BUFW	DVCNT		;DEVICE BYTE COUNT
+037                            003 006  	.BUFW	DVDIRF		;DEVICE DIRECTORY FLAG
+038                            003 006  	.BUFW	CDADR		;CORE DUMP BUFFER POINTER
+039                            003 006  	.BUFW	DIAFLG		;"DIAMON" OPERATION FLAG
+040                            003 006  	.BUFW	RPEOF		;END-OF-FILE FLAG
+041          003 006                    	.BUFW	WRTBAK,3	;RPLKUP & RPWRFL RETURN INFO
+042          003 006                    	.BUFW	$RPINFO,2	;DVDATA POINTERS
+043          003 006                    	.BUFW	NAMRAD,3	;RAD50 NAME.EXT
+044                                     
+045                                     .IF DF RPASB
+046                            003 006  	.BUFW	RPFDNB		;FILE DIRECTORY LENGTH IN BLOCKS
+047                            003 006  	.BUFW	RPFDTS		;FILE DIRECTORY TRACK & SECTOR
+048                            003 006  	.BUFW	RPFDCY		;FILE DIRECTORY CYLINDER NUMBER
+049                            003 006  	.BUFW	RPIXNB		;INDEX FILE LENGTH IN BLOCKS
+050                            003 006  	.BUFW	RPIXTS		;INDEX FILE TRACK & SECTOR
+051                            003 006  	.BUFW	RPIXCY		;INDEX FILE CYLINDER NUMBER
+052                            003 006  	.BUFW	RPIXCB		;INDEX FILE CURRENT BLOCK
+053                            003 006  	.BUFW	RPLAST		;INDEX FILE LAST BLOCK
+054                                     
+055                            003 006  	.BUFW	CYLNDR		;CURRENT CYLINDER
+056                            003 006  	.BUFW	TRKSCT		;CURRENT TRACK & SECTOR
+057                            003 006  	.BUFW	OFFSET		;CURRENT OFFSET
+058                                     
+059                            003 006  	.BUFW	BUFADR		;BUFFER ADDRESS
+060                            003 006  	.BUFW	BUFSIZ		;BUFFER SIZE
+061                            003 006  	.BUFW	WRDCNT		;READ/WRITE WORD COUNT
+062                                     
+063          003 006   PRM11   041 005  	.BUFW	FILDSB,FDESIZ+2	;FILE DESCRIPTOR
+064                                     .ENDC↓&	*STORE* PROGRAM STORAGE FILE, 5-AUG-75                           SBST11.PAL[KL,SYS] 10/05/77  Page 6↓'α
+001                                     ;DECTAPE PARAMETER STORAGE
+002                                     
+003                            003 006  	.BUFW	REVCNT		;REVERSE COUNT
+004                            003 006  	.BUFW	INTSW		;INIT SWITCH
+005                            003 006  	.BUFW	$CKS11		;PDP-11 BINARY CHECKSUM
+006                            003 006  	.BUFW	LTMP		;LOAD TEMP
+007                            003 006  	.BUFW	LBC		;LOAD BYTE COUNT
+008                            003 006  	.BUFW	TRYCTR		;DECTAPE TRY COUNT
+009                            003 006  	.BUFW	DTXCMD		;DECTAPE XFER COMAND
+010                            003 006  	.BUFW	WCSAV		;WORD COUNT SAVE
+011                            003 006  	.BUFW	CASAV		;CURRENT ADDRESS SAVE
+012                            003 006  	.BUFW	DTBLK		;DECTAPE BLOCK NUMBER
+013                                     
+014                                     ;FLOPPY PARAMETER STORAGE
+015                                     .IF DF RXASB
+016                            003 006  	.BUFW	$$ITS1		;FLOPPY "$RXITS" COUNTER
+017                            003 006  	.BUFW	RXSADR		;FLOPPY SECTOR ADDRESS
+018                            003 006  	.BUFW	RXTADR		;FLOPPY TRACK ADDRESS
+019                            003 006  	.BUFW	RXBLKT		;FLOPPY BLOCK # TEMP
+020                            003 006  	.BUFW	RXWCMD		;FLOPPY WORKING COMMAND
+021                            003 006  	.BUFW	RXCMD		;FLOPPY COMMAND
+022                            003 006  	.BUFW	RXBLK		;FLOPPY BLOCK NUMBER
+023                                     .ENDC
+024                                     
+025                                     ;LOAD PARAMETER STORAGE
+026                                     
+027                            003 006  	.BUFW	LDATAE
+028          003 006                    	.BUFW	LDATA,34.	;LOAD DATA
+029                            003 006  	.BUFW	LDADR		;LOAD ADDRESS
+030                            003 006  	.BUFW	LDCNT		;LOAD WORD COUNT
+031                            003 006  	.BUFW	LDOCTF		;LOAD OCTAL FORMAT FLAG
+032                            003 006  	.BUFW	LDCNTL		;LOAD CONTROL WORD
+033                            003 006  	.BUFW	LDOVRD		;LOAD CONTROL OVERRIDE
+034                            003 006  	.BUFW	LDZBLK		;LOAD 10 ZERO BLOCK FLAG
+035                            003 006  	.BUFW	SRTFLG		;SELF START FLAG
+036                            003 006  	.BUFW	DEVLC		;DEVICE LINE COUNT
+037                                     .LIF DF MONASB
+038                            003 006  	.BUFW	ARETRY		;ACT10 RETRY COUNT
+039                            003 006  	.BUFW	HLPPNT		;ACT10 HELP PRINT FLAG↓&	*STORE* PROGRAM STORAGE FILE, 5-AUG-75                           SBST11.PAL[KL,SYS] 10/05/77  Page 7↓'α
+001                                     ;TELETYPE BUFFERS
+002                                     
+003                            003 006  	.BUFW	$INPTR		;INPUT POINTERS
+004                            003 006  	.BUFW	$INPTC
+005          003 019                    	.BUFB	$INBUF,142.	;INPUT BUFFER
+006                            003 006  	.BUFW	$OUTPC		;OUTPUT POINTERS
+007                            003 006  	.BUFW	$OUTPT
+008                            003 006  	.BUFW	$OUTPP		;OUTPUT PRINT POSITION
+009          003 019                    	.BUFB	$OUTBF,142.	;OUTPUT BUFFER
+010                                     
+011                            003 006  	.BUFW	$TNPTR		;10 INPUT POINTERS
+012                            003 006  	.BUFW	$TNPTC
+013          003 019                    	.BUFB	$TNBUF,142.	;10 INPUT BUFFER
+014          003 006                    	.BUFW	$TNCHR,3	;LAST CHAR TYPED (FOR TEN)
+015                            003 006  	.BUFW	TENTTY		;10 "TENCHR" FLAG
+016                                     
+017                            003 006  	.BUFW	$TTYIN
+018          003 019                    	.BUFB	$TTSAV,12.
+019                                     
+020                                     .IF DF MONASB
+021                            003 006  	.BUFW	ENQFLG		;COMMUNICATIONS IN PROGRESS
+022                            003 006  	.BUFW	MSGNBR		;COMMUNICATIONS MESSAGE NUMBER
+023                            003 006  	.BUFW	COMNBR		;COMMUNICATION NUMBER
+024          003 019                    	.BUFB	COUTBF,142.	;COMMUNICATIONS OUTPUT BUFFER
+025          003 006                    	.BUFW	COUTSP,2	;OUTPUT CONTROL CHARACTERS
+026          003 019                    	.BUFB	CINBF,142.	;COMMUNICATIONS INPUT BUFFER
+027          003 006                    	.BUFW	CINSP,2		;INPUT CONTROL CHARACTERS
+028                                     .ENDC
+029                            003 006  	.BUFW	$PRNTH		;PRINT HEAD POSITION
+030                            003 006  	.BUFW	$PGWID		;PAGE WIDTH
+031                            003 006  	.BUFW	$TPLIN		;NUMBER OF LINES ON A PAGE
+032                            003 006  	.BUFW	$TPLIT		;LINES TALLY
+033                            003 006  	.BUFW	$XOFLG		;XOFF FLAG, -1 = NO PRINT
+034                            003 006  	.BUFW	CTRLOF		;CONTROL O FLAG
+035                            003 006  	.BUFW	$EOLFLG		;END OF LINE FLAG
+036                            003 006  	.BUFW	$TTLKF		;TTLOOK INPUT CHECKS INHIBIT
+037                            003 006  	.BUFW	TILNWF		;TTY INPUT WAIT FLAG
+038                            003 006  	.BUFW	$FORCE		;FORCE PRINTOUT FLAG
+039                            003 006  	.BUFW	$TTYFL		;TTY FILL PARAMETER
+040                            003 006  	.BUFW	$0FLG		;ZERO FILL FLAG
+041                            003 006  	.BUFW	$NEG		;NEGATE NUMBER INPUT FLAG
+042                            003 006  	.BUFW	$SVH
+043                            003 006  	.BUFW	$SVM
+044                                     
+045                            003 006  	.BUFW	$TICHR		;TTY DRIVER INPUT CHAR
+046                            003 006  	.BUFW	$TOCHR		;TTY DRIVER OUTPUT CHAR
+047                                     
+048                            003 006  	.BUFW	DDTFLG		;PDP-10 DDT INPUT MODE FLAG↓&	*STORE* PROGRAM STORAGE FILE, 5-AUG-75                           SBST11.PAL[KL,SYS] 10/05/77  Page 8↓'α
+001                                     ;CONSOLE PARAMETER STORAGE
+002                                     
+003                            003 006  	.BUFW	$KONSP		;SAVED STACK POINTER
+004                            003 006  	.BUFW	ALLFLG		;ALL PRINT FLAG
+005                            003 006  	.BUFW	RPTFLG		;COMMAND REPEAT FLAG
+006                            003 006  	.BUFW	VERIFY		;PROGRAM VERIFY FLAG
+007                            003 006  	.BUFW	.EADR		;EXAMINE 11 ADDRESS
+008                            003 006  	.BUFW	$ECADR		;EXAMINE C-RAM ADDRESS
+009                            003 006  	.BUFW	$EDADR		;EXAMINE D-RAM ADDRESS
+010                            003 006  	.BUFW	$ADR
+011                            003 006  	.BUFW	$ADR1
+012          003 006                    	.BUFW	.DFRDA,3
+013          003 006                    	.BUFW	.DPXAD,2
+014                                     
+015          003 006                    	.BUFW	L10ADR,2	;LOAD 10 ADDRESS
+016          003 006                    	.BUFW	$TEMP0,3
+017                                     
+018                            003 006  	.BUFW	TENRUN		;TEN RUNNING FLAG
+019                            003 006  	.BUFW	MONMODE		;TEN MONITOR MODE FLAG
+020                            003 006  	.BUFW	MTTYOF		;MONITOR TTY OUTPUT IN PROGRESS
+021                            003 006  	.BUFW	$TTYTIM		;TTY TIMEOUT COUNT
+022                                     
+023                            003 006  	.BUFW	$PCSAV
+024                            003 006  	.BUFW	$PSSAV
+025                            003 006  	.BUFW	$SPSAV
+026                            003 006  	.BUFW	$R5SAV
+027                            003 006  	.BUFW	$R4SAV
+028                            003 006  	.BUFW	$R3SAV
+029                            003 006  	.BUFW	$R2SAV
+030                            003 006  	.BUFW	$R1SAV
+031                            003 006  	.BUFW	$R0SAV↓&	*STORE* PROGRAM STORAGE FILE, 5-AUG-75                           SBST11.PAL[KL,SYS] 10/05/77  Page 9/0↓'α
+001                                     ;MISCELLANEOUS STORAGE
+002                                     
+003                            003 006  	.BUFW	$EMADR		;EMT ADDRESS (+2)
+004                                     
+005                            003 006  	.BUFW	$SWTCH		;SWITCHES
+006                            003 006  	.BUFW	$$SVSP
+007                            003 006  	.BUFW	TEMP
+008                            003 006  	.BUFW	IFILEF		;INDIRECT FILE FLAG
+009                            003 006  	.BUFW	IFINP		;INDIRECT STORAGE POINTER
+010                            003 006  	.BUFW	JFILEF		;DOUBLE INDIRECT FILE FLAG
+011                            003 006  	.BUFW	JFINP		;DOUBLE INDIRECT STORAGE POINTER
+012                                     
+013                            003 006  	.BUFW	PRGRUN		;PROGRAM RUNNING FLAG
+014                                     
+015                            003 006  	.BUFW	MEMPEF		;PARITY FLAG
+016                                     
+017                            003 006  	.BUFW	.HCFLG		;ALLOW HALT CONTINUE FLAG
+018                            003 006  	.BUFW	.HCADR		;HALT CONTINUE ADDRESS
+019                                     
+020                            003 006  	.BUFW	DDTTM1		;DDT MODE TIMEOUT COUNTS
+021                            003 006  	.BUFW	DDTTM2
+022                                     
+023          003 006                    	.BUFW	$ECMD,3		;DTE20 COMMAND STORAGE
+024          003 006                    	.BUFW	$SAV20,3	;PDP-10 SAVE 20 STORAGE
+025                            003 006  	.BUFW VRBFLG		;VERBOSE TYPEOUT OF EXAMINE/DEPOSIT ERRORS FLAG
+026                                     
+027                                     
+028                                     
+029                                     ;KL10 SUBROUTINE STORAGE
+030                                     
+031          003 006                    	.BUFW	ZEROS,3		;SOURCE OF 36 ZEROS
+032          003 006                    	.BUFW	VMADAT,3	;VMA & PC TEMP
+033                            003 006  	.BUFW	XXDAT		;DF WRITE TEMP
+034          003 006                    	.BUFW	MMDAT,3		;WWADR TEMP
+035          003 006                    	.BUFW	WREADY,3	;$WCRAM TEMP
+036                            003 006  	.BUFW	SIGNL
+037          003 006                    	.BUFW	$BUFRC,6	;$RCRAM TEMP
+038                            003 006  	.BUFW	SIGNL2
+039                            003 006  	.BUFW	SIGNL3
+040          003 006                    	.BUFW	DDRAM,3		;$DRAMAD TEMP
+041          003 006                    	.BUFW	RDRTMP,2	;$RDRAM TEMP
+042          003 006                    	.BUFW	$DRAM,6
+043                            003 006  	.BUFW	$DDRMS
+044                            003 006  	.BUFW	$STDAT		;$BURST TEMP
+045                            003 006  	.BUFW	KLCLKR		;KL10 CLOCK LOGICALLY RUNNING FLAG
+046          003 006                    	.BUFW	TENDAT,3	;PDP-10 INPUT DATA WORD
+047          003 006                    	.BUFW	TENAC0,2	;PDP-10 AC0 ADDRESS
+048          003 006                    	.BUFW	C10CW,3		;PDP-10 CLOCK WAIT COUNT
+049          003 006                    	.BUFW	CLKCNT,3	;PDP-10 CLOCK COUNT
+050                                     
+051  KLDCP   003 014           003 006  .IIF DF EPTREL,	.BUFW	$TADSP	;TEN ADDRESS SPACE FOR EXAMINES AND DEPOSITS
+052  KLDCP   002 006           003 006  .IIF DF SAILVR,	.BUFW	SWTDEP	;SET TO -1 IF 11 SHOULD DEPOSIT IN $DTSWR
+053                                     
+054                                     	.LIST	LOC
+055                            003 003  BUFCLR==$$BUF
+056                                     
+057                                     .IF2
+058                            002 066  .IFL $$BUF-PATEND
+059                                     .PRINT \BUFFER STORAGE OVERLAPS LITERAL STORAGE, FLUSH SOMETHING!
+060                                     \
+061          002 003           003 003  INFORM OVERLAP,\PATEND-$$BUF
+062                                     .IFF
+063  PRM11   013 013           002 066  INFORM FREE LITERAL/BUFFER SPACE,\$$BUF-PATEND
+064                                     .ENDC
+065                                     .ENDCSymbol Table for:    SBST11.PAL[KL,SYS]                                      10/05/77  Page I
+                     
+
+$$$FF  = 002*059   $$BUF  = 003 007   $BELLT   002 036   $DTBL    002 040   $LFTBL   002 028   BUFCLR = 009 055 
+$$BARG = 003 008   $$BUF  = 003 010   $BTAG  = 003 014   $DTBL0   002 017   $TBLL    002 045   INFORM M 002 003 
+$$BARG = 003 009   $$BUF  = 003 022   $BTAG  = 003 026   $DTBL1   002 024   .BUFB  M 003 019   PATCH    002*065 
+$$BARG = 003 020   $$FF     002 056   $CR      002*019   $ILDCL = 004 093   .BUFW  M 003 006   PATEND = 002 066 
+$$BARG = 003 021   $$LITT = 002 058   $CRTBL   002 032   $LF      002*018   A      = 002 005   VFUDAT = 005 021 
+$$BUF  = 003 003   $BELL    002*020   

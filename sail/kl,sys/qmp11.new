@@ -1,0 +1,784 @@
+COMMENT ⊗   VALID 00015 PAGES
+C REC  PAGE   DESCRIPTION
+C00001 00001
+C00003 00002	 MACROS AND QUEUE ENTRY DEFINITIONS
+C00005 00003		ETHERNET OUTPUT COMPLETION INTERRUPT ROUTINE 	ENOINT, SNDEN, SNDENR
+C00009 00004	 ENIINT	ETHERNET INPUT COMPLETION INTERRUPT ROUTINE
+C00016 00005	 DTEINT, DTE10D Interrupt routines
+C00019 00006	 DTE11D - COMPLETION OF TO11 TRANSFER FROM DTE
+C00025 00007	 QMPCMD - ROUTINE CALLED FROM KLDCP WHEN 10 SENDS ITEM COUNT
+C00029 00008	 SND10 -  ROUTINE TO QUEUE BLOCK FOR XFER TO 10
+C00032 00009	 QINI - ROUTINE TO INITIALIZE QUEUE STRUCTURES
+C00035 00010	 $QUEUE - GENERALIZED QUEUE ROUTINE
+C00037 00011	 QMPINI - ROUTINE TO INITIALIZE INTERRUPT ADDRESSES ETC.
+C00040 00012	 RQCB/RLCB: first fit dynamic core allocation routines
+C00042 00013	 $RLCB - ReLease Core Block
+C00046 00014	 $RQCB - REQUEST CORE BLOCK
+C00051 00015	 $SAVAL, $SAVVR, $SAVRG  Register Save and Restore Co-routines
+C00054 ENDMK
+C⊗;
+; MACROS AND QUEUE ENTRY DEFINITIONS
+;
+
+	.MACRO	CALL	A
+	JSR	PC,A
+	.ENDM
+
+	.MACRO	RETURN
+	RTS	PC
+	.ENDM
+
+	.MACRO	SAVAL
+	JSR	PC,$SAVAL
+	.ENDM
+ 
+	.MACRO	SAVVR
+	JSR	R2,$SAVVR
+	.ENDM
+
+	.MACRO	SAVRG
+	JSR	R5,$SAVRG
+	.ENDM
+ 
+	.MACRO QUEUE	A
+	JSR	R5,$QUEUE
+	.WORD	A
+	.ENDM
+ 
+	.MACRO	QCLR	A
+	JSR	R5,$QCLR
+	.WORD	A
+	.ENDM
+ 
+; THE FOLLOWING DEFINITIONS ARE FOR QUEUE HEADERS
+;
+QCHN=0		; OFFSET TO CHAIN POINTER IN QUEUE ENTRY
+QSIZ=2		; OFFSET FROM ENTRY TO BYTE COUNT FOR QUEUE ENTRY
+QREQ=4		; OFFSET FROM ENTRY TO REQUEST VALUE FOR QUEUE ENTRY
+QENWC=6		; OFFSET TO ETHERNET PACKET WORD COUNT
+QENMSG==10	; OFFSET TO START OF EN MESSAGE INSIDE QUEUE BLOCK
+;
+QHDRSZ=6	; SIZE OF QUEUE ENTRY HEADER
+;
+QNOPMS=0	; This packet is a no-op
+QECHRY=1	; THIS PACKET IS AN ECHO RESPONSE
+QECHRQ=2	; REQUEST for an echo response
+QENPKT=3	; An ethernet packet
+QENADR=4	; An ethernet host address.
+QDTMSG=5	; Dectape message
+QENBCC=6	; Ethernet broadcast-packet control command
+;
+;	ETHERNET OUTPUT COMPLETION INTERRUPT ROUTINE 	ENOINT, SNDEN, SNDENR
+;
+;
+ENOINT:	CALL	1$		; CALL THE REAL INTERRUPT HANDLER
+	RTI			; THEN RETURN FROM INTERRUPT
+;
+; THIS INTERRUPT HANDLER WILL SAVE AND RESTORE REGISTERS
+;
+1$:	SAVVR			; SAVE REGS R0-R2
+	TST	ENOCSR		; TEST FOR ERROR INDICATION
+	BMI	3$		; IF MI THEN COLLISION OR OTHER ERROR
+	INC	EN0PKO		; INCREMENT COUNT OF SUCCESSFUL I/OS
+2$:	MOV	ENETQ,R0	; GET QUEUE ADDRESS TO RELEASE BLOCK
+	BEQ	5$		; QUEUE EMPTY, MAYBE QUEUE RESET?
+	MOV	(R0),ENETQ	; UNCHAIN BLOCK FROM QUEUE
+	BNE	21$		; IF NE THEN MORE IN CHAIN
+	CLR	ENETQ+2		; IF QUEUE EMPTY, ZERO NEWEST POINTER
+21$:
+	CALL	QGIVE		; NOW GO RELEASE THE CORE BLOCK
+	CALL	SNDEN		; CHECK ETHERNET QUEUE AND RESTART I/O
+	RETURN			; RETURN FROM INTERRUPT
+
+3$:	INC	EN0ER1		; STEP TOTAL RETRY COUNT
+	DEC	EN0TRY		; DECREMENT CURRENT RETRY COUNT
+	BGT	4$		; OK, RETRY THE MESSAGE AGAIN
+	INC	EN0PER		; STEP COUNT OF PERMANENT ERRORS
+	BR	2$		; THROW THE BUFFER AWAY, TRY NEXT
+
+4$:	CALL	SNDENR		; RETRY THE CURRENT BUFFER
+	RETURN			; AND RETURN
+
+5$:	CLR	ENOCSR		; CLEAR INTERRUPT ENABLE BIT
+	RETURN
+
+
+; SNDEN SNDENR - Transmit message at head of ENET Queue to the Ethernet
+;
+;SNDENR is the entry point for a retry.
+;
+SNDEN:	MOV	#10,EN0TRY		; SET DEFAULT RETRY COUNT
+SNDENR:	MOV	ENETQ,R0		; GET ADDRESS OF NEXT QUEUE ENTRY
+	BEQ	3$			; NOTHING IN QUEUE
+	MOV	QENWC(R0),R1		; GET PACKET WORD COUNT FROM BLOCK
+	BGT	1$			; IF GT THEN CONTINUE
+	FATAL				; OTHERWISE INDICATE ERROR
+
+1$:	NEG	R1			; MAKE 2'S COMPLEMENT FOR I/O
+2$:	MOV	R1,ENOWC		; SET WORD COUNT IN EN DEVICE
+	ADD	#QENMSG,R0		; POINT TO DATA IN QUEUE ENTRY
+	MOV	R0,ENOWA		; SET WORD ADDRESS IN EN DEVICE
+	MOV	EN0TRY,R2		; USE RETRY VALUE TO SET DELAY
+	MOV	EN0DLY(R2),ENODLY	; SET DELAY VALUE IN EN DEVICE
+	MOV	#101,ENOCSR		; SET GO AND INTERRUPT ENABLE
+	RETURN				; AND RETURN
+
+3$:	CLR	ENOCSR			; CLEAR INT ENABLE AND GO
+	RETURN
+;
+; ENIINT	ETHERNET INPUT COMPLETION INTERRUPT ROUTINE
+;
+;	ENTERED AT COMPLETION OF ETHERNET INPUT
+;
+ENIINT:	CALL	1$		; CALL THE REAL INTERRUPT HANDLER
+	RTI			; AND RETURN FROM INTERRUPT
+;
+1$:	SAVVR			; SAVE REGS R0-R2
+	MOV	R3,-(SP)	; AND ONE MORE
+	MOV	#2,R3		; Select other input buffer
+	SUB	EN0IND,R3
+	MOV	R3,-(SP)	; Save on index to input buffer on stack
+	MOV	ENICSR,-(SP)	; Save status of this packet
+	MOV	ENIWC,-(SP)	; Save residual word count
+	CALL	ENISET		; Start reading next packet
+	MOV	EN0IND,R3	; Now, select regular buffer
+	MOV	(SP)+,R1	; GET RESIDUAL WORD COUNT IN R1
+	TST	(SP)+		; CHECK FOR OVERRUN OR COLLISION
+	BPL	2$		; IF PL THEN GOOD PACKET RECIEVED
+	INC	EN0ER2		; INCREMENT COUNT OF INPUT PERM ERRS
+	BR	3$		; AND RESTART THE I/O
+
+2$:	INC	EN0PKI		; INCREMENT COUNT OF INPUT PACKETS
+	BIS	#177000,R1	; INTERFACE REQUIRES THIS CROCK
+.IF DF PCKASB
+	MOV	EN0BUF(R3),R0
+	SUB	#QENMSG,R0	; Pretend we're a queue block
+	CALL	ENPCHK		; Check to see if it got clobbered later.
+.ENDC; DF PCKASB
+	ADD	#EN0BSZ,R1	; CONVERT NOW TO POSITIVE W.C.
+	BEQ	3$		; HAH, A ZERO LENGTH PACKET...
+
+;Code to discard quickly any broadcast packets, under control of ENBCCF, set by 10.
+	MOV	EN0BUF(R3),R0	; address of packet buffer
+	MOVB	1(R0),R2	; destination host
+	BNE	20$		; just if not broadcast packet
+	BIT	#1,ENBCCF	; see if broadcast packets should be ignored
+	BEQ	3$		; jump to ignore
+
+20$:	ASL	R1		; MAKE R1 INTO A BYTE COUNT
+	ADD	#QENMSG,R1	; ADD SPACE FOR BLOCK HDR
+	CALL	QGET		; GO GET THE BUFFER
+	BCC	21$		; C = 0, BUFFER OK, MOVE THE PACKET
+	INC	EN0MEM		; INCREMENT COUNT OF LOST PACKETS (NO MEM)
+	BR	3$		; AND RESTART I/O
+
+21$:	CALL	ENICOP		; MOVE FROM READ BUFFER TO CORE BLOCK
+.IIF DF PCKASB,	CALL	ENPCHK	; CHECK CHECKSUM
+	QUEUE	TO10Q		; QUEUE THE PACKET TO THE 10
+;bug check:	(;;;'ed t to make space.  We haven't see any recently. TVR/14-Jan-81
+;;;	MOVB	QENMSG+1(R0),R2	; "first" byte of message = destination host number
+;;;	BEQ	3$		; zero is broadcast packet.
+;;;	CMPB	R2,ENIHAD	; compare to our host address
+;;;	BEQ	3$		;
+;;;	PMSG	<\?EN BAD ADDR\>
+;;;
+3$:
+.IF DF PCKASB
+	MOV	EN0BUF(R3),R0	; Fill buffer with fixed pattern to see how
+	MOV	#EN0BSZ,R1	; hardware is losing...
+66$:	MOV	#52525,(R0)+
+	SOB	R1,66$
+.ENDC; DF PCKASB
+	MOV	(SP)+,EN0IND	; Next buffer now becomes current
+	MOV	(SP)+,R3	; Restore borrowed register
+	RETURN
+
+;Setup for Ethernet input.  R3 is index of input buffer
+ENISET:	MOV EN0BUF(R3),ENIWA	; SET BUFFER ADDRESS FOR EN DEVICE
+	MOV #-EN0BSZ,ENIWC	; AND SET WORD COUNT FOR XFER
+	MOV #101,ENICSR		; SET GO AND INTERRUPT ENABLE
+	RETURN			; GO RETURN FROM INTERRUPT
+
+;enter here with R0 = Address of core block. R1=size of our request
+;		 R3 = Index of Ethernet input buffer
+ENICOP:	SAVVR			; SAVE REGS R0-R2
+	MOV	#QENPKT,QREQ(R0); SET Packet type in block
+	SUB	#QENMSG,R1	; REDUCE COUNT TO PACKET SIZE (BYTES)
+	ASR	R1		; AND CHANGE TO WORD COUNT
+	MOV	R1,QENWC(R0)	; STORE PACKET WORD COUNT
+	ADD	#QENMSG,R0	; POINT R0 TO DATA AREA
+	MOV	EN0BUF(R3),R2	; SET LOCATION OF FIRST WORD
+5$:	MOV	(R2)+,(R0)+	; MOVE WORD FROM READ BUFF TO CORE BLOCK
+	SOB	R1,5$		; LOOP
+	RETURN			; RETURN FROM MOVE
+
+.IF DF PCKASB	;If checksumming PUPs
+
+;Bugtrap: Check PUP checksum of Ethernet packet
+;R0 points to queue entry.  (Subtract QENMSG if you have a bare packet)
+ENPCHK:	SAVVR			;For paranoia's sake
+	ADD	#QENMSG,R0
+	CMP	2(R0),#1000	;PUP packet?
+	  BNE	79$		;  No, forget it
+	CMP	(R0)+,(R0)+	;Skip two header words
+	MOV	(R0),R1		;Get size
+	  BLE	78$		;  Bad size!
+	CMP	R1,#4000	;Arbitrary upper limit on size (is this OK?)
+	  BGT	78$
+	DEC	R1		;Round up, but exclude checksum
+	ASR	R1		;Convert to words
+	CLR	R2		;Initial checksum
+71$:	ADD	(R0)+,R2	;Add in an entry
+	ADC	R2		;End around carry
+	ASL	R2		;Cycle left (stupid PDP-11, ROL rotates carry)
+	ADC	R2		;Part of cycle left, really!
+	SOB	R1,71$		;Repeat for each word in message
+	CMP	(R0),#177777	;If checksum is unspecified, all this was
+	  BEQ	79$		;  for nothing
+	CMP	R2,#177777	;Special fudge to checksum?
+	  BNE	72$		;  No
+	CLR	R2		;Yes, 177777->0
+72$:	CMP	(R0),R2		;Check checksum
+	  BEQ	79$		;Good.
+;We have a bad PUP packet.
+78$:	br 79$	;;;FATAL			;Bitch and moan
+;Return, good, bad, otherwise (like non-PUP packet)
+79$:	RETURN
+
+.ENDC; DF PCKASB
+; DTEINT, DTE10D Interrupt routines
+
+; DTEINT - INTERRUPT ROUTINE ENTERED ON DTE INTERRUPT
+;
+;
+DTEINT:	CALL	1$			; USE CALL FOR REGISTER SAVE
+	RTI				; RETURN FROM INT
+
+1$:	SAVRG				; SAVE REGS R3-R5
+	MOV	@.STDTE,R3		; GET DTE STATUS IN REG 3
+	BIT	#TO10DN!TO10ER,R3	; TO10 COMPLETION?
+	BEQ	2$			; IF EQ NO
+	CALL	DTE10D			; GO TO THE CHECK ROUTINE
+2$:	BIT	#TO11DN!TO11ER,R3	; TO11 COMPLETION?
+	BEQ	4$			; IF EQ NO
+	CALL	DTE11D			; GO TO THE CHECK ROUTINE
+4$:	BIT	#TO11DB,R3		; IS IT DOORBELL INTERRUPT?
+	BEQ	6$			; IF EQ NO
+	MOV	#1,T11DBF		; YES, SET SOFTWARE DOORBELL
+	MOV	#INT11C,@.STDTE		; AND CLEAR DOORBEL INT
+6$:	RETURN				; RESTORE AND RTI
+
+; DTE10D - ROUTINE ENTERED AT COMPLETION OF XFER TO 10
+;
+;	Call with R3=Ending status.
+;	If error status is seen, we leave dead message in the Q for
+;		SND10 to restart.  (really, there should be a retry count)
+;
+DTE10D:	SAVVR				; SAVE REGS R0-R2
+	MOV	#DON10C!ERR10C,@.STDTE	; RESET FLAGS IN DTE STATUS REG
+	CLR	DTEBSY			; CLEAR THE DTEBSY FLAG NOW.
+	MOV	TO10Q,R0		; BUFFER ADDRESS.
+	BEQ	5$			; Can't happen. BR if no message address.
+	BIT	#TO10ER,R3		; WAS THIS AN ERROR RETURN?
+	BNE	5$			; BR if error.  Message remains in the Q.
+	MOV	(R0),TO10Q		; REMOVE THE BUFFER BLOCK FROM QUEUE
+	BNE	4$			; NOT LAST ENTRY IN QUEUE
+	CLR	TO10Q+2			; LAST ENTRY IN QUEUE, ZERO END POINTER
+4$:	CALL	QGIVE			; GO RELEASE THE CORE BLOCK
+5$:	RETURN				;
+;
+; DTE11D - COMPLETION OF TO11 TRANSFER FROM DTE
+;
+;	ENTERED FROM DTEINT ROUTINE.  R3 = DTE Status at Interrupt.
+;
+;		In case of transfer error, sender has been notified in
+;		his ending status.  Sender will retry from the top.
+;
+;
+DTE11D:	SAVVR				; SAVE REGS R0-R2
+	MOV	#DON11C!ERR11C,@.STDTE	; Clear DONE and ERROR in DTE STATUS
+	MOV	FR10Q,R0		; ADDRESS OF BUFFER BLOCK
+	BEQ	5$			; Discard interrupt if no msg block
+	CLR	FR10Q			; CLEAR FROM DTE POINTER
+	CLR	R2			; If error, R2 = 0 for no-op
+	BIT	#TO11ER,R3		; IS THE ERROR BIT ON TRANSFER SET
+	BNE	2$			; If error, branch to call $DTNOP (R2 = 0)
+; NOW LOOK AT THE REQUEST WORD AND SEE WHERE DATA IS MEANT TO GO
+	MOV	QREQ(R0),R2		; GET THE REQUEST WORD IN R2
+	ASL	R2			; DOUBLE FOR WORD POINTER
+	CMP	R2,#REQMAX		; bounds test
+	BHIS	T11MSE			; br if out of bounds
+2$:	JSR	PC,@REQLST(R2)		; NOW GO TO THE SUBROUTINE
+5$:	RETURN				;
+;
+;
+REQLST:	.WORD	$DTNOP		;no-op discard the message
+	.WORD	$ECHRY		;QECHRY - RESPONSE TO AN ECHO REQUEST
+	.WORD	$11ECH		;QECHRQ - REQUEST FOR AN ECHO
+	.WORD	$11ETH		;QENPKT - Request to send An EtherNet Packet
+	.WORD	$11ADR		;QENADR - REQUEST FROM 10 FOR ETHERNET ADDRESS
+	.WORD	$DTNOP		;eventually, dectape messages. now unimplemented
+	.WORD	$ENBCC		;QENBCC - Request to control broadcast packets
+REQMAX==.-REQLST
+
+T11MSE:	PUSH	R0			;save msg block address
+	MOV	QREQ(R0),-(SP)		;save request type
+	PMSG	<\T11MSE=>
+	POP	R0
+	PNTOCT				;PRINT Request type
+	PCRLF
+	POP	R0			;restore Msg addr & fall into $ECHRY
+$DTNOP:					; no-op
+$ECHRY:	CALL	QGIVE			; JUST FREE THE BLOCK
+	RETURN				; AND RETURN
+
+$11ECH:	MOV	#QECHRY,QREQ(R0)	; MAKE PACKET AN ECHO RESPONSE
+	QUEUE	TO10Q			; AND QUEUE IT FOR 10
+	RETURN				;
+
+$11ETH:	QUEUE	ENETQ			; QUEUE BUFFER BLOCK TO ETHERNET QUEUE
+	BCC	1$			; BRANCH IF NOT FIRST (ONLY) ENTRY
+	CALL	SNDEN			; OK, QUEUE IT FOR ETHERNET
+1$:	RETURN
+
+
+$11ADR:	CALL	QGIVE			; GO FREE THE QUEUE ENTRY NOW
+	MOV	#QHDRSZ+2,R1		; NOW WE WILL GET SHORT BLOCK
+	CALL	QGET			; GO GET THE SHORT BLOCK
+	BCS	1$			; Can't get such a block! He'll ask again
+	MOV	ENIHAD,QHDRSZ(R0)	; Store ethernet address.
+	MOV	#QENADR,QREQ(R0)	; SET RESPONSE CODE FOR 10
+	QUEUE	TO10Q			; QUEUE FOR 10
+1$:	RETURN				; AND RETURN
+
+;Here to set Ethernet broadcast packet control word.
+$ENBCC:	MOV	ENBCCF,R2		; get old control word to be returned
+	MOV	QHDRSZ(R0),ENBCCF	; set new control word
+	MOV	R2,QHDRSZ(R0)		; put old control word in return packet
+	QUEUE	TO10Q			; and queue for the 10
+	RETURN
+
+QGIVE:	MOV	QSIZ(R0),R1		; GET PACKET SIZE IN R1
+	MOV	R0,R2			; MOV QUEUE ENTRY ADDRESS TO R2
+	MOV	#FREEQ,R0		; AND ADDRESS OF FREEQ TO R0
+	CALL	$RLCB			; RELEASE THE MEMORY
+	RETURN
+
+;QGET -  Get a free-core block.  Call with R1=Request size in bytes.
+; Returns with Carry Set to signify no block available, or,
+; Returns with Carry Clear, R0 = Block address.  QSIZ(R0) and QCHN(R0) setup.
+QGET:	MOV	#FREEQ,R0		; ADDRESS OF FREEQ LIST HEADER
+	CALL	$RQCB			; ALLOCATE BLOCK
+	BCS	1$			; BR if there's no block available
+	CLR	QCHN(R0)		; CLEAR THE CHAIN WORD IN BLOCK
+	MOV	R1,QSIZ(R0)		; SET BUFFER SIZE IN CORE BLOCK
+	CLC				; RETURN CARRY CLEAR
+1$:	RETURN
+; QMPCMD - ROUTINE CALLED FROM KLDCP WHEN 10 SENDS ITEM COUNT
+;
+;	ENTERED WITH:
+;		R5 = 14 IN THE HIGH BYTE
+;
+QMPCMD:	CALL	$99
+	JMP	C10DON		; RETURN TO CONS11
+
+$99:	SAVVR			; SAVE REGS R0-R2
+	PUSH	PS		; SAVE OLD PS
+	MOV	#PR7,PS		; AND SET NON-INTERRUPTIBLE STATUS
+	BIT	#7777,@.BC11	; Is there a transfer already in progress?
+	  BNE	QMPCXT		;   Yes, the '10 goofed. We'll just ignore it and
+				;	let the current transfer finish.
+				;   ***	If the DTE is every real hung, we lose!
+	MOV	$ECMD+2,R1	; WORD COUNT FROM CMD INCLUDES REQUEST
+	ASL	R1		; MAKE BYTE COUNT FOR CORE ALLOCATION
+	ADD	#QHDRSZ-2,R1	; ADD ROOM FOR HEADER TO REQUEST SIZE
+	MOV	R1,QMPRQS	; save size of request in case we need QMPRTY
+QMPRY1:	CALL	QGET		; REQUEST MEMORY
+	BCS	QMPCXT		; BR if there is no buffer available.
+	CLR	QMPRQS		; clear request size to avoid hassle in QMPRTY
+	MOV	R0,FR10Q	; SET HEADER ADDRESS IN FR10Q
+	ADD	#QHDRSZ-2,R0	; READ REQUEST AND DATA TO QUEUE ENTRY
+	MOV	R0,@.T11AD	; SET BUFFER ADDRESS IN DTE REG
+	SUB	#QHDRSZ-2,R1	; REDUCE COUNT FOR HEADER SIZE
+	ASR	R1		; MAKE WORD COUNT AGAIN FOR DTE XFER
+	NEG	R1		; MAKE TWO'S COMPLEMENT COUNT
+	BIC	#170000,R1	; CLEAR HIGH BITS FROM COUNT
+	BIS	#INT10,R1	; SET BIT TO INTERRUPT 10 WHEN DONE
+ 	MOV	R1,@.BC11	; AND SET BYTE COUNT IN DTE REG
+QMPCXT:	POP	PS		; RESTORE RUN PRIORITY
+	RTS	PC
+;
+;If there was no buffer space available when the 10 made its request,
+;the QMPCMD routine leaves QMPRQS set to the size of the request.
+;QMPRTY is called from SND10, each time through the command loop.
+
+QMPRTY:	SAVVR
+	PUSH	PS
+	MOV	#PR7,PS		; AND SET NON-INTERRUPTIBLE STATUS
+	MOV	QMPRQS,R1
+	BEQ	QMPCXT
+	BR	QMPRY1
+
+; SND10 -  ROUTINE TO QUEUE BLOCK FOR XFER TO 10
+;
+;	Called From Console Loop via JSR PC,SND10
+; N.B.	ROUTINE RUNS INTERRUPTABLE!!!
+;
+SND10:	SAVVR			; SAVE REGS R0-R2
+	PUSH	PS
+	MOV	#PR7,PS		; set us as non-interuptable.
+	MOV	TO10Q,R0	; Get address of next message to 10
+	BEQ	3$		; Nothing in queue. Return
+	TST	DTEBSY		; IS THE DTE CURRENTLY BUSY?
+	BEQ	5$		; BR if not busy
+	INC	DTEBCT		; increment the busy count
+	BNE	3$		; if it counts out, restart pending xfer
+5$:	CLR	DTEBCT		; reset the busy count
+	MOV	QSIZ(R0),R1	; GET THE BYTE COUNT FROM BLOCK COUNTER
+	SUB	#QHDRSZ-2,R1	; SUBTRACT THE HEADER SIZE (INCLUDE REQUEST)
+	BGT	6$		; try not to be rediculous!
+	MOV	#2,R1		; change a negative or zero count to positive.
+6$:	ASR	R1		; CONVERT TO WORD COUNT FOR DTE XFER
+	MOV	R1,COUN10	; SET COUNT FOR DEPOSIT IN 10 MEMORY
+	NEG	R1		; MAKE TWO'S COMPLEMENT FOR XFER
+	ADD	#QHDRSZ-2,R0	; POINT TO REQUEST WORD PRECEDING DATA
+	MOV	R0,@.T10AD	; SET WORD ADDRESS IN DTE REGISTER
+	MOV	R1,@.BC10	; SET WORD COUNT IN DTE REGISTER
+	SETFLG			; SET DTEBSY FLAG SO WE DON'T TRY TO WRITE MORE
+	  DTEBSY		; UNTIL WE ARE FINISHED WITH THIS ONE
+	MOV	(SP),PS		; Restore interrupts. We're done with Q & DTE
+.IIF NE EPTREL, MOV	#XEPT!PRTOFF,$TADSP	; SET ADDR MODE FOR NXT EXDEP
+	DPOST			; EMT CALL TO DEPOSIT IN 10 MEMORY
+	  $DTQMP		; ADDRESS IN 10 MEMORY
+	  COUN10		; ADDRESS OF PARAMETER STRING
+	MOV	#TO10DB,@.STDTE	; RING THE 10'S CHIMES
+3$:	POP	PS
+	CALL	QMPRTY		; See if need a retry of QGET for a TO11 command
+	RETURN			; AND RETURN
+; QINI - ROUTINE TO INITIALIZE QUEUE STRUCTURES
+FREEAD==3000
+FREESZ==20000
+FREEND==FREEAD+FREESZ		;of course.
+
+;	Called by
+;	JSR	PC,QINI		;Clear all queues. Initialize free memory pool.
+
+QINI:	SAVVR			; SAVE R0-R2
+
+	MOV	#FREEQ,R0	; ADDRESS OF FREEQ LISTHEAD
+	MOV	#FREEAD,R1	; ADDRESS OF free pool beginning
+
+	MOV	R1,EN0BUF	; RESERVE FIRST OF FREE CORE
+	ADD	#EN0BSZ*2,R1	; FOR ETHERNET INPUT BUFFER(S)
+	MOV	R1,EN0BUF+2	; MUST DOUBLE BUFFER ETHERNET INPUT
+	ADD	#EN0BSZ*2,R1
+
+	MOV	R1,(R0)+	; Set address of free block in list head (FREEQ)
+	CLR	(R0)		; CLEAR SECOND WORD (Looks like a zero size blk)
+	CLR	(R1)+		; FREEQ point to a single block. (no link out)
+	MOV	#FREESZ,(R1)	; set size of the single free block.
+	SUB	#EN0BSZ*4,(R1)	; adjust size to account for EN buffers.
+
+	QCLR	FR10Q		; CLEAR THE FR10Q
+	QCLR	TO10Q		; CLEAR THE TO10Q
+	QCLR	ENETQ		; CLEAR THE ETHERNET QUEUE
+
+.IF DF FSCASB
+	CLR	WUSED		; Initialize bugtrap counts
+	CLR	NGETS
+	CLR	NGIVES
+	MOV	#1,BFREE	; One BIG block
+.ENDC;DF FSCASB
+
+	RETURN			;
+
+; $QCLR - QUEUE RESET ROUTINE
+;
+;	CALLED AS:		JSR	R5,$QCLR
+;				.WORD	QPB
+;	WHERE QPB IS QUEUE PARAMETER BLOCK
+;
+$QCLR:	PUSH	R0		; SAVE R0
+	MOV	(R5)+,R0	; GET QUEUE PARAMETER BLOCK ADDRESS
+	CLR	(R0)+		; CLEAR POINTER TO OLDEST ENTRY
+	CLR	(R0)+		; AND POINTER TO NEWEST ENTRY
+	POP	R0		; RESTORE R0
+	RTS	R5
+; $QUEUE - GENERALIZED QUEUE ROUTINE
+;
+; CALLED AS:		JSR	R5,$QUEUE
+;			.WORD	QPB
+;		Where
+;		QPB = the address of the Queue Parameter Block, and
+;		R0 = the Address of the new Queue item.
+;
+;		The new Queue item is:
+;			.WORD	CHAIN POINTER
+;			.WORD	BYTE COUNT (INCLUDES QHDRSZ BYTES FOR HEADER)
+;			.WORD	REQUEST IDENTIFIER
+;			.BYTES	DATA
+;
+;		and the Queue Parameter Block is 
+;			.WORD	POINTER TO OLDEST ENTRY IN QUEUE
+;			.WORD	POINTER TO NEWEST ENTRY IN QUEUE
+;
+;		Routine returns with Carry set if you have just placed
+;		the first item in an empty queue.
+;
+$QUEUE:	PUSH	R2		; SAVE R2 IN STACK
+	MOV	(R5)+,R2	; ADDRESS OF QUEUE POINTER BLOCK TO R2
+	CLR	(R0)		; CLEAR CHAIN WORD IN NEW ENTRY
+	TST	(R2)		; IS QUEUE EMPTY
+	BNE	1$		; IF NE NO, QUEUE IS NOT EMPTY
+	MOV	R0,(R2)+	; YES, EMPTY - SET ENTRY ADDRESS
+	MOV	R0,(R2)+	; AND SET NEWEST ENTRY POINTER
+	SEC			; SET CARRY, FIRST AND ONLY ENTRY IN QUEUE
+	BR	2$		; NOW RETURN
+1$:	MOV	R0,@2(R2)	; CHAIN ENTRY TO CURRENT NEWEST ENTRY
+	MOV	R0,2(R2)	; AND MAKE IT NEWEST ENTRY
+	CLC			; CLEAR CARRY, NOT ONLY ENTRY IN QUEUE
+2$:	POP	R2		; RESTORE R2
+	RTS	R5		; RETURN VIA R5
+; QMPINI - ROUTINE TO INITIALIZE INTERRUPT ADDRESSES ETC.
+;
+;	CALLED AS:		JSR	PC,QMPINI
+;
+QMPINI:	SAVAL			; SAVE REGS R0-R5
+	PUSH	PS		; SAVE CALLING PRIORITY
+	MOV	#PR7,R2		; GET PRIORITY SEVEN IN R2
+	MOV	R2,PS		; SET PRIORITY SEVEN NOW
+	MOV	#774,R1		; GET ADDRESS OF DTE INTERRUPT VECTOR
+	MOV	#DTEINT,(R1)+	; SET DTE INTERRUPT VECTOR ADDRESS
+	MOV	R2,(R1)+	; AND INTERRUPT PRIORITY SEVEN
+	MOV	#37776,@.DELAY	; INITIAL DELAY COUNT
+	BIS	#INTRON,@.STDTE	; SET INTERRUPTS ON
+;
+	MOV	#400,R1		; GET ETHERNET INTERRUPT VECTOR ADDRESS
+	MOV	#ENOINT,(R1)+	; SET INTERRUPT DISPACH ADDR IN VECTOR
+	MOV	R2,(R1)+	; AND INTERRUPT PRIORITY SEVEN
+	MOV	#ENIINT,(R1)+	; SET INTERRUPT DISPACH ADDR IN VECTOR
+	MOV	R2,(R1)+	; AND INTERRUPT PRIORITY SEVEN
+	MOV	#ENOINT,(R1)+	; SET INTERRUPT DISPATCH ADDR IN VECTOR
+	MOV	R2,(R1)+	; AND SET INTERRUPT PRIORITY SEVEN
+	MOV	ENIADR,ENIHAD	; GET THE ETHERNET ADDRESS
+	COMB	ENIHAD		; COMPLEMENT FOR READING
+;
+	CALL	QINI		; INITIALIZE MEMORY AND QUEUES
+;
+	MOV	#EN0DLY,R0	; ADDRESS OF DELAY ARRAY FOR EN0
+	MOV	#10,R1		; MAXIMUM NUMBER OF RETRYS
+	MOV	#200,R2		; MAXIMUM DELAY
+1$:	MOV	R2,(R0)+	; PUT DELAY IN TABLE
+	ASR	R2		; SHIFT IT RIGHT
+	SOB	R1,1$		; LOOP AND FILL TABLE
+;
+	CLR	R3		; Select first buffer
+	MOV	R3,EN0IND
+	CALL	ENISET		; Setup to read first packet
+	CLR	ENBCCF		; DISABLE PASSING EN BROADCAST PACKETS TO 10
+;
+	POP	PS		; RESTORE ENTRY PRIORITY
+	RETURN
+;
+; RQCB/RLCB: first fit dynamic core allocation routines
+;
+; data structures
+;
+; Free block list header:
+;
+; 	freehd:	.word	next	; pointer to next free block or zero
+;		.word	0	; always zero (looks like a too-small block)
+;
+; Free block:
+;
+;	freebk:	.word	next	; pointer to next free block or zero
+;		.word	size	; size of block in bytes
+;
+; Used block:  User pointer to the free block addresses "usedbk" below.
+;
+;		.word	size	; size of block in bytes (and even number)
+;	usedbk:	.word	data	; Size-2 bytes of user data are permitted
+;
+; 	The free block list is ordered by the core address of the blocks
+; 	themselves.  This is so block agglomeration can be performed with
+;	little overhead.
+;
+; $RLCB - ReLease Core Block
+;
+; Call this subroutine to release a core block to the free list.
+; The free list is searched until the proper slot is found.  The Block
+; is merged into the free list.  If the block being released is adjacent
+; to other free blocks, then those blocks are agglomerated and the new block
+; is merged into the free list.
+;
+; INPUTS:
+;	R0 = ADDRESS OF FREE BLOCK LIST HEAD
+;	R2 = ADDRESS OF BLOCK TO RELEASE.
+;
+; OUTPUTS:
+;	NONE
+;
+$RLCB:	SAVRG			; SAVE NON-VOLATILE REGISTERS
+	MOV	-(R2),R1	; Point to start of block. Get size
+	BLE	99$		; A non-positive size is unlikely and undesirable
+	BIT	#1,R1		; An odd size is likewise undesirable
+	BNE	99$		; So, we bomb out.
+	CMP	#FREEAD,R2	; Make sure free block is in bounds
+	BHI	99$		; BR if out of bounds.
+	MOV	R1,R3		; Copy length of this block to R3
+	ADD	R2,R3		; compute end of this block
+	CMP	#FREEND,R3	; compare to top of free storage
+	BLO	99$		; BR if out of bounds.
+1$:	MOV	(R0),R3		; GET ADDRESS OF NEXT FREE BLOCK
+	BEQ	2$		; IF EQ THEN END OF CHAIN
+	CMP	R2,R3		; COMPARE ADDRESSES
+	BLO	2$		; IF LO THEN WE FOUND SLOT
+	MOV	R3,R0		; SET NEW PREVIOUS ADDRESS
+	BR	1$		; GO AGAIN
+
+;here, R0 is address of previous block.  R3 is address of next block.
+2$:	MOV	R3,(R2)		; ASSUME NO AGGLOMERATION. Link out of new blk.
+	MOV	R2,R4		; CALCULATE ADDRESS OF NEXT BLOCK
+	ADD	R1,R4		; ADD IN BLOCK SIZE
+.IF DF FSCASB
+	SUB	R1,WUSED	; Bugtrap: Decrement number of words in use
+	INC	BFREE		; Assuming no agglomeration
+.ENDC;DF FSCASB
+	CMP	R3,R4		; COMPARE BLOCK ADDRESSES
+	  BNE	3$		; IF NE DO NOT MERGE BLOCKS
+	MOV	(R3)+,(R2)	; SET NEW FORWARD LINK
+	ADD	(R3),R1		; ADJUST SIZE
+.IIF DF FSCASB,	DEC	BFREE	; We merged one here.
+3$:	MOV	R2,(R0)		; ASSUME NO AGGLOMERATION
+	MOV	R0,R4		; CALCULATE ADDRESS OF NEXT BLOCK
+	ADD	2(R0),R4	; ADD IN BLOCK SIZE
+	CMP	R2,R4		; COMPARE ADDRESSES
+	  BNE	4$		; IF NE DO NOT MERGE
+	MOV	(R2),(R0)	; SET NEW FORWARD LINK
+	ADD	2(R0),R1	; ADJUST SIZE
+	MOV	R0,R2		; SET NEW BASE ADDRESS OF BLOCK
+.IIF DF FSCASB,	DEC	BFREE	; We merged one here.
+4$:	MOV	R1,2(R2)	; SET SIZE OF BLOCK
+.IIF DF FSCASB,	INC	NGIVES	; Count instances
+	RETURN			;
+
+99$:	FATAL
+; $RQCB - REQUEST CORE BLOCK
+;
+; Call this subroutine to request a core block from the free list.
+; The selection is made on the first fit basis.
+;
+; INPUTS:
+;	R0 = ADDRESS OF FREE BLOCK LIST HEAD
+;	R1 = Requested size of block in bytes.
+;
+;	The size of the request will be increased by 2 and rounded up to
+;	be an even number of bytes.
+;
+; OUTPUTS:
+;	C=1 IF REQUEST CANNOT BE FULFILLED
+;	C=0 IF REQUEST IS SATISFIED. R0 = ADDRESS OF REQUESTED CORE BLOCK.
+;				     R1 = Requested size rounded up to even #
+;
+$RQCB:	SAVRG			; SAVE NONVOLATILE REGISTERS
+	TST	R1		; make sure request is positive.
+	BLE	99$		; can't have idiots around here.
+	ADD	#3,R1		; Add 2 and round up to next word boundary
+	BIC	#1,R1		; Clear excess odd bit
+;R0 = address of "previous", R3 = address of "current"
+2$:	MOV	(R0),R3		; Get address of the next free block.
+	BEQ	9$		; BR if end of the list.  No block available.
+	CMP	R1,2(R3)	; Is the block big enough?
+	BLOS	6$		; BR if the block is large enough.
+	MOV	R3,R0		; Advance R0 to point to this block
+	BR	2$		; and go look at the next block.
+
+;Here R3 = address of a desirable block.   R0 is the predecessor
+6$:	PUSH	R1		;Save user's size request (+2)
+	MOV	2(R3),R2	;Get the size of the block we found
+	SUB	R1,R2		;Reduce it by the size of this request
+	CMP	#20,R2		;Is there enough left to be worth splitting?
+	BHIS	7$		;BR if fragment too small to split.
+	MOV	R2,2(R3)	;Store size of remainder.
+	ADD	R2,R3		;Calculate address of piece to return now
+	BR	8$		;R3=address to return. R1=Size.
+
+7$:	MOV	(R3),(R0)	;Here for no split. LINK PREVIOUS TO NEXT
+	MOV	2(R3),R1	;this is the actual size of this block
+.IIF DF FSCASB,	DEC	BFREE	;One less thing on free list
+8$:	MOV	R3,R0		;Copy address block to R0
+	MOV	R1,(R0)+	;Store size of the block in the block.
+	CMP	#FREEAD,R3	; Make sure free block is in bounds
+	BHI	99$		; BR if out of bounds.
+	ADD	R1,R3		; compute end of this block
+	CMP	#FREEND,R3	; compare to top of free storage
+	BLO	99$		; BR if out of bounds.
+.IF DF FSCASB
+	ADD	R1,WUSED	;Bugtrap: Update number of words used
+	INC	NGETS		;	  Increment number of requests
+.ENDC; DF FSCASB
+	POP	R1		;User's request size (+2)
+	TST	-(R1)		;return in R1 the apparent block size.
+	CLC			; CLEAR CARRY
+	RETURN
+
+9$:	SEC			; SET CARRY
+	RETURN			;
+
+99$:	FATAL
+; $SAVAL, $SAVVR, $SAVRG  Register Save and Restore Co-routines
+;
+; $SAVAL - SAVE AND RESTORE R0-R5
+;
+; THIS MODULE IS ENTERED VIA A "JSR	PC,$SAVAL" TO SAVE AND
+; SUBSEQUENTLY RESTORE REGISTERS R0 THROUGH R5.  AFTER STORING THE
+; REGISTER CONTENST ON THE STACK A CO-ROUTINE CALL IS MADE TO
+; THE CALLING ROUTINE.  A SUBSEQUENT "RTS	PC" CAUSES THIS
+; SUBROUTINE TO RESTORE ALL REGISTERS AND EXIT VIA AN "RTS	PC".
+;
+; ALL REGISTER CONTENTS ARE PRESERVED.
+;
+$SAVAL:	PUSH	R4
+	PUSH	R3
+	PUSH	R2
+	PUSH	R1
+	PUSH	R0		; SAVE R4-R0
+	MOV	12(SP),-(SP)	; COPY RETURN ADDR
+	MOV	R5,14(SP)	; SAVE R5
+	CALL	@(SP)+		; CALL THE CALLER
+	POP	R0
+	POP	R1
+	POP	R2
+	POP	R3
+	POP	R4
+	POP	R5		; RESTORE R0-R5
+	RETURN			; AND RETURN
+;
+; $SAVRG - SAVE AND RESTORE NONVOLATILE REGISTERS, 3,4,5
+;
+; CALLED AS:		JSR	R5,$SAVRG
+;
+$SAVRG:	PUSH	R4
+	PUSH	R3		; SAVE R4,R3
+	PUSH	R5		; PUT RETURN ADDRESS ON STACK
+	MOV	6(SP),R5	; RETRIEVE REAL R5
+	CALL	@(SP)+		; CALL THE CALLER
+	POP	R3
+	POP	R4
+	POP	R5		; RESTORE R5
+	RETURN
+
+; $SAVVR - SAVE AND RESTORE VOLATILE REGS - R0-R2
+;
+; CALLED AS:		JSR	R2,$SAVVR
+;
+$SAVVR:	PUSH	R1
+	PUSH	R0		; SAVE R1 AND R0
+	PUSH	R2		; SAVE RETURN ADDRESS
+	MOV	6(SP),R2	; RESTORE R2
+	CALL	@(SP)+		; CALL THE CALLER
+	POP	R0
+	POP	R1
+	POP	R2		; RESTORE REGS
+	RETURN			;
+;

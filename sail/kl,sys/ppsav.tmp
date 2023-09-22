@@ -1,0 +1,34 @@
+∂03-Dec-84  1259	ME	PPSAV'd text
+*
+
+03-Dec-84  1248
+Filnam Ext   Blks  Written  Time
+
+
+Exit
+↑C
+.r palx
+PALX 251
+*check.bin,check.lst←kldcp/H
+
+40 CHECK  LST  KLSYS     0     9 W
+40 CHECK  BIN  KLSYS     0     1 W
+40 KLDCP  PAL  KLSYS    10     1 R
+KLDCP	WAITS KL10/PDP-11 CONSOLE PROGRAM, VER 0.10
+KLDCP	WAITS KL10/PDP-11 CONSOLE PROGRAM, VER 0.10
+PROGRAM END=145056
+LITERAL END=147446
+BUFFER STORAGE OVERLAPS LITERAL STORAGE, FLUSH SOMETHING!
+OVERLAP=24
+
+1.5 Words Average Instruction Length
+
+17 Seconds Runtime
+
+*
+
+
+*↑C
+↑C
+
+.r ppsav

@@ -1,0 +1,1319 @@
+/FONT#0=FIX20.FNT[XGP,SYS]
+/BMAR=1
+/TMAR=128
+/RMAR=1699
+/LMAR=128
+/PMAR=2065
+/XLINE=4
+SAIL JBR        15:10:23 Wednesday, October 5, 1977   LQ+17H.4M.59S.
+DTA11.PAL[KL,SYS] Created 13:41 Thursday, March 17, 1977   LQ+5D.8H.43M.57S.
+
+DDDDDDDDD            TTTTTTTTTTTTTTT            AAA                  111                  111      
+DDDDDDDDD            TTTTTTTTTTTTTTT            AAA                  111                  111      
+DDDDDDDDD            TTTTTTTTTTTTTTT            AAA                  111                  111      
+DDD      DDD               TTT               AAA   AAA            111111               111111      
+DDD      DDD               TTT               AAA   AAA            111111               111111      
+DDD      DDD               TTT               AAA   AAA            111111               111111      
+DDD         DDD            TTT            AAA         AAA            111                  111      
+DDD         DDD            TTT            AAA         AAA            111                  111      
+DDD         DDD            TTT            AAA         AAA            111                  111      
+DDD         DDD            TTT            AAA         AAA            111                  111      
+DDD         DDD            TTT            AAA         AAA            111                  111      
+DDD         DDD            TTT            AAA         AAA            111                  111      
+DDD         DDD            TTT            AAAAAAAAAAAAAAA            111                  111      
+DDD         DDD            TTT            AAAAAAAAAAAAAAA            111                  111      
+DDD         DDD            TTT            AAAAAAAAAAAAAAA            111                  111      
+DDD      DDD               TTT            AAA         AAA            111                  111      
+DDD      DDD               TTT            AAA         AAA            111                  111      
+DDD      DDD               TTT            AAA         AAA            111                  111      
+DDDDDDDDD                  TTT            AAA         AAA         111111111            111111111   
+DDDDDDDDD                  TTT            AAA         AAA         111111111            111111111   
+DDDDDDDDD                  TTT            AAA         AAA         111111111            111111111   
+
+SAIL JBR        15:10:23 Wednesday, October 5, 1977   LQ+17H.4M.59S.
+DTA11.PAL[KL,SYS] Created 13:41 Thursday, March 17, 1977   LQ+5D.8H.43M.57S.
+
+PPPPPPPPPPPP               AAA            LLL            
+PPPPPPPPPPPP               AAA            LLL            
+PPPPPPPPPPPP               AAA            LLL            
+PPP         PPP         AAA   AAA         LLL            
+PPP         PPP         AAA   AAA         LLL            
+PPP         PPP         AAA   AAA         LLL            
+PPP         PPP      AAA         AAA      LLL            
+PPP         PPP      AAA         AAA      LLL            
+PPP         PPP      AAA         AAA      LLL            
+PPPPPPPPPPPP         AAA         AAA      LLL            
+PPPPPPPPPPPP         AAA         AAA      LLL            
+PPPPPPPPPPPP         AAA         AAA      LLL            
+PPP                  AAAAAAAAAAAAAAA      LLL            
+PPP                  AAAAAAAAAAAAAAA      LLL            
+PPP                  AAAAAAAAAAAAAAA      LLL            
+PPP                  AAA         AAA      LLL            
+PPP                  AAA         AAA      LLL            
+PPP                  AAA         AAA      LLL            
+PPP                  AAA         AAA      LLLLLLLLLLLLLLL
+PPP                  AAA         AAA      LLLLLLLLLLLLLLL
+PPP                  AAA         AAA      LLLLLLLLLLLLLLL
+
+KLDCP.PAL[KL,SYS]      PRM11.PAL[KL,SYS]      BEG11.PAL[KL,SYS]      CONS11.PAL[KL,SYS]     SUB11.PAL[KL,SYS]
+FD11.PAL[KL,SYS]       DTA11.PAL[KL,SYS]      BOOT.PAL[KL,SYS]       APT11.PAL[KL,SYS]      BR11.PAL[KL,SYS]
+SBST11.PAL[KL,SYS]
+
+
+Switch Settings: L[PALX11] C[KLDCP.ATC] % I 5000S 78V 120W X[Noqueue] ↑ 
+Fonts: F[FIX20.FNT[XGP,SYS],,] 
+LREC File:  SAIL:KLDCP.LRC[KL,SYS]
+↓&	                                                                 DTA11.PAL[KL,SYS] 10/05/77  Page 1↓'α
+001                                     COMMENT ⊗   VALID 00027 PAGES
+002                                     C REC  PAGE   DESCRIPTION
+003                                     C00001 00001
+004                                     C00003 00002	.SBTTL	PROGRAM FILE LOADER, 4-SEPT-75
+005                                     C00008 00003	PROCESS FILENAME.EXT FROM INPUT BUFFER
+006                                     C00011 00004	DECTAPE/RP04/FLOPPY LOADER START
+007                                     C00013 00005	LLDONE:	MOV	R4,DVCNT	RESAVE POINTERS
+008                                     C00015 00006	LDPRO2:	JMP	ACTLDC		LOAD TYPE ERROR
+009                                     C00017 00007	LDCKSM:	TST	LDOCTF		LOADING OCTAL ?
+010                                     C00019 00008	LOAD DONE ROUTINE   PDP11 LOAD ROUTINE
+011                                     C00021 00009	3$:	TST	VERIFY
+012                                     C00022 00010	PDP-11 BINARY LOAD ROUTINE
+013                                     C00024 00011	3$:	PUSH	R0
+014                                     C00025 00012	KL10 LOAD D-RAM ROUTINE
+015                                     C00027 00013	KL10 C-RAM ZERO
+016                                     C00031 00014	2$:	MOV	LDADR,R0	SELECT C-RAM STARTING ADDRESS
+017                                     C00032 00015	LOAD TEN CORE ZERO
+018                                     C00034 00016	LOAD TEN DATA
+019                                     C00036 00017	LD10VR:	BMI	LD10ER		N-BIT SET DEPOSIT FAILED
+020                                     C00037 00018	DEVICE FILE DIRECTORY LOOKUP
+021                                     C00039 00019	1$:	MOV	(R0)+,DIRST0	STORE RAD50 NAME
+022                                     C00041 00020	DECTAPE/FLOPPY DIRECTORY ROUTINE
+023                                     C00042 00021	READ DEVICE FRAME SUBROUTINE
+024                                     C00044 00022	DVEOF:	TST	LDCNTL		EOF, PRINTING A HELP FILE ?
+025                                     C00045 00023	RAD50 UNPACK SUBROUTINE
+026                                     C00047 00024	DECTAPE READ/WRITE FILE ROUTINES
+027                                     C00048 00025	DECTAPE DEVICE READ/WRITE ROUTINE
+028                                     C00050 00026	DTSRA:	ADD	#3,@#TCDT	+3 TO TCDT
+029                                     C00053 00027	.SBTTL	ASCR50	ASCII TO RAD50 CONVERSION ROUTINE
+030                                     C00055 ENDMK
+031                                     C⊗;↓&	PROGRAM FILE LOADER, 4-SEPT-75                                   DTA11.PAL[KL,SYS] 10/05/77  Page 2↓'α
+001                                     .SBTTL	PROGRAM FILE LOADER, 4-SEPT-75
+002                                     
+003                                     ;LOAD CONTROL FLAG WORD "LDCNTL"
+004                                     ;BIT15=1 IS HELP, PRINT FILE READ
+005                                     ;WORD = 0	.A10, PDP-10 LOAD
+006                                     ;	1	.A11, PDP-11 LOAD
+007                                     ;	2	.RAM, KL10 C-RAM ZERO
+008                                     ;	3	.RAM, KL10 C-RAM LOAD
+009                                     ;	4	.RAM, KL10 D-RAM LOAD
+010                                     ;	5	.BIN, PDP-11 BIN LOAD
+011                                     ;	6	.D10, PDP-11 LOAD DSKDMP BOOTSTRAP .D10 FILE
+012                                     ;ACT10		.BIN LOADED AS .A11
+013                                     ;		.SAV LOADED AS .A10
+014                                     
+015                                     ;PROGRAM DETERMINATION & LOAD CONTROL INITIALIZATION
+016                                     
+017                    PRM11   005 020  DVLOAD:	NAMEXT			;SETUP NAME.EXT
+018                    PRM11   011 014  	TST	R0		;ANY EXT ?
+019                    CONS11  004 051  	BNE	4$		;YES
+020                                     	TSTB	JFILEF		;DOING "J" COMMAND ?
+021                    SUB11   011 055  	BEQ	50$		;NO
+022                    PRM11   011 018  	MOV	#"CM,R4		;YES, DEFAULT EXT IS "CMD"
+023                    PRM11   011 019  	MOV	#"D ,R5
+024                    SUB11   029 027  	BR	52$
+025                                     
+026                                     50$:	TSTB	IFILEF		;DOING "I" COMMAND ?
+027                    SUB11   029 022  	BEQ	51$		;NO
+028                    PRM11   011 018  	MOV	#"CC,R4		;YES, DEFAULT EXT IS "CCL"
+029                    PRM11   011 019  	MOV	#"L ,R5
+030                    SUB11   029 027  	BR	52$
+031                                     
+032                    PRM11   011 018  51$:	MOV	LDOVRD,R4	;ANY LOAD EXT OVERRIDE ?
+033                            002 036  	BLE	53$		;IF NOT, USE "A10"
+034                    PRM11   011 018  	CMP	#7,R4
+035                            002 037  	BGE	54$		;BRANCH UNLESS OUT OF BOUNDS
+036                    PRM11   011 018  53$:	MOV	#1,R4
+037                    PRM11   011 018  54$:	DEC	R4		;RESULT OF 0=A10,1=A11,2,3,4=RAM,5=BIN,6=D10(DSK
+                                        				;DMP)
+038                    PRM11   011 018  	ASL	R4		;DOUBLE R4 (SINCE WE NEED 4 BYTES PER ENTRY)
+039                    PRM11   011 018  	ASL	R4		;DOUBLE AGAIN
+040          002 099   PRM11   011 019  	MOV	DEFEXT+2(R4),R5	;SECOND 2 CHARACTERS OF DEFAULT EXT.
+041          002 099   PRM11   011 018  	MOV	DEFEXT(R4),R4
+042  PRM11   011 018                    52$:	MOV	R4,EXTBF
+043  PRM11   011 019                    	MOV	R5,EXTBF+2
+044                    PRM11   011 017  4$:	MOV	#LDCNTL,R3
+045                    PRM11   011 017  	TST	(R3)		;IS THIS "HELP"
+046                    CONS11  030 024  	BMI	12$		;BRANCH IF "HELP".  NO DEFAULT EXTENSION.
+047                    PRM11   011 018  	MOV	#TEMP+1,R4
+048                    PRM11   011 019  	MOV	#EXTBF+2,R5
+049  PRM11   011 019   PRM11   011 018  	MOVB	(R5),(R4)	;MAKE A WORD OUT OF 2ND & 3RD CHAR
+050  PRM11   011 019   PRM11   011 018  	MOVB	-(R5),-(R4)
+051                    PRM11   011 019  	CMPB	#'A,-(R5)	;IS FIRST CHAR AN "A" ?
+052                    CONS11  034 069  	BEQ	6$		;BR IF YES
+053                    PRM11   011 019  	CMPB	#'B,(R5)	;IS FIRST CHAR A "B" ?
+054                    CONS11  030 032  	BEQ	14$		;BR IF YES
+055                    PRM11   011 019  	CMPB	#'S,(R5)	;IS FIRST CHAR AN "S" ?
+056                    SUB11   010 019  	BEQ	16$		;BR IF YES
+057                    PRM11   011 019  	CMPB	#'R,(R5)	;IS FIRST CHAR AN "R" ?
+058                            002 075  	BEQ	66$		;BR IF YES
+059                    PRM11   011 019  	CMPB	#'D,(R5)	;IS FIRST CHAR A "D" ?
+060                    CONS11  013 027  	BEQ	21$
+061                                     5$:	TST	LDOVRD		;ANY LOAD EXT OVERRIDE ?
+062                    CONS11  030 024  	BNE	12$		;YES
+063                            003 054  	BR	$$$NAM		;NAME.EXT ERR
+064                                     
+065                    PRM11   011 018  6$:	CMP	#"10,(R4)	;HERE IS IF FIRST CHARACTER IS AN "A"
+066                    CONS11  035 053  	BEQ	7$		;BR IF ".A10"
+067                    PRM11   011 018  	CMP	#"11,(R4)
+068                    CONS11  024 048  	BNE	5$		;BR IF NOT "A11"
+069                    PRM11   011 017  	MOV	#1,(R3)		;"A11"
+070                    CONS11  030 024  	BR	12$
+071                                     
+072                    PRM11   011 017  7$:	CLR	(R3)		;A10.  SETUP LOAD CONTROL
+073                    CONS11  030 024  	BR	12$
+074                                     
+075                    PRM11   011 018  66$:	CMP	#"AM,(R4)	;"R" SEEN
+076                    CONS11  024 048  	BNE	5$		;BR IF NOT ".RAM"↓&	PROGRAM FILE LOADER, 4-SEPT-75                                   DTA11.PAL[KL,SYS] 10/05/77  Page 2.1↓'α
+077                    PRM11   011 017  	MOV	#2,(R3)		;"RAM"
+078                                     12$:	TST	LDOVRD		;ANY LOAD EXT OVERRIDE ?
+079                    CONS11  030 011  	BEQ	20$		;NO
+080                    PRM11   011 014  	MOV	LDOVRD,R0	;SET LOAD CONTROL ACCORDINGLY
+081                    PRM11   011 014  	DEC	R0
+082  PRM11   011 014   PRM11   011 017  	MOV	R0,(R3)
+083                            018 003  20$:	JMP	DEVFIL		;GO GET FILE & LOAD
+084                                     
+085                    PRM11   011 018  14$:	CMP	#"IN,(R4)	;IS EXTENSION ".BIN" ?
+086                    CONS11  024 048  	BNE	5$		;BR IF NO
+087                    PRM11   011 017  	MOV	#5,(R3)		;YES, SET LOAD CONTROL
+088                    CONS11  030 024  	BR	12$
+089                                     
+090                    PRM11   011 018  16$:	CMP	#"AV,(R4)	;IS EXTENSION ".SAV" ?
+091                    CONS11  035 053  	BEQ	7$		;YES, ACT10 TREATS AS ".A10"
+092                    CONS11  024 048  	BR	5$
+093                                     
+094                    PRM11   011 018  21$:	CMP	#"10,(R4)	;IS EXTENSION ".D10" ?
+095                    CONS11  024 048  	BNE	5$		;NO, GO REPORT ERROR
+096                    PRM11   011 017  	MOV	#6,(R3)		;YES, SET LOAD CONTROL
+097                    CONS11  030 024  	BR	12$
+098                                     
+099                                     DEFEXT:	.ASCII /A10 /
+100                                     	.ASCII /A11 /
+101                                     	.ASCII /RAM /
+102                                     	.ASCII /RAM /
+103                                     	.ASCII /RAM /
+104                                     	.ASCII /BIN /
+105                                     	.ASCII /D10 /		;FOR DSKDMP BOOT↓&	PROGRAM FILE LOADER, 4-SEPT-75                                   DTA11.PAL[KL,SYS] 10/05/77  Page 3↓'α
+001                                     ;PROCESS FILENAME.EXT FROM INPUT BUFFER
+002                                     
+003                    PRM11   011 014  $NAMEXT:MOV	#NAMBF,R0	;CLEAR NAME LOOKUP BUFFER
+004                    PRM11   011 015  	MOV	#20040,R1	;TO SPACES
+005                    PRM11   011 016  	MOV	#5,R2
+006  PRM11   011 015   PRM11   011 014  70$:	MOV	R1,(R0)+	;UP TO 9 CHARS
+007                    PRM11   011 016  	DEC	R2
+008                    SUB11   044 085  	BGT	70$
+009                                     
+010                    PRM11   011 016  	MOV	#NAMBF,R2	;LOOKUP NAME
+011                    PRM11   011 015  	MOV	#7,R1		;MAXIMUM OF 6 CHARS IN NAME
+012                    PRM11   003 029  	TTISDL
+013                    SUB11   008 014  	BCS	99$		;LETTER, ALREADY IN R0
+014                    PRM11   003 018  1$:	TTICHR			;GET CHAR FROM TTY BUFFER
+015                    CONS11  024 048  	BCS	5$
+016                    PRM11   011 014  99$:	CMPB	#'.,R0
+017                    CONS11  002 031  	BEQ	2$		;BR IF PERIOD, NAME.EXT SEPARATOR
+018                    PRM11   011 014  	CMPB	#33,R0
+019                    SUB11   029 005  	BEQ	97$		;ALTMODE, SELF START
+020                    PRM11   011 014  	CMPB	#15,R0
+021                    SUB11   029 037  	BEQ	96$		;CR, NO EXTENSION
+022  PRM11   013 013   PRM11   011 014  	CMPB	#SPACE,R0	;IF SPACE, NO EXT
+023                    SUB11   029 037  	BEQ	96$
+024                    PRM11   011 015  	DEC	R1
+025                    CONS11  024 048  	BEQ	5$		;BR IF MORE THAN 6 CHARS
+026  PRM11   011 014   PRM11   011 016  	MOVB	R0,(R2)+	;STORE CHAR
+027                    CONS11  002 007  	BR	1$
+028                                     
+029                    PRM11   011 016  2$:	MOV	#EXTBF,R2	;GET EXTENSION
+030                    PRM11   011 015  	MOV	#4,R1
+031                    PRM11   003 018  3$:	TTICHR
+032                    CONS11  024 048  	BCS	5$
+033                    PRM11   011 014  	CMPB	#33,R0
+034                    CONS11  030 028  	BEQ	13$		;BR IF ALTMODE
+035                    PRM11   011 014  	CMPB	#15,R0
+036                    SUB11   028 037  	BEQ	98$		;BR IF CR
+037  PRM11   013 013   PRM11   011 014  	CMPB	#SPACE,R0	;BR IF SPACE
+038                    SUB11   028 037  	BEQ	98$
+039                    PRM11   011 015  	DEC	R1
+040                    CONS11  024 048  	BEQ	5$		;BR IF MORE THAN 3 CHARS
+041  PRM11   011 014   PRM11   011 016  	MOVB	R0,(R2)+	;STORE CHAR
+042                    CONS11  005 001  	BR	3$
+043                                     
+044                                     97$:	COM	SRTFLG		;SET SELF START FLAG
+045                    SUB11   029 037  	BR	96$
+046                                     
+047                                     13$:	COM	SRTFLG
+048                                     
+049                    PRM11   011 015  98$:	CMP	#4,R1
+050                    CONS11  030 016  	BNE	10$
+051                    PRM11   011 014  96$:	CLR	R0
+052                    PRM11   008 043  10$:	EXIT
+053                                     
+054                                     $$$NAM=.
+055                    PRM11   004 007  5$:	$PMSG			;NAME.EXT ERR
+056                            003 059  	  $$NAM
+057                    BEG11   002 007  	JMP	$CNTLC
+058                                     
+059                    APT11   004 006  $$NAM:	.ASCIZ	/NAME.EXT ERR/
+060                                     .EVEN↓&	PROGRAM FILE LOADER, 4-SEPT-75                                   DTA11.PAL[KL,SYS] 10/05/77  Page 4↓'α
+001                                     ;DECTAPE/RP04/FLOPPY LOADER START
+002                                     
+003                                     DTRPLD:	CMP	#5,LDCNTL	;PDP-11 .BIN FILE LOAD ?
+004                            004 007  	BNE	LLD1
+005                            010 003  	JMP	LDBIN
+006                                     
+007                    PRM11   005 028  LLD1:	DVDATA			;LOAD FIRST BUFFER
+008                            004 011  	 BCC	LLD2
+009                            022 001  	JMP	DVEOF		;EOF
+010                                     
+011                                     LLD2:
+012                                     .IF DF MONASB
+013                                     	TST	DEVTYP
+014                    CONS11  002 007  	BPL	1$
+015                    APT11   002 016  	JMP	ACTLD2		;ACT10 PROCESS
+016                                     .ENDC
+017                    PRM11   011 019  1$:	MOV	#$INBUF,R5	;SET UP START OF CHAR BUFFER
+018  PRM11   011 019                    	MOV	R5,$INPTC
+019                                     
+020                    PRM11   011 018  LLD3:	MOV	DVCNT,R4	;SETUP DEVICE BYTE COUNTER
+021                    PRM11   011 017  	MOV	DVADR,R3	;SETUP DEVICE DATA BLOCK ADDRESS
+022                                     
+023                    PRM11   011 018  LLD4:	TST	R4		;ANY DATA REMAINING ?
+024                    CONS11  002 031  	BGT	2$		;YES
+025                                     
+026                    PRM11   005 028  	DVDATA			;NO, READ NEXT DEVICE BLOCK
+027                            004 020  	 BCC	LLD3
+028                            022 001  	JMP	DVEOF		;END OF FILE ?
+029                                     
+030  PRM11   011 017   PRM11   011 014  2$:	MOVB	(R3)+,R0	;GET FRAME, ONE 7 BIT CHAR
+031                    PRM11   011 018  	DEC	R4		;COUNT IT
+032                    PRM11   011 014  	BIC	#177600,R0
+033                    PRM11   011 014  	TST	R0		;IS FRAME A NULL ?
+034                            004 023  	BEQ	LLD4		;BR IF YES, DON'T STORE
+035  PRM11   011 014   PRM11   011 019  	MOVB	R0,(R5)+	;STORE IN BUFFER
+036  PRM11   011 019                    	CMP	R5,#$INBUF+140.
+037                    CONS11  002 007  	BLE	1$		;BR IF BUFFER DIDN'T OVERFLOW
+038                            007 033  	JMP	$LINERR		;REPORT BUFFER OVERFLOW
+039                    PRM11   011 014  1$:	CMP	#12,R0		;IS CHAR A LINE FEED ?
+040                            005 001  	BEQ	LLDONE		;BR IF LINE DONE
+041                            004 023  	BR	LLD4		;LOOP TILL LF FOUND↓&	PROGRAM FILE LOADER, 4-SEPT-75                                   DTA11.PAL[KL,SYS] 10/05/77  Page 5↓'α
+001  PRM11   011 018                    LLDONE:	MOV	R4,DVCNT	;RESAVE POINTERS
+002  PRM11   011 017                    	MOV	R3,DVADR
+003                    PRM11   011 019  	CLRB	(R5)		;STORE A NULL TO END STRING
+004  PRM11   011 019                    	MOV	R5,$INPTR
+005                                     	INC	DEVLC		;COUNT LINE
+006                    PRM11   011 045  	MOV	DEVLC,SWR	;DISPLAY
+007                                     	TST	LDCNTL		;IS HELP FLAG SET ?
+008                            005 011  	BPL	LDPROC		;BR IF NO
+009                    APT11   002 032  	JMP	DAHLP		;DTA/ACT HELP
+010                                     
+011                                     LDPROC:	CLR	LDOCTF		;CLEAR OCTAL LOAD FLAG
+012                                     	CLR	LDZBLK
+013                    PRM11   011 015  	MOV	LDCNTL,R1	;GET LOAD CONTROL
+014                    PRM11   011 019  	MOV	$INPTC,R5	;SETUP INPUT POINTER
+015  PRM11   011 019   PRM11   011 014  	MOVB	(R5)+,R0	;GET FIRST CHAR FROM FILE
+016                    PRM11   011 014  	CMPB	#';,R0		;IS FIRST CHAR A SEMICOLON ?
+017                            005 029  	BEQ	LDPRO1		;YES, PROCESS COMMENT LINE
+018          007 024   PRM11   011 014  	CMPB	LDLTR(R1),R0	;DOES 1ST CHAR MATCH LOAD TYPE ?
+019                            006 003  	BEQ	LDPRO3		;YES
+020                                     	CMP	LDCNTL,#6	;D10 FILES ACT LIKE A10
+021                    CONS11  002 007  	BEQ	1$
+022                                     	TST	LDCNTL		;IS THIS .A10 FILE ?
+023                            006 001  	BNE	LDPRO2		;NO, ERROR
+024                    PRM11   011 014  1$:	CMPB	#'Z,R0		;YES, IS FIRST CHAR A "Z" ?
+025                            006 001  	BNE	LDPRO2		;NO, ERROR
+026                                     	COM	LDZBLK		;YES, SET CORE ZERO FLAG
+027                            006 003  	BR	LDPRO3
+028                                     
+029                                     LDPRO1:	TST	DEVLC		;COMMENT, IS THIS FIRST LINE ?
+030                            004 011  	BNE	LLD2		;NO
+031                    PRM11   009 003  	PUSH	PCMDNF		;SAVE PGM CMD NO PRINT FLAG
+032                    PRM11   005 011  	SWITCH
+033  PRM11   011 014   PRM11   002 025  	BIT	R0,#CHAIN	;IS CHAIN SWITCH SET ?
+034                    CONS11  002 007  	BEQ	1$		;NO
+035                                     	MOV	#-1,PCMDNF	;YES, PREVENT FILE ID PRINTOUT
+036                                     
+037  PRM11   011 019   PRM11   011 015  1$:	MOVB	(R5)+,R1	;PUT FILE ID LINE IN OUTPUT BUFFER
+038                    CONS11  002 031  	BEQ	2$		;NULL, DONE
+039                    PRM11   004 035  	PLDBUF
+040                    CONS11  002 007  	BR	1$
+041                    PRM11   009 011  2$:	POP	PCMDNF		;RESTORE FLAG
+042                    PRM11   004 039  	PNTRST			;RESET OUTPUT POINTERS ANYWAY
+043                            004 011  	BR	LLD2↓&	PROGRAM FILE LOADER, 4-SEPT-75                                   DTA11.PAL[KL,SYS] 10/05/77  Page 6↓'α
+001                    APT11   003 036  LDPRO2:	JMP	ACTLDC		;LOAD TYPE ERROR
+002                                     
+003  PRM11   011 019   PRM11   011 014  LDPRO3:	MOVB	(R5)+,R0	;GET 2ND CHAR
+004                    PRM11   011 014  	CMPB	#'O,R0		;IS IT AN O ?
+005                            006 032  	BEQ	LDOCT		;YES, OCTAL DATA FORMAT LOAD
+006                    PRM11   011 014  	CMPB	#40,R0		;IS IT A SPACE ?
+007                            006 001  	BNE	LDPRO2		;BR IF NO
+008                                     
+009                    PRM11   011 015  LDCLR:	MOV	#LDCNT,R1	;SETUP CONVERTED STORAGE ADDRESS
+010                    PRM11   011 016  LDCNV:	CLR	R2		;CLEAR WORD FORMER
+011  PRM11   011 019   PRM11   011 014  1$:	MOVB	(R5)+,R0	;GET CHAR
+012                    PRM11   011 014  	CMP	#15,R0		;IS IT A CR ?
+013                    CONS11  002 007  	BEQ	1$		;YES, IGNORE
+014                    PRM11   011 014  	CMP	#12,R0		;IS IT A LF ?
+015                            006 037  	BEQ	LDEOL		;YES, END OF LINE
+016                    PRM11   011 014  	CMP	#54,R0		;IS IT A COMMA ?
+017                    CONS11  002 031  	BEQ	2$		;YES, GO STORE WORD
+018                                     	TST	LDOCTF		;LOADING OCTAL ?
+019                    CONS11  005 001  	BNE	3$		;YES
+020  PRM11   011 016                    	SL	R2,6		;SHIFT WORD FORMER LEFT 6
+021                    PRM11   011 014  	BIC	#100,R0		;CLEAR ASCIIZED BIT
+022  PRM11   011 014   PRM11   011 016  4$:	BIS	R0,R2		;INSERT NEW OIT
+023                    CONS11  002 007  	BR	1$		;LOOP TILL WORD FORMED
+024                                     
+025  PRM11   011 016   PRM11   011 015  2$:	MOV	R2,(R1)+	;STORE 16 BIT WORD
+026                            006 010  	BR	LDCNV		;GO DO NEXT
+027                                     
+028  PRM11   011 016                    3$:	SL	R2,3		;OCTAL LOAD
+029                    PRM11   011 014  	BIC	#177770,R0	;CLEAR ALL BUT NUMBER PART
+030                    CONS11  004 051  	BR	4$
+031                                     
+032                                     LDOCT:	COM	LDOCTF		;OCTAL LOAD, SET FLAG
+033                            006 009  	BR	LDCLR
+034                                     
+035                    APT11   004 004  LDERR:	JMP	ACTLDF		;LOAD ERROR
+036                                     
+037  PRM11   011 016   PRM11   011 015  LDEOL:	MOV	R2,(R1)		;STORE CHECKSUM↓&	PROGRAM FILE LOADER, 4-SEPT-75                                   DTA11.PAL[KL,SYS] 10/05/77  Page 7↓'α
+001                                     LDCKSM:	TST	LDOCTF		;LOADING OCTAL ?
+002                    CONS11  002 031  	BNE	2$		;YES, NO CHECKSUM
+003                    PRM11   011 016  	MOV	#LDCNT,R2	;CHECKSUM LOAD STORAGE
+004                    PRM11   011 014  	CLR	R0
+005  PRM11   011 016   PRM11   011 014  1$:	ADD	(R2)+,R0
+006  PRM11   011 016   PRM11   011 015  	CMP	R2,R1
+007                    CONS11  002 007  	BLE	1$
+008                    PRM11   011 014  	TST	R0		;IS CHECKSUM = 0 ?
+009                    CONS11  002 031  	BEQ	2$		;BR IF 0
+010                    APT11   004 001  	JMP	ACTBCK		;BAD CHECKSUM
+011                                     
+012                    PRM11   011 014  2$:	MOV	LDCNTL,R0	;DISPATCH TO PROPER LOAD ROUTINE
+013  PRM11   011 014                    	SL	R0,1		;DETERMINED FROM LDCNTL WORD
+014                            007 016  	JMP	@LDTYPE(R0)
+015                                     
+016                            015 009  LDTYPE:	LDTEN			;.A10, LOAD TEN
+017                            008 015  	LDELVN			;.A11, LOAD ELEVEN
+018                            013 038  	LDCZRO			;.RAM, ZERO C-RAM
+019                            013 054  	LDCRAM			;.RAM, LOAD C-RAM
+020                            012 006  	LDDRAM			;.RAM, LOAD D-RAM
+021                                     	0			;.BIN, DETECTED IN LINE
+022                    BOOT    002 006  	LDBOOT			;.D10, LOAD DSKDMP BOOT INTO 11 (SAME FORMAT AS 
+                                        				;A10)
+023                                     
+024                                     LDLTR:	.ASCII	/TEZCD T/
+025                                     
+026  APT11   004 006                    $$LD11:	.ASCIZ	/11 ERR,ADR=/
+027                                     $$COR:	.ASCIZ	/COR=/
+028                                     $$ACT:	.ASCIZ	/ACT=/
+029  APT11   004 006                    $$RAM:	.ASCIZ	/\RAM ERR,COR=/
+030  APT11   004 006                    $$TEN:	.ASCIZ	/\10 ERR,ADR=/
+031                                     	.EVEN
+032                                     
+033                    PRM11   008 006  $LINERR:PMSG	<?LINE TOO LONG>
+034                    BEG11   002 007  	JMP	$CNTLC↓&	PROGRAM FILE LOADER, 4-SEPT-75                                   DTA11.PAL[KL,SYS] 10/05/77  Page 8↓'α
+001                                     ;LOAD DONE ROUTINE   PDP11 LOAD ROUTINE
+002                                     
+003                                     LDDONE:
+004                                     .IF DF MONASB
+005                                     	TST	DEVTYP		;LOAD DONE
+006                    CONS11  002 007  	BMI	1$		;BR IF ACT10 MODE
+007                                     .ENDC
+008                    APT11   003 027  	JMP	DADONE
+009                                     
+010                                     .LIF DF MONASB
+011                    APT11   003 022  1$:	JMP	ACTDON		;ACT10 PROCESS
+012                                     
+013                                     ;PDP-11 CORE LOAD ROUTINE
+014                                     
+015                    PRM11   011 014  LDELVN:	MOV	LDCNT,R0	;GET LOAD WORD COUNT
+016                    CONS11  002 031  	BEQ	2$		;IF 0, THIS IS TRANSFER BLOCK
+017                    PRM11   011 016  	MOV	#LDATA,R2	;SETUP DATA PICKUP POINTER
+018                    PRM11   011 015  	MOV	LDADR,R1	;GET LOAD MEMORY ADDRESS
+019                    PRM11   011 015  	BIT	#1,R1		;LOAD WORD OR BYTE ?
+020                    CONS11  005 001  	BNE	3$		;BYTE LOAD
+021                                     
+022                                     1$:	TST	VERIFY
+023                    CONS11  003 018  	BNE	11$
+024  PRM11   011 016   PRM11   011 015  19$:	MOV	(R2)+,(R1)+	;MOVE WORD FROM STOR TO MEMORY
+025                    PRM11   011 014  13$:	DEC	R0		;DECREMENT WORD COUNT
+026                    CONS11  002 007  	BGT	1$		;LOOP TILL ALL WORDS MOVED
+027                            004 011  18$:	JMP	LLD2		;GO DO NEXT LOAD LINE
+028                                     
+029  PRM11   011 016   PRM11   011 015  11$:	CMP	(R2),(R1)	;COMPARE CURRENT AGAINST FILE
+030                    CONS11  030 024  	BEQ	12$
+031                    PRM11   011 014  	PUSH	R0
+032                    PRM11   004 007  	$PMSG
+033                            007 026  	$$LD11			;"11 ERR,ADR="
+034  PRM11   011 015   PRM11   011 014  	MOV	R1,R0
+035                    PRM11   004 017  	PNTOCT
+036                                     
+037                    PRM11   004 007  	$PMSG
+038                            007 027  	$$COR			;"COR="
+039  PRM11   011 016   PRM11   011 014  	MOV	(R2),R0
+040                    PRM11   004 017  	PNTOCT
+041                                     
+042                    PRM11   004 007  	$PMSG
+043                            007 028  	$$ACT			;"ACT="
+044  PRM11   011 015   PRM11   011 014  	MOV	(R1),R0
+045                    PRM11   004 017  	PNTOCT
+046                    PRM11   004 012  	PCRLF
+047                    PRM11   011 014  	POP	R0
+048                                     
+049                    PRM11   011 016  12$:	TST	(R2)+
+050                    PRM11   011 015  	TST	(R1)+
+051                    CONS11  030 028  	BR	13$↓&	PROGRAM FILE LOADER, 4-SEPT-75                                   DTA11.PAL[KL,SYS] 10/05/77  Page 9↓'α
+001                                     3$:	TST	VERIFY
+002                    CONS11  039 019  	BNE	31$
+003                                     
+004  PRM11   011 016   PRM11   011 015  39$:	MOVB	(R2)+,(R1)+	;ODD ADDRESS, BYTE LOAD
+005  PRM11   011 016   PRM11   011 015  	MOVB	(R2)+,(R1)+	;2 BYTES PER WORD
+006                    PRM11   011 014  38$:	DEC	R0		;DECREMENT WORD COUNT
+007                    CONS11  005 001  	BGT	3$		;LOOP TILL ALL BYTES MOVED
+008                            008 027  	BR	18$		;GO ON TO NEXT
+009                                     
+010                                     
+011                    PRM11   011 019  31$:	CLR	R5
+012                    PRM11   011 014  32$:	PUSH	R0
+013  PRM11   011 016   PRM11   011 015  	CMPB	(R2),(R1)
+014                    FD11    003 003  	BEQ	33$
+015                                     
+016                    PRM11   004 007  	$PMSG
+017                            007 026  	$$LD11			;"11 ERR,ADR="
+018  PRM11   011 015   PRM11   011 014  	MOV	R1,R0
+019                    PRM11   004 017  	PNTOCT
+020                                     
+021                    PRM11   004 007  	$PMSG
+022                            007 027  	$$COR			;"COR="
+023  PRM11   011 016   PRM11   011 014  	MOVB	(R2),R0
+024                    PRM11   011 014  	BIC	#177400,R0
+025                    PRM11   004 018  	PNTOCS
+026                                     
+027                    PRM11   004 013  	PSPACE
+028                    PRM11   004 007  	$PMSG
+029                            007 028  	$$ACT			;"ACT="
+030  PRM11   011 015   PRM11   011 014  	MOVB	(R1),R0
+031                    PRM11   011 014  	BIC	#177400,R0
+032                    PRM11   004 018  	PNTOCS
+033                    PRM11   004 012  	PCRLF
+034                    PRM11   011 014  33$:	POP	R0
+035                    PRM11   011 016  	INC	R2
+036                    PRM11   011 015  	INC	R1
+037                    PRM11   011 019  	TST	R5
+038                            009 006  	BNE	38$
+039                    PRM11   011 019  	INC	R5
+040                    CONS11  035 028  	BR	32$
+041                                     
+042                    PRM11   011 014  2$:	MOV	LDADR,R0
+043  PRM11   011 014                    LD11DN:	MOV	R0,PGOADR
+044                                     	CLR	PGOCTL
+045                            008 003  	BR	LDDONE↓&	PROGRAM FILE LOADER, 4-SEPT-75                                   DTA11.PAL[KL,SYS] 10/05/77  Page 10↓'α
+001                                     ;PDP-11 BINARY LOAD ROUTINE
+002                                     
+003                    PRM11   005 028  LDBIN:	DVDATA			;LOAD DEVICE BUFFER
+004                                     LDBIN1:	CLR	$CKS11		;INIT CHECKSUM
+005                    PRM11   005 043  	DVFRAM			;READ FRAME
+006                    PRM11   011 014  	DECB	R0		;CHECK FOR BLOCK START
+007                            010 004  	BNE	LDBIN1		;NOT YET
+008                    PRM11   005 043  	DVFRAM			;READ ANOTHER FRAME
+009                                     
+010                    PRM11   005 044  	DVWRD			;GET FULL BYTE COUNT
+011  PRM11   011 014                    	MOV	R0,LBC
+012                                     	SUB	#6,LBC
+013                            011 022  	BEQ	LJMP		;BYTE COUNT OF 6 IS XFER BLOCK
+014                    PRM11   005 044  	DVWRD			;GET LOAD ADDRESS
+015  PRM11   011 014   PRM11   011 019  	MOV	R0,R5		;STORE LOAD ADDRESS
+016                                     
+017                    PRM11   005 043  LDBIN2:	DVFRAM			;READ DATA FRAME
+018                                     	DEC	LBC
+019                            010 025  	BGE	LDBIN3		;BR IF MORE DATA REMAINS 
+020                                     	TSTB	$CKS11		;CORRECT CHECKSUM ?
+021                            010 004  	BEQ	LDBIN1		;BR IF GOOD CHECKSUM
+022                    APT11   004 006  LDBINE:	PMSG	<\CKSUM ERR>
+023                    BEG11   002 007  $LDBNE:	JMP	$CNTLC
+024                                     
+025                                     LDBIN3:	TST	VERIFY
+026                    CONS11  002 007  	BNE	1$
+027  PRM11   011 019                    	CMP	R5,#PRGSRT	;TRYING TO LOAD INTO KLDCP ?
+028                    CONS11  030 016  	BLO	10$		;NO
+029                    APT11   004 006  	PMSG	<\ADR ERR>
+030                            010 023  	BR	$LDBNE		;YES, BAD !!
+031  PRM11   011 014   PRM11   011 019  10$:	MOVB	R0,(R5)+	;STORE DATA 1 BYTE AT A TIME
+032                            010 017  	BR	LDBIN2		;LOOP
+033                                     
+034  PRM11   011 014   PRM11   011 019  1$:	CMPB	R0,(R5)
+035                    CONS11  005 001  	BNE	3$
+036                    PRM11   011 019  2$:	INC	R5
+037                            010 017  	BR	LDBIN2↓&	PROGRAM FILE LOADER, 4-SEPT-75                                   DTA11.PAL[KL,SYS] 10/05/77  Page 11↓'α
+001                    PRM11   009 003  3$:	PUSH	R0
+002                    PRM11   004 007  	$PMSG
+003                            007 026  	$$LD11			;"11 ERR,ADR="
+004                                     
+005  PRM11   011 019   PRM11   011 014  	MOV	R5,R0
+006                    PRM11   004 017  	PNTOCT
+007                                     
+008                    PRM11   004 007  	$PMSG
+009                            007 027  	$$COR			;"COR="
+010                    PRM11   009 011  	POP	R0
+011                    PRM11   004 018  	PNTOCS
+012                                     
+013                    PRM11   004 013  	PSPACE
+014                    PRM11   004 007  	$PMSG
+015                            007 028  	$$ACT			;"ACT="
+016  PRM11   011 019   PRM11   011 014  	MOVB	(R5),R0
+017                    PRM11   011 014  	BIC	#177400,R0
+018                    PRM11   004 018  	PNTOCS
+019                    PRM11   004 012  	PCRLF
+020                    CONS11  002 031  	BR	2$
+021                                     
+022                    PRM11   005 044  LJMP:	DVWRD			;GET POSSIBLE XFER ADDRESS
+023                    PRM11   009 003  	PUSH	R0
+024                    PRM11   005 043  	DVFRAM
+025                                     	TSTB	$CKS11		;CORRECT CHECKSUM ?
+026                            010 022  	BNE	LDBINE		;BR IF BAD
+027                    PRM11   009 011  	POP	R0		;SETUP START ADDRESS
+028                            009 043  	BR	LD11DN↓&	PROGRAM FILE LOADER, 4-SEPT-75                                   DTA11.PAL[KL,SYS] 10/05/77  Page 12↓'α
+001                                     ;KL10 LOAD D-RAM ROUTINE
+002                                     
+003                                     ;CALLS "WDRAM" WITH R0 = D-RAM ADDRESS
+004                                     ;		    R1 = LOAD DATA ADDRESS
+005                                     
+006                    PRM11   011 016  LDDRAM:	MOV	LDCNT,R2	;GET LOAD WORD COUNT
+007                    CONS11  002 031  	BEQ	2$		;WC = 0, TRANSFER BLOCK
+008                    PRM11   011 017  	MOV	LDADR,R3	;SETUP D-RAM ADDRESS
+009                    PRM11   011 018  	MOV	#LDATA,R4	;DATA PICKUP ADDRESS
+010                                     
+011  PRM11   011 017   PRM11   011 014  1$:	MOV	R3,R0		;D-RAM ADDRESS TO R0
+012  PRM11   011 018   PRM11   011 015  	MOV	R4,R1		;DATA ADDRESS TO R1
+013                                     
+014                                     	TST	VERIFY
+015                    CONS11  003 018  	BNE	11$		;VERIFY D-RAM
+016                    PRM11   007 020  	WDRAM			;WRITE D-RAM
+017                                     
+018  PRM11   011 017   PRM11   011 014  11$:	MOV	R3,R0
+019                    PRM11   007 019  	RDRAM			;READ D-RAM
+020  PRM11   011 014   PRM11   011 019  	MOV	R0,R5
+021                    PRM11   011 014  	BIC	#20,(R0)	;CLEAR COMPUTED PARITY
+022  PRM11   011 014   PRM11   011 015  	CMP	(R0)+,(R1)+	;COMPARE EVEN WORD
+023                    CONS11  030 011  	BNE	20$
+024                    PRM11   011 014  	BIC	#20,(R0)	;CLEAR COMPUTED PARITY
+025  PRM11   011 014   PRM11   011 015  	CMP	(R0)+,(R1)+	;COMPARE ODD WORD
+026                    CONS11  030 011  	BNE	20$
+027  PRM11   011 014   PRM11   011 015  	CMP	(R0),(R1)	;COMPARE COMMON WORD
+028                    CONS11  030 011  	BNE	20$
+029                    PRM11   011 017  21$:	ADD	#2,R3		;TO NEXT EVEN D-RAM ADDRESS
+030                    PRM11   011 018  	ADD	#6,R4		;SETUP NEXT DATA PICKUP ADR
+031                    PRM11   011 016  	SUB	#3,R2		;DECREMENT WORD COUNT
+032                    CONS11  002 007  	BGT	1$		;BR IF NOT DONE YET
+033                            013 081  	BR	$LLD2		;BACK FOR NEXT LOAD FILE LINE
+034                                     
+035                            008 003  2$:	JMP	LDDONE		;LOAD FINISHED
+036                                     
+037                    PRM11   004 007  20$:	$PMSG
+038                            007 029  	$$RAM			;"RAM ERR,COR="
+039  PRM11   011 017   PRM11   011 014  	MOV	R3,R0
+040  PRM11   011 018   PRM11   011 015  	MOV	R4,R1
+041                    PRM11   007 031  	PNTDRM			;PRINT CORRECT D-RAM
+042                                     
+043                    PRM11   004 007  	$PMSG
+044                            007 028  	$$ACT			;"ACT="
+045  PRM11   011 017   PRM11   011 014  	MOV	R3,R0
+046  PRM11   011 019   PRM11   011 015  	MOV	R5,R1
+047                    PRM11   007 031  	PNTDRM			;PRINT ACTUAL D-RAM
+048                    CONS11  013 027  	BR	21$		;CONTINUE↓&	PROGRAM FILE LOADER, 4-SEPT-75                                   DTA11.PAL[KL,SYS] 10/05/77  Page 13↓'α
+001                                     ;KL10 C-RAM ZERO
+002                                     
+003                                     COMMENT ⊗
+004                                     
+005                    SBST11  002 005  RAM file.  The RAM file is ascii-ized text. A RAM file consists of a
+006                    SBST11  002 005  Z-line, some C-lines, and some D-lines.  The Z-line zeros a selected
+007                                     region of the CRAM.  Each C-line loads one or more microcode words
+008                                     into the CRAM.  The D-lines load the DRAM.
+009                                     
+010                                     Z wc,addr,count,chksum<crlf>
+011                            013 024  	The "Z " and the commas and crlf are literal.  WC is ignored
+012                    SUB11   044 135  	and may be an empty string.  ADDR is the first location in
+013                                     	the CRAM to zero; COUNT is the number of words of CRAM to zero.
+014                                     	If COUNT is zero, nothing is zeroed (one Z line must appear
+015                                     	in the file).  Chksum, as always, is the negative of the 16-bit
+016                                     	sum of all preceding fields.
+017                                     
+018                                     C wc,addr,w0pt0,w0pt1,w0pt2,w0pt3,w0pt4,w0pt5,w1pt0....,chksum
+019                            013 024  	WC is a multiple of 6. Six 16-bit fields are loaded into
+020                                     	each CRAM word.  Note:  In octal format, denoted by CO, the
+021                            013 024  	fields above are partly reversed.  They appear in the order:
+022                                     	Pt4,Pt3,Pt2,Pt1,Pt0,Pt5.  This is the same format as the
+023                                     	EC and DC commands use.
+024                                     	Pt5 is the spec field.  Other fields are:...
+025  BEG11   002 006                    	A zero WC signifies the CRAM start address is in ADDR, and
+026                                     	that D-lines follow.
+027                                     
+028                                     
+029                                     D wc,addr,w0pt0,w0pt1,w0pt2,w2tp0,w2pt1,w2pt2,....,chksum
+030                            013 024  	WC must be a multiple of 3.  Three 16-bit fields are loaded
+031                    SUB11   044 135  	into an even-odd pair of DRAM locations specified by addr
+032                                     	(which should be even).  WC=0 signifies end of file.
+033                                     
+034                                     ⊗
+035                                     
+036                                     
+037                                     
+038                    PRM11   006 024  LDCZRO:	MRESET			;MASTER RESET
+039                                     	TST	VERIFY
+040                    CONS11  002 031  	BNE	2$		;NO ZEROING IF VERIFY
+041                    PRM11   011 015  	MOV	LDATA,R1	;GET C-RAM ZERO COUNT
+042                    CONS11  002 031  	BEQ	2$		;0 ZERO COUNT, BYPASS ZEROING C-RAM
+043                    PRM11   011 014  	MOV	LDADR,R0	;SETUP STARTING ADDRESS
+044                                     
+045                    PRM11   006 021  	MICNUL			;ZERO C-RAM
+046                                     2$:	INC	LDCNTL		;ADVANCE LOAD CONTROL TO C-RAM LOAD
+047                            013 081  	BR	$LLD2
+048                                     
+049                                     ;KL10 LOAD C-RAM ROUTINE
+050                                     
+051                                     ;CALLS "WCRAM" WITH R0 = C-RAM ADDRESS
+052                                     ;		    R1 = DATA PICKUP ADDRESS
+053                                     
+054                    PRM11   011 016  LDCRAM:	MOV	LDCNT,R2	;GET LOAD WORD COUNT
+055                    CONS11  002 031  	BEQ	2$		;WC = 0, TRANSFER BLOCK
+056                    PRM11   011 017  	MOV	LDADR,R3	;SETUP C-RAM ADDRESS
+057  PRM11   012 030   PRM11   011 017  	BIS	#BIT14,R3	;SET SPECIAL RESET BIT
+058                    PRM11   011 018  	MOV	#LDATA,R4	;DATA PICKUP ADDRESS
+059                                     
+060                                     1$:	TST	LDOCTF		;LOADING OCTAL ?
+061                    CONS11  005 001  	BNE	3$		;YES
+062  PRM11   011 017   PRM11   011 014  4$:	MOV	R3,R0		;C-RAM ADDRESS TO R0
+063  PRM11   011 018   PRM11   011 015  	MOV	R4,R1		;DATA PICKUP ADDRESS TO R1
+064                                     
+065                                     	TST	VERIFY
+066                    SUB11   011 031  	BNE	41$
+067                    PRM11   006 018  	WCRAM			;WRITE C-RAM
+068  PRM11   011 017   PRM11   011 014  41$:	MOV	R3,R0
+069                    PRM11   006 019  	RCRAM			;READ C-RAM BACK
+070                                     
+071                    PRM11   011 019  	MOV	#6,R5
+072  PRM11   011 018   PRM11   011 015  	MOV	R4,R1
+073  PRM11   011 014   PRM11   011 015  11$:	CMP	(R0)+,(R1)+	;RAM LOADED PROPERLY ?
+074                    CONS11  030 024  	BNE	12$		;NO
+075                    PRM11   011 019  	DEC	R5
+076                    CONS11  003 018  	BNE	11$
+077                    PRM11   011 017  42$:	INC	R3		;TO NEXT C-RAM ADDRESS↓&	PROGRAM FILE LOADER, 4-SEPT-75                                   DTA11.PAL[KL,SYS] 10/05/77  Page 13.1↓'α
+078                    PRM11   011 018  	ADD	#12.,R4		;TO NEXT PICKUP ADDRESS
+079                    PRM11   011 016  	SUB	#6,R2		;DECREMENT WORD COUNT, 6 11 WDS PER
+080                    CONS11  002 007  	BGT	1$		;BR IF NOT DONE YET
+081                                     $LLD2=.
+082                            004 011  	JMP	LLD2		;GET NEXT LOAD FILE LINE↓&	PROGRAM FILE LOADER, 4-SEPT-75                                   DTA11.PAL[KL,SYS] 10/05/77  Page 14↓'α
+001                    PRM11   011 014  2$:	MOV	LDADR,R0	;SELECT C-RAM STARTING ADDRESS
+002                    PRM11   006 020  	WWADR			;WRITE ADDRESS TO C-RAM
+003                                     	INC	LDCNTL		;ADVANCE LOAD CONTROL TO D-RAM LOAD
+004                            013 081  	BR	$LLD2
+005                                     
+006                                     ;OCTAL C-RAM LOAD, DATA IS BACKWARDS FROM UPSIDE DOWN NORMAL
+007                                     
+008  PRM11   011 018   PRM11   011 014  3$:	MOV	(R4),R0		;GET WORD 0
+009  PRM11   011 018   PRM11   011 018  	MOV	10(R4),(R4)	;PUT WORD 5 IN 0'S PLACE
+010  PRM11   011 014   PRM11   011 018  	MOV	R0,10(R4)	;PUT WORD 0 IN 5'S PLACE
+011  PRM11   011 018   PRM11   011 014  	MOV	2(R4),R0	;GET WORD 1
+012  PRM11   011 018   PRM11   011 018  	MOV	6(R4),2(R4)	;PUT WORD 4 IN 1'S PLACE
+013  PRM11   011 014   PRM11   011 018  	MOV	R0,6(R4)	;PUT WORD 1 IN 4'S PLACE
+014                    CONS11  004 051  	BR	4$		;NOW GO LOAD IN C-RAM
+015                                     
+016                    PRM11   004 007  12$:	$PMSG			;"RAM ERR,COR="
+017                            007 029  	$$RAM
+018  PRM11   011 017   PRM11   011 014  	MOV	R3,R0
+019  PRM11   011 018   PRM11   011 015  	MOV	R4,R1
+020                    PRM11   007 029  	PNTCRM
+021                    PRM11   004 012  	PCRLF
+022                    PRM11   004 007  	$PMSG
+023                            007 028  	$$ACT			;"ACT="
+024  PRM11   011 017   PRM11   011 014  	MOV	R3,R0
+025                    PRM11   011 015  	MOV	#$BUFRC,R1
+026                    PRM11   007 029  	PNTCRM
+027                    PRM11   004 012  	PCRLF
+028                    SUB11   011 029  	BR	42$↓&	PROGRAM FILE LOADER, 4-SEPT-75                                   DTA11.PAL[KL,SYS] 10/05/77  Page 15↓'α
+001                                     ;LOAD TEN CORE ZERO
+002                                     
+003                                     ;  START ADDRESS, LOW 16 BITS IN LDADR
+004                                     ;               , BITS 18 & 19 IN HI-BYTE OF LDCNT
+005                                     ;  ZERO COUNT IN LDATA
+006                                     ;  WORD COUNT SIGNIFIES NUMBER OF LDATA WORDS USED FOR ZEROING
+007                                     ;  "D10ZRO" - INCREMENTS PDP-10 ADDRESS WHILE ZEROING
+008                                     
+009                    PRM11   011 017  LDTEN:	MOV	#L10ADR+2,R3	;SETUP BLOCK START ADDRESS POINTER
+010                    PRM11   011 017  	CLR	(R3)
+011                    PRM11   011 017  	MOVB	LDCNT+1,(R3)	;HI-BYTE OF LDCNT IS ADR BITS 18 & 19
+012                    PRM11   011 017  	MOV	LDADR,-(R3)	;SETUP ADR BITS 20-35
+013                                     
+014                                     	TST	LDZBLK		;TEN CORE ZERO BLOCK ?
+015                            016 006  	BEQ	LDRDIN		;NO, LOAD DATA
+016                                     
+017                    PRM11   006 032  LDTENZ:	SM			;START MACHINE
+018                    CONS11  005 001  	 BCC	3$
+019                    CONS11  027 027  	JMP	.XCTER		;FAILED
+020                                     3$:	TST	VERIFY
+021                    CONS11  002 031  	BNE	2$		;DON'T ZERO IF VERIFY
+022                    PRM11   011 018  	MOV	#LDATA,R4
+023                    PRM11   011 016  	MOVB	LDCNT,R2	;IS WC = 0 ?
+024                    CONS11  002 031  	BEQ	2$		;YES, NO ZEROING
+025  PRM11   011 017   PRM11   011 015  	MOV	R3,R1		;SETUP ADDRESS
+026  PRM11   011 018   PRM11   011 014  1$:	MOV	(R4)+,R0	;SETUP ZERO COUNT
+027                    PRM11   006 047  	D10ZRO			;DEPOSIT ZEROS, CLEARING CORE
+028                            017 031  	BCS	LD10ER
+029                    PRM11   011 015  	MOV	#.DPXAD,R1
+030                    PRM11   011 016  	DEC	R2		;COMPLETED ALL ZEROS ?
+031                    CONS11  002 007  	BNE	1$		;NOT YET
+032                                     
+033                            013 081  2$:	BR	$LLD2		;ALL REQUESTED CORE ZEROED.↓&	PROGRAM FILE LOADER, 4-SEPT-75                                   DTA11.PAL[KL,SYS] 10/05/77  Page 16↓'α
+001                                     ;LOAD TEN DATA
+002                                     
+003                                     ;CALLS "DPOSVR" WITH R0 = LOAD DATA ADDRESS
+004                                     ;		     R1 = PDP-10 ADDRESS
+005                                     
+006                    PRM11   011 016  LDRDIN:	MOVB	LDCNT,R2	;GET LOAD WORD COUNT
+007                    CONS11  002 031  	BEQ	2$		;WC = 0, TRANSFER BLOCK
+008                    PRM11   011 018  	MOV	#LDATA,R4	;DATA PICKUP ADDRESS
+009                                     
+010  PRM11   011 017   PRM11   011 015  1$:	MOV	R3,R1
+011  PRM11   011 018   PRM11   011 014  	MOV	R4,R0		;SETUP DATA PICKUP ADDRESS
+012                                     
+013                                     	TST	VERIFY
+014                            017 022  	BNE	LD10V
+015                    PRM11   006 044  	DPOSVR			;DEPOSIT & VERIFY
+016                            017 001  	BCS	LD10VR		;FAILED
+017                                     $LRDIN=.
+018                    PRM11   011 017  	ADD	#1,(R3)+	;INCREMENT 10 ADDRESS
+019                    PRM11   011 017  	ADC	(R3)
+020                    PRM11   011 017  	TST	-(R3)
+021                    PRM11   011 018  	ADD	#6,R4		;SETUP NEXT DATA PICKUP ADDRESS
+022                    PRM11   011 016  	SUB	#3,R2		;DECREMENT WORD COUNT
+023                    CONS11  002 007  	BGT	1$		;BR IF NOT DONE YET
+024                            013 081  	BR	$LLD2		;BACK FOR NEXT LOAD FILE LINE
+025                                     
+026                    PRM11   011 018  2$:	MOV	#PGOADR,R4
+027  PRM11   011 017   PRM11   011 018  	MOV	(R3)+,(R4)+	;TRANSFER START ADDRESS
+028  PRM11   011 017   PRM11   011 018  	MOV	(R3),(R4)	;TO GO ADDRESS
+029                                     	MOV	#2,PGOCTL
+030                            008 003  	JMP	LDDONE↓&	PROGRAM FILE LOADER, 4-SEPT-75                                   DTA11.PAL[KL,SYS] 10/05/77  Page 17↓'α
+001                            017 031  LD10VR:	BMI	LD10ER		;N-BIT SET DEPOSIT FAILED
+002                            017 031  	BEQ	LD10ER		;Z-BIT SET, EXAMINE FAILED
+003                                     LD10VE=.
+004                    PRM11   011 014  	PUSH	R0
+005                    PRM11   004 007  	$PMSG			;"10 ERR,ADR="
+006                            007 030  	$$TEN
+007                    PRM11   011 014  	MOV	#L10ADR,R0
+008                    PRM11   004 025  	PNTADR
+009                                     
+010                    PRM11   004 007  	$PMSG
+011                            007 027  	$$COR			;"COR="
+012  PRM11   011 018   PRM11   011 014  	MOV	R4,R0
+013                    PRM11   004 023  	PNT36
+014                                     
+015                    PRM11   004 007  	$PMSG
+016                            007 028  	$$ACT			;"ACT="
+017                    PRM11   011 014  	POP	R0
+018                    PRM11   004 023  	PNT36
+019                    PRM11   004 012  	PCRLF
+020                            016 017  	BR	$LRDIN
+021                                     
+022  PRM11   011 015   PRM11   011 014  LD10V:	MOV	R1,R0
+023                    PRM11   006 040  	EXAM			;EXAMINE PRESENT CONTENTS
+024                            017 031  	BCS	LD10ER		;CAN'T EXAMINE
+025  PRM11   011 014   PRM11   011 015  	MOV	R0,R1
+026  PRM11   011 018   PRM11   011 014  	MOV	R4,R0
+027                    PRM11   006 049  	CMPR36			;COMPARE WITH LOAD FILE
+028                            016 017  	BCC	$LRDIN		;OK
+029                            017 003  	BR	LD10VE		;BAD
+030                                     
+031                    PRM11   004 007  LD10ER:	$PMSG			;"10 ERR,ADR="  
+032                            007 030  	$$TEN
+033                    PRM11   011 014  	MOV	#L10ADR,R0
+034                    PRM11   004 025  	PNTADR
+035                    BEG11   002 007  	JMP	$CNTLC↓&	PROGRAM FILE LOADER, 4-SEPT-75                                   DTA11.PAL[KL,SYS] 10/05/77  Page 18↓'α
+001                                     ;DEVICE FILE DIRECTORY LOOKUP
+002                                     
+003                    PRM11   005 008  DEVFIL:	SETFLG			;INIT DEVICE LINE COUNT
+004                                     	  DEVLC
+005                    PRM11   003 036  	TTPINI			;INIT TTY POINTERS
+006                                     	CLR	$OUTBF
+007                                     	TST	DEVTYP		;LOAD FROM WHAT DEVICE ?
+008                            018 019  	BEQ	DTFIL		;  0 = DECTAPE
+009                    CONS11  002 007  	BMI	1$		; -1 = ACT10
+010                            018 012  	JMP	RPFIL		;  1 = RP04
+011                                     
+012                    CONS11  005 004  .IIF NDF RPASB,RPFIL==$CMDER
+013                                     .IF NDF MONASB
+014                    CONS11  005 004  1$:	JMP $CMDER
+015                                     .IFF
+016                    APT11   002 004  1$:	JMP	ACTFIL
+017                                     .ENDC
+018                                     
+019                                     DTFIL:	TST	FLOPPY
+020                    CONS11  030 016  	BEQ	10$
+021                    PRM11   005 045  	RXFILE			;FLOPPY
+022                    CONS11  003 018  	BR	11$
+023                    PRM11   005 021  10$:	DTAFILE
+024                    CONS11  002 007  11$:	BCS	1$
+025                            004 003  	JMP	DTRPLD
+026                            022 024  1$:	JMP	$NONXF		;NON-EX FILE
+027                                     
+028                                     ;DECTAPE FORMAT
+029                                     ;FIRST DIRECTORY BLOCK = 102 (8)
+030                                     
+031                                     ;FILE DIRECTORY BLOCK
+032                                     ;	LINK TO NEXT BLOCK
+033                                     ;	1 - FILE NAME 1
+034                                     ;	2 - FILE NAME 2
+035                                     ;	3 - FILE EXTENSION
+036                                     ;	4 - DATE
+037                                     ;	5 - SPARE
+038                                     ;	6 - START BLOCK #
+039                                     ;	7 - LENGTH
+040                                     ;	8 - END BLOCK #
+041                                     ;	9 - SPARE
+042                                     ;FILE DATA BLOCK
+043                                     ;	LINK TO NEXT BLOCK
+044                                     ;	255 DATA WORDS
+045                                     
+046                                     ;DECTAPE PROGRAM FILE SEARCH
+047                                     
+048                    PRM11   005 025  $DTAFILE:DTINIT			;DECTAPE INITIALIZATION
+049                                     DTAFL1:	TST	FLOPPY
+050                    CONS11  030 011  	BEQ	20$
+051                    PRM11   005 047  	RXRDFL			;FLOPPY READ FILE
+052                    CONS11  013 027  	BR	21$
+053                    PRM11   005 029  20$:	DTRDFL			;READ UFD DIRECTORY BLOCK
+054                    CONS11  003 018  21$:	BCS	11$		;EOF, CAN'T FIND FILE
+055  PRM11   011 014   PRM11   011 014  	MOV	(R0),R0		;PUT FIRST BUFFER ADR IN R0
+056                    PRM11   011 015  	MOV	#28.,R1		;28 ENTRIES IN DIRECTORY↓&	PROGRAM FILE LOADER, 4-SEPT-75                                   DTA11.PAL[KL,SYS] 10/05/77  Page 19↓'α
+001  PRM11   011 014                    1$:	MOV	(R0)+,DIRST0	;STORE RAD50 NAME
+002  PRM11   011 014                    	MOV	(R0)+,DIRST1
+003  PRM11   011 014                    	MOV	(R0)+,DTEXT	;STORE RAD50 EXT
+004  PRM11   011 014   PRM11   011 014  	CMP	(R0)+,(R0)+	;SKIP 2 WORDS
+005  PRM11   011 014                    	MOV	(R0)+,DTSTRT	;SAVE STARTING BLOCK #
+006  PRM11   011 014                    	MOV	(R0)+,DTLNGTH	;SAVE LENGTH
+007  PRM11   011 014   PRM11   011 014  	CMP	(R0)+,(R0)+	;MOVE TO NEXT ENTRY
+008  PRM11   011 014   PRM11   011 015  	PUSH	<R0,R1>
+009                    PRM11   005 023  	R50UPK			;UNPACK NAME
+010                                     	 DIRST0,DIRST2
+011                    CONS11  030 016  	BCS	10$
+012                    PRM11   005 023  	R50UPK
+013                                     	 DIRST1,DIRST3+1
+014                    CONS11  030 016  	BCS	10$
+015                    PRM11   005 023  	R50UPK			;UNPACK EXTENSION
+016                                     	 DTEXT,DTEXTS
+017                    CONS11  030 016  	BCS	10$		;ERROR RETURN
+018                                     
+019                                     	TST	DVDIRF		;DOING "DIR" ?
+020                            020 003  	BNE	$DTDI1		;YES
+021                                     
+022                    PRM11   011 017  	MOV	#NAMBF,R3	;LOAD ADDRESS OF INPUT DATA
+023                    PRM11   011 018  	MOV	#DIRST2,R4	;LOAD ADDRESS OF TABLE
+024                    PRM11   011 014  	MOV	#6,R0		;SET COUNT
+025  PRM11   011 017   PRM11   011 018  3$:	CMPB	(R3)+,(R4)+	;CHECK NAME DATA
+026                    CONS11  030 016  	BNE	10$		;BR IF NOT SAME
+027                    PRM11   011 014  	DEC	R0		;DONE 6 TIMES ?
+028                    CONS11  005 001  	BNE	3$		;BR IF NOT
+029                    PRM11   011 017  	MOV	#EXTBF,R3	;LOAD ADDRESS OF EXT INPUT
+030                    PRM11   011 018  	MOV	#DTEXTS,R4	;LOAD ADDRESS OF EXT STOR
+031                    PRM11   011 014  	MOV	#3,R0		;SET COUNT 3 CHARS
+032  PRM11   011 017   PRM11   011 018  6$:	CMPB	(R3)+,(R4)+	;CHECK EXT DATA
+033                    CONS11  030 016  	BNE	10$		;BR IF NOT SAME
+034                    PRM11   011 014  	DEC	R0		;DONE 3 TIMES ?
+035                    CONS11  034 069  	BNE	6$		;BR IF NOT
+036  PRM11   011 015   PRM11   011 014  	POP	<R1,R0>
+037                                     	MOV	DTSTRT,DVBUF	;LOAD STARTING BLOCK
+038                    PRM11   008 043  	EXIT			;NOW GO LOAD FILE
+039                                     $DTDI2=.
+040  PRM11   011 015   PRM11   011 014  10$:	POP	<R1,R0>
+041                    PRM11   011 015  	DEC	R1		;BEEN THRU 28 ENTRIES ?
+042                    CONS11  002 007  	BNE	1$		;NOT YET
+043                            018 049  	BR	DTAFL1		;TRY NEXT UFD BLOCK
+044                                     
+045                    PRM11   008 051  11$:	EXITERR↓&	PROGRAM FILE LOADER, 4-SEPT-75                                   DTA11.PAL[KL,SYS] 10/05/77  Page 20↓'α
+001                                     ;DECTAPE/FLOPPY DIRECTORY ROUTINE
+002                                     
+003                                     $DTDI1:	CLR	NAMBF
+004                                     	CLR	DTEXT
+005                                     	CMP	#020040,DIRST2	;DON'T PRINT SPACES
+006                    CONS11  002 007  	BEQ	1$
+007                                     
+008                    PRM11   004 007  	$PMSG			;PRINT "FILE"
+009                                     	  DIRST2
+010                                     
+011                    PRM11   004 013  	PSPACE
+012                                     
+013                    PRM11   004 007  	$PMSG			;PRINT "EXT"
+014                                     	  DTEXTS
+015                                     
+016  PRM11   013 005   PRM11   011 014  	MOV	#TAB,R0
+017                    PRM11   004 009  	PNTCHR
+018                    PRM11   011 014  	MOV	DTLNGTH,R0
+019                    PRM11   004 019  	PNTDEC			;PRINT NUMBER OF BLOCKS
+020                                     
+021                    PRM11   004 012  	PCRLF
+022                            019 039  1$:	BR	$DTDI2		;GO DO NEXT
+023                                     
+024                    PRM11   003 033  $DI:	TTITRM
+025                    PRM11   004 027  	PNORML
+026                                     	TST	DEVTYP
+027                            020 034  	BEQ	$DTDIR		;DECTAPE
+028                    CONS11  002 007  	BMI	1$		;ILLEGAL ON ACT10
+029                                     .LIF DF RPASB
+030                    CONS11  008 038  	JMP	$RPDIR		;RP04
+031                                     
+032                    CONS11  058 007  1$:	JMP	$CMDE
+033                                     
+034                    PRM11   005 008  $DTDIR:	SETFLG
+035                                     	  DVDIRF		;SET DIRECTORY FLAG
+036                                     	TST	FLOPPY
+037                    CONS11  002 007  	BEQ	1$
+038                    PRM11   005 045  	RXFILE			;FLOPPY
+039                    CONS11  002 031  	BR	2$
+040                    PRM11   005 021  1$:	DTAFILE
+041                    BEG11   002 009  2$:	JMP	$CONSL↓&	PROGRAM FILE LOADER, 4-SEPT-75                                   DTA11.PAL[KL,SYS] 10/05/77  Page 21↓'α
+001                                     ;READ DEVICE FRAME SUBROUTINE
+002                                     
+003                                     $DVFRAM:TST	DVCNT		;USED ALL DATA ?
+004                    CONS11  002 007  	BGT	1$		;NO
+005                                     
+006                    PRM11   005 028  	DVDATA			;YES, READ NEXT BLOCK
+007                            022 001  	BCS	DVEOF		;EOF
+008                                     
+009                    PRM11   011 014  1$:	MOVB	@DVADR,R0	;GET ONE BYTE
+010                                     	INC	DVADR		;INCREMENT PICKUP ADDRESS
+011                                     	DEC	DVCNT		;COUNT IT
+012                    PRM11   011 014  	BIC	#177400,R0	;CLEAR JUNK, CHAR IS 8 BITS
+013  PRM11   011 014                    	ADD	R0,$CKS11
+014                            022 020  	BR	$$DVX
+015                                     
+016                                     ;READ DEVICE BUFFER SUBROUTINE
+017                                     
+018                                     $DVDATA:
+019                                     .IF DF RPASB
+020                                     	TST	DEVTYP
+021                    CONS11  004 051  	BNE	4$
+022                                     .ENDC
+023                                     
+024                                     	TST	FLOPPY
+025                    CONS11  002 007  	BEQ	1$
+026                    PRM11   005 047  	RXRDFL			;FLOPPY
+027                    CONS11  003 018  	BR	11$
+028                    PRM11   005 029  1$:	DTRDFL			;DECTAPE READ
+029                    CONS11  005 001  11$:	BCS	3$		;EOF
+030  PRM11   011 014                    2$:	MOV	(R0)+,DVADR	;SAVE BUFFER ADDRESS
+031  PRM11   011 014                    	MOV	(R0),DVCNT	;SAVE BUFFER BYTE COUNT
+032                            022 020  	BR	$$DVX
+033                                     
+034                    PRM11   008 051  3$:	EXITERR			;EOF
+035                                     
+036                                     .IF DF RPASB
+037                    PRM11   011 014  4$:	MOV	#FILDSB,R0
+038                    PRM11   005 036  	RPRDFL			;RP04 FILE DATA BLOCK READ
+039                    CONS11  002 031  	BCC	2$
+040                                     
+041                    PRM11   011 014  	CMP	#1,R0		;ERROR, EOF ?
+042                            022 001  	BEQ	DVEOF		;YES
+043                    PRM11   005 042  	RPERROR			;NO, JUST ERROR
+044                                     .ENDC↓&	PROGRAM FILE LOADER, 4-SEPT-75                                   DTA11.PAL[KL,SYS] 10/05/77  Page 22↓'α
+001                                     DVEOF:	TST	LDCNTL		;EOF, PRINTING A HELP FILE ?
+002                    CONS11  002 007  	BMI	1$		;YES
+003                    PRM11   008 006  	PMSG	<\EOF ?>
+004                    BEG11   002 007  	JMP	$CNTLC
+005                    APT11   003 001  1$:	JMP	DAHLPD
+006                                     
+007                                     ;ASSEMBLE ONE 16 BIT DATA WORD
+008                                     
+009                    PRM11   005 043  $DVWRD:	DVFRAM			;READ FRAME
+010  PRM11   011 014                    	MOV	R0,LTMP
+011                    PRM11   005 043  	DVFRAM			;GET ANOTHER FRAME
+012                    PRM11   011 014  	SWAB	R0		;PLACE IN HIGH ORDER BYTE
+013  PRM11   011 014                    	BIS	R0,LTMP		;PUT 2 BYTES TOGETHER
+014                    PRM11   011 014  	MOV	LTMP,R0		;PUT BACK IN R0
+015                            022 020  	BR	$$DVX
+016                                     
+017                                     ;DECTAPE INITIALIZATION
+018                                     
+019                                     $DTINIT:MOV	#102,DVBUF	;SET STARTING BLOCK NUMBER
+020                    PRM11   008 043  $$DVX:	EXIT
+021                                     
+022                                     ;FILE NOT FOUND
+023                                     
+024                                     $NONXF:	TST	DIAFLG		;DOING "DIAMON" FILE SELECTION ?
+025                    CONS11  002 007  	BEQ	1$		;NO
+026                    CONS11  048 034  	JMP	DIANF		;YES, "DIAMON" FILE NOT FOUND
+027                                     
+028                    PRM11   008 006  1$:	PMSG	<NON-EX FILE>
+029                    BEG11   002 007  	JMP	$CNTLC↓&	PROGRAM FILE LOADER, 4-SEPT-75                                   DTA11.PAL[KL,SYS] 10/05/77  Page 23↓'α
+001                                     ;RAD50 UNPACK SUBROUTINE
+002                                     
+003                    PRM11   011 021  $R50UPK:ADD	#4,12(SP)	;RETURN OVER TRAILING PARAMETERS
+004                    PRM11   011 014  	PUSH	R0
+005                    PRM11   011 019  	MOV	$EMADR,R5
+006  PRM11   011 019   PRM11   011 018  	MOV	(R5)+,R4	;RAD50 ADDRESS TO R4
+007  PRM11   011 018   PRM11   011 018  	MOV	(R4),R4		;RAD50 VALUE TO R4
+008  PRM11   011 019   PRM11   011 017  	MOV	(R5),R3		;STORE ADDRESS TO R3
+009                    PRM11   011 015  	MOV	#2,R1
+010                                     	MOV	#-1,-(6)	;SET STACK STOP
+011  PRM11   011 018                    1$:	MOV	R4,-(6)		;SAVE PREVIOUS VALUE
+012                    PRM11   011 018  	CLR	R4		;CLEAR R4 FOR NEXT REMAINDER
+013                    PRM11   011 014  2$:	MOV	(6),R0		;TAKE 3/4 OF VALUE
+014  PRM11   011 022   PRM11   011 014  	BISB	@PC,R0		;???????
+015  PRM11   011 014   PRM11   011 016  	MOV	R0,R2
+016                    PRM11   011 016  	ROR	R2
+017                    PRM11   011 016  	ASR	R2
+018  PRM11   011 016   PRM11   011 014  	SUB	R2,R0
+019                    PRM11   011 014  	BIC	#37,R0		;PREPARE TO TAKE 1/4 OF RESULT
+020  PRM11   011 014                    	SUB	R0,(6)		;BUT REDUCE ORIGINAL BY 3/4
+021                    PRM11   011 014  	ROR	R0		;GET 3/16 OF ORIGINAL
+022                    PRM11   011 014  	ASR	R0
+023  PRM11   011 014                    	SUB	R0,(6)
+024  PRM11   011 014   PRM11   011 018  	ADD	R0,R4		;THIS GIVES 1ST APPROXIMATION
+025                                     	CMP	(6),#47		;LOW AS POSSIBLE ?
+026                    CONS11  002 031  	BHI	2$		;IF SO THIS IS BYTE REQUIRED
+027                    PRM11   011 018  	ASR	R4
+028                    PRM11   011 018  	ASR	R4
+029                    PRM11   011 018  	ASR	R4
+030                    PRM11   011 015  	DEC	R1		;DONE 2 BYTES ?
+031                    CONS11  002 007  	BNE	1$		;BR IF NOT
+032  PRM11   011 018                    	CMPB	R4,#47		;LAST BYTE TOO BIG ?
+033                    CONS11  004 051  	BHI	4$		;IF YES, ERROR
+034                    PRM11   011 018  3$:	TSTB	R4		;SPACE ?
+035                    CONS11  034 069  	BEQ	6$		;IF YES, ADD 40
+036  PRM11   011 018                    	CMPB	R4,#35		;IF UNUSED CODE ....
+037                    CONS11  024 048  	BNE	5$
+038                    PRM11   011 018  4$:	MOV	#'X,R4		;ASCII X TO R4
+039                    CONS11  019 049  	BR	9$		;GO TO ERROR EXIT
+040  PRM11   011 018                    5$:	CMPB	R4,#33		;$ ?
+041                    CONS11  035 063  	BEQ	8$		;IF YES, GO ADD 11
+042                    CONS11  035 053  	BHI	7$		;FOR DIGIT OR DOT ADD 22
+043                    PRM11   011 018  	ADD	#40,R4		;FOR LETTER ADD 100
+044                    PRM11   011 018  6$:	ADD	#16,R4
+045                    PRM11   011 018  7$:	ADD	#11,R4
+046                    PRM11   011 018  8$:	ADD	#11,R4
+047  PRM11   011 018                    9$:	MOVB	R4,(3)+		;STORE RESULT
+048                    PRM11   011 018  	MOV	(6)+,R4		;GET NEXT BYTE
+049                    CONS11  005 001  	BPL	3$		;BR IF NOT STACK STOP
+050                    PRM11   011 014  	POP	R0
+051                            022 020  $$$DVX:	BR	$$DVX↓&	PROGRAM FILE LOADER, 4-SEPT-75                                   DTA11.PAL[KL,SYS] 10/05/77  Page 24↓'α
+001                                     ;DECTAPE READ/WRITE FILE ROUTINES
+002                                     
+003                                     $DTRDFL:TST	DVBUF		;ANY DATA BLOCKS REMAINING ?
+004                            024 007  	BNE	$DTRFL		;YES
+005                    PRM11   008 051  $$DTXE:	EXITERR			;NO
+006                                     
+007                                     $DTRFL:	MOV	DVBUF,DTBLK	;SET REQUESTED BLOCK
+008                                     	MOV	#DVBUF,CASAV	;SET BUFFER ADDRESS
+009                                     	MOV	#-256.,WCSAV	;SET WORD COUNT
+010                                     
+011                    PRM11   005 032  	DTREAD			;DECTAPE READ
+012                            024 017  	 BCS	$$DTXC		;FAILED
+013                                     
+014          024 026   PRM11   011 014  	MOV	#$DTINFO,R0
+015                    PRM11   008 043  $$DTX:	EXIT
+016                                     
+017                    BEG11   002 007  $$DTXC:	JMP	$CNTLC		;FAILED
+018                                     
+019                                     $DTWTFL:MOV	#DVBUF,CASAV
+020                                     	MOV	#-256.,WCSAV
+021                                     
+022                    PRM11   005 033  	DTWRT			;WRITE DECTAPE
+023                            024 015  	 BCC	$$DTX		;OK
+024                            024 017  	BR	$$DTXC		;FAILED
+025                                     
+026                                     $DTINFO:DVBUF+2			;FIRST USABLE DATA WORD
+027                                     	510.			;BYTE COUNT
+028                                     
+029                    PRM11   011 014  $DTBASE:MOV	#DTBLK,R0	;RETURN PARAMETER BASE ADDRESS
+030                            024 015  	BR	$$DTX↓&	PROGRAM FILE LOADER, 4-SEPT-75                                   DTA11.PAL[KL,SYS] 10/05/77  Page 25↓'α
+001                                     ;DECTAPE DEVICE READ/WRITE ROUTINE
+002                                     
+003  PRM11   040 008   PRM11   011 014  $DTREAD:MOV	#TCRDATA+TCDO,R0
+004                            025 008  	BR	$DTXFR
+005                                     
+006  PRM11   040 008   PRM11   011 014  $DTWRT:	MOV	#TCWDATA+TCDO,R0
+007                                     
+008  PRM11   011 014                    $DTXFR:	MOV	R0,DTXCMD	;SAVE COMMAND
+009                                     	MOV	#3,TRYCTR	;SET MAXIMUM TRY COUNT, 3.
+010                                     
+011                    PRM11   011 018  $DTXF1:	MOVB	DTUNIT+1,R4	;SETUP UNIT
+012                    PRM11   040 025  	MOV	WCSAV,@#TCWC	;SETUP WORD COUNT
+013                    PRM11   040 026  	MOV	CASAV,@#TCBA	;SETUP READ ADDRESS
+014  PRM11   040 008   PRM11   011 014  	MOV	#TCRNUM+TCDO,R0
+015  PRM11   040 023   PRM11   011 015  	MOV	#TCCM,R1
+016  PRM11   040 012   PRM11   011 017  	MOV	#TCREV,R3
+017                    PRM11   011 016  	MOV	DTBLK,R2	;SETUP BLOCK # AND DIRECTION
+018                            025 023  	BPL	$DTXF2
+019                    PRM11   011 016  	NEG	R2
+020                    PRM11   011 018  	ADD	#10,R4		;REVERSE, SET REV INDICATOR
+021  PRM11   011 017   PRM11   011 014  	BIS	R3,R0		;START UP IN REVERSE
+022                                     
+023                                     $DTXF2:	MOV	#6,REVCNT	;SET MAXIMUM REVERSAL COUNT, 6.
+024                                     	CLR	INTSW		;SET INTSW FOR SEARCH
+025                                     
+026                    PRM11   011 017  $DTXF3:	PUSH	R3
+027  PRM11   011 022   SUB11   025 003  	JSR	PC,$TIRDY	;ANY OPERATOR INTERRUPTS ?
+028                    CONS11  002 031  	BCS	2$		;NO
+029                    PRM11   011 017  	MOVB	$TICHR,R3	;GET CHAR
+030                    PRM11   011 017  	BICB	#200,R3
+031  PRM11   013 023   PRM11   011 017  	CMPB	#CNTRLC,R3	;IS IT CONTROL C ?
+032                    CONS11  002 031  	BNE	2$		;NO
+033                    PRM11   011 015  	BIC	#116,(R1)	;YES, STOP DECTAPE
+034                    SUB11   023 025  	JMP	$TICC		;AND ABORT
+035                    PRM11   011 017  2$:	POP	R3
+036                    PRM11   011 014  	BIS	DTUNIT,R0	;SELECT UNIT
+037  PRM11   011 014   PRM11   011 015  	MOV	R0,(R1)		;SET TCCM
+038  PRM11   040 018   PRM11   011 015  1$:	BIT	#TCERR+TCRDY,(R1) ;WAIT FOR DONE OR ERROR
+039                    CONS11  002 007  	BEQ	1$
+040                            026 022  	BMI	DTER		;BR IF ERROR
+041                                     	TSTB	INTSW		;SEARCH OR TRANSFER ?
+042                            026 049  	BNE	DATINT		;BR IF TRANSFER
+043  PRM11   040 027   PRM11   011 016  	CMP	@#TCDT,R2	;BLOCK MATCH ?
+044                            026 013  	BEQ	DTSRF		;BR IF YES
+045                            026 006  	BGT	DTSRE		;BR IF LARGER
+046  PRM11   011 017   PRM11   011 015  	BIT	R3,(R1)		;SMALLER, REVERSE ?
+047                            025 026  	BEQ	$DTXF3		;FORWARD, CONTINUE DIRECTION↓&	PROGRAM FILE LOADER, 4-SEPT-75                                   DTA11.PAL[KL,SYS] 10/05/77  Page 26↓'α
+001                    PRM11   040 027  DTSRA:	ADD	#3,@#TCDT	;+3 TO TCDT
+002  PRM11   040 027   PRM11   011 016  	CMP	@#TCDT,R2	;LOWER BY 3 OR MORE ?
+003                            026 041  	BLOS	DTREV		;YES, GO REVERSE
+004                            025 026  	BR	$DTXF3		;NO, CONTINUE DIRECTION
+005                                     
+006  PRM11   011 017   PRM11   011 015  DTSRE:	BIT	R3,(R1)		;BLK HIGH, CHECK DIRECTION
+007                            025 026  	BNE	$DTXF3		;BR IF REV, CONTINUE DIRECTION
+008                    PRM11   040 027  	SUB	#3,@#TCDT	;FWD, -3 TO TCDT
+009  PRM11   011 016   PRM11   040 027  	CMP	R2,@#TCDT	;HIGHER BY 3 OR MORE ?
+010                            026 041  	BLE	DTREV		;REVERSE IF HIGHER BY 3 OR MORE
+011                            025 026  	BR	$DTXF3		;NO, CONTINUE DIRECTION
+012                                     
+013  PRM11   040 024   PRM11   011 018  DTSRF:	CMPB	@#TCCM1,R4	;BLOCK SAME, SAME DIRECTION ?
+014                            025 026  	BNE	$DTXF3		;BR IF NOT, CONTINUE SEARCH
+015                                     $DTXF4:	COMB	INTSW		;WANTED ???
+016                    PRM11   011 014  	MOVB	DTXCMD,R0	;SET UP XFER COMMAND
+017                                     	TST	DTBLK
+018                            025 026  	BPL	$DTXF3		;FORWARD READ
+019  PRM11   011 017   PRM11   011 014  	BIS	R3,R0		;REVERSE READ
+020                            025 026  	BR	$DTXF3
+021                                     
+022                                     DTER:	TSTB	INTSW		;SEARCH OR XFER ?
+023                            026 026  	BNE	DTERA		;BR IF XFER
+024                    PRM11   040 022  	TST	@#TCST		;END ZONE ?
+025                            026 041  	BMI	DTREV		;BR IF YES, TO REVERSE
+026  PRM11   040 020   PRM11   040 022  DTERA:	BIT	#TCSOFT,@#TCST	;CHECK FOR SOFT ERROR
+027                            026 037  	BEQ	DTHDER		;BR IF NOT SOFT ERROR
+028                                     	DECB	TRYCTR		;3RD TRY ?
+029                            025 026  	BEQ	$DTXF3		;BR IF YES
+030                            025 011  	BR	$DTXF1		;GO TRY AGAIN
+031                                     
+032                    PRM11   011 015  DTERB:	BIC	#116,(R1)	;STOP DECTAPE
+033                    PRM11   008 006  	PMSG	<?SOFT>
+034                    APT11   004 006  DTERC:	PMSG	< DTA ERR>
+035                    PRM11   008 051  	EXITERR
+036                                     
+037                    PRM11   011 015  DTHDER:	BIC	#116,(R1)	;STOP DECTAPE
+038                    PRM11   008 006  	PMSG	<?HARD>
+039                            026 034  	BR	DTERC
+040                                     
+041  PRM11   011 017   PRM11   011 014  DTREV:	ADD	R3,R0		;CHANGE DIRECTION
+042  PRM11   012 028   PRM11   011 014  	BIC	#BIT12,R0
+043                                     DTREVC:	DECB	REVCNT		;6TH REVERSAL ?
+044                            025 026  	BNE	$DTXF3		;BR IF NOT
+045                    PRM11   011 015  	BIC	#116,(R1)	;STOP DECTAPE
+046                    PRM11   008 006  	PMSG	<?REV>
+047                            026 034  	BR	DTERC
+048                                     
+049                    PRM11   011 015  DATINT:	BIC	#116,(R1)	;STOP DECTAPE
+050                    PRM11   008 043  	EXIT			;DONE↓&	ASCR50 ASCII TO RAD50 CONVERSION ROUTINE                         DTA11.PAL[KL,SYS] 10/05/77  Page 27↓'α
+001                                     .SBTTL	ASCR50	ASCII TO RAD50 CONVERSION ROUTINE
+002                                     
+003                                     ;CALL:
+004                                     ;	ASCR50
+005                                     ;	  ASCII ADDRESS
+006                                     ;	  RAD50 ADDRESS
+007                                     ;NINE BYTES OF ASCII INPUT
+008                                     ;THREE WORDS OF RAD50 OUTPUT
+009                                     
+010                    PRM11   011 021  $ASCR50:ADD	#4,12(SP)	;RETURN OVER TRAILING PARAMETERS
+011                    PRM11   011 014  	PUSH	R0
+012                    PRM11   011 019  	MOV	$EMADR,R5
+013  PRM11   011 019   PRM11   011 015  	MOV	(R5)+,R1	;SETUP ASCII ADDRESS
+014  PRM11   011 019   PRM11   011 018  	MOV	(R5),R4		;SETUP RAD50 STORAGE ADDRESS
+015                    PRM11   011 017  	MOV	#066600,R3
+016                    PRM11   011 018  1$:	CLR	(R4)		;RESULT WORD
+017          027 043   PRM11   011 014  2$:	MOV	#30$,R0		;SETUP SCAN TABLE
+018  PRM11   011 014   PRM11   011 016  3$:	MOVB	(R0)+,R2	;PUT CONVERSION IN R2
+019                    CONS11  030 011  	BEQ	20$		;IF END OF TABLE, ERROR
+020  PRM11   011 015   PRM11   011 014  	CMPB	(R1),(R0)+	;COMPARE ASCII CHAR
+021                    CONS11  030 011  	BLO	20$		;IF LESS THAN TABLE ENTRY, ERROR
+022  PRM11   011 015   PRM11   011 014  	CMPB	(R1),(R0)+
+023                    CONS11  005 001  	BHI	3$		;LOOP, HAVEN'T FOUND YET
+024  PRM11   011 015   PRM11   011 014  	MOVB	(R1)+,R0	;FOUND, ASCII CHAR TO R0
+025  PRM11   011 016   PRM11   011 014  	ADD	R2,R0		;CONVERT
+026                    PRM11   011 018  	ASL	(R4)
+027                    PRM11   011 018  	ASL	(R4)
+028                    PRM11   011 018  	ASL	(R4)
+029  PRM11   011 018   PRM11   011 014  	ADD	(R4),R0
+030                    PRM11   011 018  	ASL	(R4)
+031                    PRM11   011 018  	ASL	(R4)
+032  PRM11   011 014   PRM11   011 018  	ADD	R0,(R4)
+033                    PRM11   011 017  	ASL	R3		;SHIFT RAD50 WORD COUNTER
+034                    CONS11  002 031  	BMI	2$		;NOT DONE WITH THIS RAD50 YET
+035                    CONS11  030 016  	BEQ	10$		;IF 0, ALL DONE
+036                    PRM11   011 018  	TST	(R4)+		;STEP TO NEXT RAD50 WORD
+037                    CONS11  002 007  	BR	1$		;GO DO NEXT
+038                    PRM11   011 014  10$:	POP	R0
+039                    PRM11   008 043  	EXIT
+040                    PRM11   011 014  20$:	POP	R0
+041                    PRM11   008 051  	EXITERR
+042                                     
+043                                     30$:	.BYTE	-40,' ,' 	;SPACE
+044                                     	.BYTE	-11,'$,'$	;DOLLAR SIGN
+045                                     	.BYTE	-22,'.,'.	;PERIOD
+046                                     	.BYTE	-22,'0,'9	;DIGITS
+047                                     	.BYTE	-100,'A,'Z	;UPPER CASE LETTERS
+048                                     ;	.ENABL	LC
+049                                     	.BYTE	-140,'a,'z	;LOWER CASE LETTERS
+050                                     	.BYTE	0		;INDICATE THE END OF THE TABLE
+051                                     	.EVENSymbol Table for:    DTA11.PAL[KL,SYS]                                       10/05/77  Page I
+                     
+
+$$$DVX   023*051   $LRDIN = 016 017   11$      008 029   21$      012 029   7$       002 072   LD11DN   009 043 
+$$$NAM = 003 054   $NAMEX   003 003   11$      012 018   21$      018 054   7$       023 045   LDBIN    010 003 
+$$ACT    007 028   $NONXF   022 024   11$      013 073   3$       003 031   70$      003 006   LDBIN1   010 004 
+$$COR    007 027   $R50UP   023 003   11$      018 024   3$       006 028   8$       023 046   LDBIN2   010 017 
+$$DTX    024 015   1$       003 014   11$      019 045   3$       009 001   9$       023 047   LDBIN3   010 025 
+$$DTXC   024 017   1$       004 017   11$      021 029   3$       011 001   96$      003 051   LDBINE   010 022 
+$$DTXE   024*005   1$       004 039   12$      002 078   3$       014 008   97$      003 044   LDCKSM   007*001 
+$$DVX    022 020   1$       005 024   12$      008 049   3$       015 020   98$      003 049   LDCLR    006 009 
+$$LD11   007 026   1$       005 037   12$      014 016   3$       019 025   99$      003 016   LDCNV    006 010 
+$$NAM    003 059   1$       006 011   13$      003 047   3$       021 034   ACT    = 007*028   LDCRAM   013 054 
+$$RAM    007 029   1$       007 005   13$      008 025   3$       023 034   ADR    = 007 026   LDCZRO   013 038 
+$$TEN    007 030   1$       008 011   14$      002 085   3$       027 018   ADR    = 007 030   LDDONE   008 003 
+$ASCR5   027 010   1$       008 022   16$      002 090   30$      027 043   ARE      013 024   LDDRAM   012 006 
+$DI      020 024   1$       010 034   18$      008 027   31$      009 011   COR    = 007*027   LDELVN   008 015 
+$DTAFI   018 048   1$       012 011   19$      008 024   32$      009 012   COR    = 007*029   LDEOL    006 037 
+$DTBAS   024 029   1$       013 060   2$       003 029   33$      009 034   DATINT   026 049   LDERR    006*035 
+$DTDI1   020 003   1$       015 026   2$       004 030   38$      009 006   DEFEXT   002 099   LDLTR    007 024 
+$DTDI2 = 019 039   1$       016 010   2$       005 041   39$      009*004   DEVFIL   018 003   LDOCT    006 032 
+$DTDIR   020 034   1$       018 014   2$       006 025   4$       002 044   DTAFL1   018 049   LDPRO1   005 029 
+$DTINF   024 026   1$       018 016   2$       007 012   4$       006 022   DTER     026 022   LDPRO2   006 001 
+$DTINI   022 019   1$       018 026   2$       009 042   4$       013 062   DTERA    026 026   LDPRO3   006 003 
+$DTRDF   024 003   1$       019 001   2$       010 036   4$       021 037   DTERB    026*032   LDPROC   005 011 
+$DTREA   025 003   1$       020 022   2$       012 035   4$       023 038   DTERC    026 034   LDRDIN   016 006 
+$DTRFL   024 007   1$       020 032   2$       013 046   41$      013 068   DTFIL    018 019   LDTEN    015 009 
+$DTWRT   025 006   1$       020 040   2$       014 001   42$      013 077   DTHDER   026 037   LDTENZ   015*017 
+$DTWTF   024 019   1$       021 009   2$       015 033   5$       002 061   DTREV    026 041   LDTYPE   007 016 
+$DTXF1   025 011   1$       021 028   2$       016 026   5$       003 055   DTREVC   026*043   LJMP     011 022 
+$DTXF2   025 023   1$       022 005   2$       020 041   5$       023 040   DTRPLD   004 003   LLD1     004 007 
+$DTXF3   025 026   1$       022 028   2$       021 030   50$      002 026   DTSRA    026*001   LLD2     004 011 
+$DTXF4   026*015   1$       023 011   2$       023 013   51$      002 032   DTSRE    026 006   LLD3     004 020 
+$DTXFR   025 008   1$       025 038   2$       025 035   52$      002 042   DTSRF    026 013   LLD4     004 023 
+$DVDAT   021 018   1$       027 016   2$       027 017   53$      002 036   DVEOF    022 001   LLDONE   005 001 
+$DVFRA   021 003   10$      003 052   20$      002 083   54$      002 037   DVLOAD   002 017   NOTE     013*020 
+$DVWRD   022 009   10$      010 031   20$      012 037   6$       002 065   LD10ER   017 031   ORDER    013*021 
+$LDBNE   010 023   10$      018 023   20$      018 053   6$       019 032   LD10V    017 022   RPFIL  = 018 012 
+$LINER   007 033   10$      019 040   20$      027 040   6$       023 044   LD10VE = 017 003   WC     = 013 032 
+$LLD2  = 013 081   10$      027 038   21$      002 094   66$      002 075   LD10VR   017 001   

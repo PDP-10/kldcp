@@ -1,0 +1,113 @@
+COMMENT ⊗   VALID 00002 PAGES
+C REC  PAGE   DESCRIPTION
+C00001 00001
+C00002 00002	1)	Modified PAG board 4AF30.  Added signal CON KI10 PAGING MODE L
+C00012 ENDMK
+C⊗;
+1)	Modified PAG board 4AF30.  Added signal CON KI10 PAGING MODE L
+	to pin E43(7) on PAG3 page.  This fixes the bug whereby every
+	page fault looked like "no PT DIR match" in KL paging mode.
+				JBR 5/10/76  0300
+	[This is most of REV 7B.  I did not move the terminator resistor
+	as was indicated in the prints and I don't think it matters much.]
+
+[I think this one is rev 9 or 9A]
+2)	Modified CON board 4AF35.  Deleted CON MBOX WAIT H from pin FN1.
+	Deleted wire from E62(14) to E57(9), but left terminator on E57(9).
+	Added wire from E62(15) to E57(10) CON WRITE FM PAR L
+	from pin FN1 to E57(9) -CLK SBR CALL L
+	and from E53(4) to E57(11) -CON CLK B L.
+	Modified CTL board 4AF36.  Deleted terminator on -CLK SBR CALL L.
+	Added twisted pair from 4A36F1 to 4F35N1 -CLK SBR CALL L.
+	This fixes the spurious FM parity error problem.
+				JBR 6/5/76  1900
+
+[NOT INSTALLED]
+Rev 10 [I think]
+3)	SCD TRAP REQ n is set by CON COND INSTR ABORT and SCD TRAP CYC n.
+	This is changed to CON COND INSTR ABORT and (SCD TRAP CYC n or SCD
+	TRAP REQ 2).  If TRAP REQ n gets set but then a page fault happens on
+	the instruction fetch (before the NICOND dispatch can set TRAP CYC)
+	the TRAP REQ is lost.
+
+
+[NOT INSTALLED]
+Rev 10A [I think]
+4)	PHYS REF causes VMAX SEL 1 and VMAX SEL 2 to force the entire VMA to
+	be loaded.  On MCL4 (center) add an and gate with inputs from MCL SPEC
+	MEM CYCLE and magic numbers bit 8 with output going to E56 pin 7.
+	When this mod is installed, the microcode has to be changed so that
+	the PHYS REF appears in the same microinstruction as VMA←AD.
+
+5)	Swapped resistors R7 and R8 on M8553 board (print CNT8 in the DTE20.
+	This is some more of Rev 7B.  These resistors generated +3A and were
+	putting out about +1.6V.  Apparently DEC noticed this a long time ago
+	and fixed it in the prints but not in their production line.  So they
+	put out correct prints but incorrect boards.
+
+Rev 8
+6)	From looking at the prints, here are all the differences I could find:
+   1)	On page CSH2, the signal CACHE TO MB DONE L has been deleted from pin
+	5 of the 10109 in E74 at A3.
+   2)	On page CSH5, the PAGE REFILL time chain has been changed from T9 up.
+   3)	On page CSH7, the EBUS multiplexors read back different PAGE REFILL
+	time chain signal names.
+   4)	On page CLK1 the signal DIAG CHANNEL CLK H (connector pin DU2) has been
+	added to pin 9 of the 10210 in E46 at B2.
+   5)	On page CLK4 the signal CON MBOX WAIT on pin 14 of the 10121 in E31 at
+	B6 has been replaced with the output of an inverter whose input is
+	CRAM MEM 02 A H.  
+   6)	On page CLK4 the signal CLK PAGE ERROR H is generated and driven on
+	connector pin AN1 by a 10105 in E42 at C2.  The signal is the or of
+	CLK PAGE FAIL EN H and CLK INSTR 1777 H.  CLK INSTR 1777 H used to
+	drive connector pin AN1.  This signal went to the CON board only and
+	the prints now use CLK PAGE ERROR H where CLK INSTR 1777 H was used.
+   7)	On page CLK5, CLK INSTR 1777 H is now read back as diag read 100 bit 32
+	and CLK PAGE ERROR H is read back as diag read 103 bit 34.
+   8)	On page MBX1, CCA HOLD ADR H is now the output of a flip flop whose input
+	comes from what used to be CCA HOLD ADR H.  Also, CCA HOLD ADR FF L has
+	been renamed CCA HOLD ADR L.
+   9)	On page MBX2, the signal MEM WR RQ L on pin 5 of the 10105 in E62 at A7
+	has been replaced by -MEM RD RQ L on connector pin EM2.  MEM WR RQ L
+	with connector pin DR2 is still terminated.
+  10)	On page PIC2 the signal -PI4 MR RESET L has been added to pin 4 of the
+	10109 in E37 at D7.
+  11)	On PIC2 a buffered version of PI4 MR RESET L is wire ored with PI2 TIM1 H.
+  12)	On PIC4 the signal name PI4 CONO DLY L has been attached to pi 2 of the
+	10131 in E83 at D8.
+  13)	On PIC5 the signal -PI4 SYS CLR H has been replaced with -PI4 CONO DLY H
+	at pin 7 of the 10104 in E19 at D7 and at pin 7 of te 10104 in E20 at C5.
+	The explanation for this is as follows: (see KL.BUG item 8 for a description
+	of the bug that this fixes.)
+	  Before Rev 8 it was possible to be executing microcode that would turn
+	  off a PI channel that was trying to interrupt at the same time.  The
+	  PI5 TEST/PI5 EBUS REQ synchronizer would be latched up while
+	  the EBOX had control of the EBUS and when it let go, PI5 EBUS PI GRANT
+	  would be set and an interrupt would be started for that channel.  Now,
+	  however, if the EBOX does a CONO PI while it has the EBUS grabbed,
+	  PI4 CONO DLY forces the synchronizer to reset causing it to first go
+	  through the PI5 LOAD state and look at the new values of the PI requests
+	  which may have changed as a result of the CONO PI.
+  14)	On MBZ1 the signals CORE BUSY H and L are flip flops that are loaded from
+	where they used to be generated at D6.  The signal on pin 6 of the 10118
+	in E48 at B8 has been renamed from -MEM START C L to -MBZ4 CORE BUSY A L.
+  15)	On MBZ3 the signal -MEM START C L on pin 10 of the 10117 in E57 at B7
+	has been replaced with CORE BUSY L.  The signal MR RESET A H has been
+	added to pin 12 of the 10109 in E60 at C2.
+  16)	On MBZ4 the signal CORE BUSY A L has been renamed MBZ4 CORE BUSY A L
+	and the pin 11 output of the 10101 in E8 at A5 has been named
+	MBZ4 CORE BUSY A H.
+  17)	On MBZ6 the signal on pin 10 of the 10117 in E24 at A3 has been renamed
+	from CORE BUSY A L to MBZ4 CORE BUSY A L.
+  18)	All MTR EBUS signals have had 18 added to them.  On MTR2 HI has been
+	replaced by -MTR RESET PLSD H at B7.  The signal MTTR EBOX CNT EN L
+	is generated differently. See D6-D4.
+  19)	On MTR3 the signal MTR RESET A L is connected to pin 3 of the 10101
+	in E11 at A5 and is terminated.
+  20)	On MTR4 HI has been replaced with -MTR RESET A H on pin 12 of the 10113
+	in E46 at A2.  MTR EBOX WAITING is produced differently.  See A7-A5.
+  21)	On MTR5 diag read 117 bit 25 reads back -MTR CONO MTR, H.
+
+7)	The meter board.  Deleted flip flop in series with EBOX counter enabling
+	signal, added -CLK MB XFER into and gate producing MTR EBOX WAITING.
+				JBR 5/31/77  1700
