@@ -1,0 +1,4 @@
+set cpu 11/40 64
+set tc enabled
+att tc0 klboot.tu56
+boot tc0
